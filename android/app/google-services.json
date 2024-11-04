@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1027457935560",
+    "project_id": "buildify-x",
+    "storage_bucket": "buildify-x.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027457935560:android:1941ce8d8fb8c6ac875dfd",
+        "android_client_info": {
+          "package_name": "com.buildify.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPACzGp4_Lz8g2sKfo3hjf3shCedjvXWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
