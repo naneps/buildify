@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ThemeManager {
-  Color primaryColor = const Color.fromARGB(255, 242, 96, 145);
-  Color secondaryColor = const Color.fromARGB(255, 139, 119, 250);
+  Color primaryColor = const Color.fromARGB(255, 133, 111, 255);
+  Color secondaryColor = const Color.fromARGB(255, 250, 119, 235);
   Color tertiaryColor = const Color.fromARGB(255, 234, 139, 139);
   Color backgroundColor = const Color(0xFFF8F8F8);
   Color textColor = const Color.fromARGB(255, 28, 28, 33);
