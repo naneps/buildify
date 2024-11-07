@@ -1,3 +1,4 @@
+import 'package:buildify/app/commons/ui/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
@@ -124,14 +125,7 @@ class UserGradientCard extends GetView<UserGradientCardController> {
       contentPadding: EdgeInsets.zero,
       horizontalTitleGap: 15,
       dense: true,
-      leading: CircleAvatar(
-        backgroundColor: ThemeManager().tertiaryColor,
-        foregroundColor: Colors.white,
-        radius: 15,
-        backgroundImage: NetworkImage(
-          user.avatar ?? 'https://picsum.photos/200',
-        ),
-      ),
+      leading: AvatarWidget(user: user),
       title: Text(
         user.name ?? "Anonymous",
         style: Theme.of(context).textTheme.labelSmall,

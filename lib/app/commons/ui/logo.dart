@@ -17,15 +17,23 @@ class Logo extends StatelessWidget {
         color: ThemeManager().scaffoldBackgroundColor,
         boxShadow: const [],
         border: ThemeManager().defaultBorder(),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Text.rich(
         TextSpan(
           text: "",
           style: Get.textTheme.displayLarge!,
           children: [
+            WidgetSpan(
+              child: Image.asset(
+                'assets/images/buildify-icon.png',
+                height: 25,
+                width: 25,
+                fit: BoxFit.contain,
+              ),
+            ),
             TextSpan(
-              text: 'Sche',
+              text: ' Build',
               style: Get.textTheme.labelLarge!.copyWith(
                 color: ThemeManager().blackColor,
                 height: 1.3,
@@ -36,9 +44,9 @@ class Logo extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: 'matic ',
+              text: 'ify',
               style: Get.textTheme.labelLarge!.copyWith(
-                color: ThemeManager().blackColor,
+                color: ThemeManager().primaryColor,
                 fontFamily: 'Poppins',
                 fontSize: fontSize ?? 20,
                 height: 1.3,

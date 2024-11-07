@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:buildify/app/commons/theme_manager.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_icon_button.dart';
+import 'package:buildify/app/commons/ui/custom_appbar.dart';
 import 'package:buildify/app/commons/ui/loading.widget.dart';
 import 'package:buildify/app/commons/ui/responsive_layout.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_public_controller.dart';
@@ -34,49 +35,7 @@ class GradientPublicView extends GetView<GradientPublicController> {
             width: Get.width,
             child: Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: ThemeManager().defaultBorder(),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Buildify",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Spacer(),
-                      NeoButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ThemeManager().successColor,
-                          fixedSize: const Size(
-                            double.infinity,
-                            40,
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: const Text(
-                          "Create Your Own",
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      NeoIconButton(
-                        color: Colors.blue,
-                        size: const Size(40, 40),
-                        onPressed: () {},
-                        icon: Icon(
-                          MdiIcons.github,
-                          size: 30,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                const CustomAppBar(),
                 const SizedBox(height: 10),
                 Expanded(
                   child: Row(
@@ -157,17 +116,26 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                             const SizedBox(width: 10),
                                             NeoIconButton(
                                               size: const Size(40, 40),
-                                              icon: Icon(MdiIcons.magnify),
-                                              onPressed: () {},
-                                            ),
-                                            const SizedBox(width: 10),
-                                            NeoIconButton(
-                                              size: const Size(40, 40),
                                               icon:
                                                   Icon(MdiIcons.filterVariant),
                                               onPressed: () {},
                                             ),
                                             const SizedBox(width: 10),
+                                            SizedBox(
+                                              height: 40,
+                                              child: NeoButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      ThemeManager().infoColor,
+                                                ),
+                                                onPressed: () {
+                                                  controller.toCreateGradient();
+                                                },
+                                                child: const Text(
+                                                  "Create your own",
+                                                ),
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -183,9 +151,7 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                         horizontal: 10),
                                     child: controller.obx(
                                       (snapshot) {
-                                        return GridGradientPublicView(
-                                          gradients: snapshot!,
-                                        );
+                                        return const GridGradientPublicView();
                                       },
                                       onEmpty: const Center(
                                         child: Text("No gradients found"),
@@ -266,29 +232,15 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              Expanded(
-                                child: Container(
-                                  color: Colors.grey[100],
-                                  padding: const EdgeInsets.all(20),
-                                  child: Center(
-                                      child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Image.asset(
-                                        "assets/images/barrier.png",
-                                        scale: 4,
-                                      ),
-                                      const SizedBox(height: 20),
-                                      const Text(
-                                        "Under Construction",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  )),
-                                ),
-                              ),
+                              Obx(() {
+                                return Expanded(
+                                  child: Container(
+                                    color: ThemeManager().backgroundColor,
+                                    padding: const EdgeInsets.all(20),
+                                    child: const Column(),
+                                  ),
+                                );
+                              }),
                             ],
                           ),
                         ),

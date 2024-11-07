@@ -188,16 +188,19 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> signInWithGitHub() async {
+  Future<void> signInWithGitHub({
+    VoidCallback? onSuccess,
+    VoidCallback? onFail,
+  }) async {
     try {
       print('Sign in with GitHub');
       if (kIsWeb) {
         final result = await _auth.signInWithPopup(GithubAuthProvider());
         if (result.user != null) {
-          Get.snackbar('Success', 'Logged in successfully');
           await userService.createUserInFirestore(result.user!);
+          onSuccess?.call();
         } else {
-          Get.snackbar('Error', 'Failed to login');
+          onFail?.call();
         }
       } else {
         // Mobile-specific code
@@ -208,7 +211,7 @@ class FirebaseAuthService {
           ),
         );
         if (result == null || result is! String) {
-          Get.snackbar('Error', 'Failed to get GitHub authorization code');
+          onFail?.call();
           return;
         }
 
@@ -238,15 +241,15 @@ class FirebaseAuthService {
             await _auth.signInWithCredential(credential);
 
         if (userCredential.user != null) {
-          Get.snackbar('Success', 'Logged in successfully');
           await userService.createUserInFirestore(userCredential.user!);
+
+          onSuccess?.call();
         } else {
-          Get.snackbar('Error', 'Failed to login');
+          onFail?.call();
         }
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to login: $e');
-      print('Error during GitHub sign-in: $e');
+      onFail?.call();
     }
   }
 

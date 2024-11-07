@@ -1,23 +1,35 @@
+import 'package:buildify/app/commons/ui/overlays/x_snackbar.dart';
+import 'package:buildify/app/services/firebase/firebase_auth_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  //TODO: Implement AuthController
+  final authService = Get.put<FirebaseAuthService>(FirebaseAuthService());
+  final TextEditingController emailController = TextEditingController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void signInAnonymously() {
+    authService.signInAnonymously();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void signInWithEmailLink(String email) {
+    authService.registerWithEmailOnly(email);
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void signWithGitHub() {
+    authService.signInWithGitHub(onSuccess: () {
+      Get.back();
+      XSnackBar.show(
+        context: Get.context!,
+        message: "Signed in successfully",
+        type: SnackBarType.success,
+      );
+    }, onFail: () {
+      Get.back();
+      XSnackBar.show(
+        context: Get.context!,
+        message: "Failed to sign in",
+        type: SnackBarType.error,
+      );
+    });
   }
-
-  void increment() => count.value++;
 }

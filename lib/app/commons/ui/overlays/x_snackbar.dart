@@ -16,7 +16,7 @@ class XSnackBar {
   }) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
-      xSnackBar(context),
+      xSnackBar(context, type: type, message: message),
     );
   }
 

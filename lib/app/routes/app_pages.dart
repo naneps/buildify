@@ -22,7 +22,8 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
-      //   middlewares: [AuthMiddleware()],
+      bindings: [AuthBinding()],
+      // middlewares: [AuthMiddleware()],
     ),
     GetPage(
       name: _Paths.AUTH,
@@ -47,7 +48,7 @@ class AppPages {
       name: _Paths.GRADIENT_PUBLIC,
       page: () => const GradientPublicView(),
       binding: GradientBuilderBinding(),
-      bindings: [ContainerBuilderBinding()],
+      bindings: [ContainerBuilderBinding(), AuthBinding()],
     ),
     GetPage(
       name: _Paths.CONTAINER_BUILDER,

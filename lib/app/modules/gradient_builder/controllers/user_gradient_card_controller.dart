@@ -31,8 +31,13 @@ class UserGradientCardController extends GetxController {
   }
 
   void likeGradient() async {
-    await gradientRepo.onLikeGradient(userGradient!.id!);
-    update();
+    try {
+      print(userGradient!.id!);
+      await gradientRepo.onLikeGradient(userGradient!.id!);
+      update();
+    } catch (e) {
+      print("Error liking gradient: $e");
+    }
   }
 
   @override

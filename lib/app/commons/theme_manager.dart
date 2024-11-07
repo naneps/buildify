@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ThemeManager {
-  Color primaryColor = const Color.fromARGB(255, 133, 111, 255);
-  Color secondaryColor = const Color.fromARGB(255, 250, 119, 235);
+  Color primaryColor = const Color.fromARGB(255, 158, 141, 252);
+  Color secondaryColor = const Color.fromARGB(255, 123, 121, 255);
   Color tertiaryColor = const Color.fromARGB(255, 234, 139, 139);
-  Color backgroundColor = const Color(0xFFF8F8F8);
+  Color backgroundColor = const Color.fromARGB(255, 255, 255, 255);
   Color textColor = const Color.fromARGB(255, 28, 28, 33);
   Color blackColor = const Color.fromARGB(255, 45, 45, 62);
   Color accentColor = const Color.fromARGB(255, 88, 248, 237);
@@ -296,8 +296,10 @@ class ThemeManager {
           shadowColor: blackColor,
           elevation: 0,
           textStyle: const TextStyle(
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             fontSize: 14,
+            fontFamily: 'monospace',
+            fontFeatures: [FontFeature.tabularFigures()],
           ),
           visualDensity: VisualDensity.compact,
           disabledBackgroundColor: Colors.grey.shade200,

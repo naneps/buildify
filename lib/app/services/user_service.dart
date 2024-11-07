@@ -8,7 +8,13 @@ class UserService extends GetxService {
   // static UserService instance = Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Rx<UserModel> user = UserModel().obs;
+  Rx<UserModel> user = UserModel(
+    uid: '',
+    name: '',
+    username: '',
+    email: '',
+    avatar: '',
+  ).obs;
 
   String get uid => _auth.currentUser?.uid ?? '';
 
@@ -57,8 +63,12 @@ class UserService extends GetxService {
   @override
   void onInit() async {
     super.onInit();
-    _auth.authStateChanges().listen(_onAuthStateChanged);
-    // _initializeFCMToken();
+    _auth.authStateChanges().listen(
+      _onAuthStateChanged,
+      onDone: () {
+        print('Auth state changed');
+      },
+    );
   }
 
   void setUserIsTyping(bool isTyping, String chatRoomId) {
@@ -72,7 +82,6 @@ class UserService extends GetxService {
     await updateUserFieldInFirestore('online', isOnline);
   }
 
-  // Method to update user's FCM token in Firestore
   Future<void> updateUserFCMToken(String token) async {
     print('UPDATE USER FCM TOKEN');
     try {
@@ -144,6 +153,7 @@ class UserService extends GetxService {
     if (firebaseUser == null) {
       user.value = UserModel();
       user.value.online = false;
+      setUserOnlineStatus(false);
       // Get.offAllNamed(Routes.AUTH);
     } else {
       //   _initializeFCMToken();

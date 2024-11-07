@@ -1,3 +1,5 @@
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 import '../commons/utils/date_formatter.dart';
 import 'builder_models/gradient.model.dart';
 
@@ -10,6 +12,7 @@ class UserGradientModel {
   String? publishedAt;
   String? createdAt;
   String? updatedAt;
+  RxBool? isShowing;
   Map<String, bool>? likedBy = {}; // Key-value pairs for liked users
   Map<String, bool>? savedBy = {}; // Key-value pairs for saved users
 
@@ -24,6 +27,7 @@ class UserGradientModel {
     this.updatedAt,
     this.likedBy,
     this.savedBy,
+    this.isShowing,
   });
 
   factory UserGradientModel.fromJson(String id, Map<String, dynamic> json) {
@@ -38,6 +42,7 @@ class UserGradientModel {
       updatedAt: json['updated_at'],
       likedBy: Map<String, bool>.from(json['likedBy'] ?? {}),
       savedBy: Map<String, bool>.from(json['savedBy'] ?? {}),
+      isShowing: RxBool(false),
     );
   }
 
@@ -94,7 +99,7 @@ class UserGradientModel {
       'gradient_type': gradient?.type.name,
       'published': published,
       'created_at': createdAt ?? DateTime.now().toIso8601String(),
-      'updated_at': DateTime.now().toIso8601String(),
+      'updated_at': null,
       'likedBy': likedBy,
       'savedBy': savedBy,
     };
