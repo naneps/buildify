@@ -11,6 +11,7 @@ class GradientPublicController extends GetxController
     with StateMixin<List<UserGradientModel>> {
   final gradientRepo = Get.find<GradientRepository>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKeyPreview = GlobalKey<ScaffoldState>();
   RxString search = ''.obs;
   RxString filterType = 'all'.obs;
   RxList<UserGradientModel> gradients = RxList<UserGradientModel>([]);

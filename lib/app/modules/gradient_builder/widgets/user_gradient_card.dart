@@ -13,6 +13,7 @@ import '/app/modules/gradient_builder/widgets/gradient_tile.dart';
 
 class UserGradientCard extends GetView<UserGradientCardController> {
   final UserGradientModel userGradient;
+  final VoidCallback? onPreview;
 
   @override
   final UserGradientCardController controller;
@@ -20,6 +21,7 @@ class UserGradientCard extends GetView<UserGradientCardController> {
   UserGradientCard({
     super.key,
     required this.userGradient,
+    this.onPreview,
   }) : controller = Get.put(
           UserGradientCardController(
             userGradient: userGradient,
@@ -57,13 +59,16 @@ class UserGradientCard extends GetView<UserGradientCardController> {
 
   Widget _buildGradientPreview() {
     return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: userGradient.gradient!.toGradient().value,
-          borderRadius: BorderRadius.circular(10),
+      child: InkWell(
+        onTap: onPreview,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: userGradient.gradient!.toGradient().value,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.all(5),
+          alignment: Alignment.topRight,
         ),
-        padding: const EdgeInsets.all(5),
-        alignment: Alignment.topRight,
       ),
     );
   }

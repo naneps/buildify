@@ -12,6 +12,7 @@ class UserGradientModel {
   String? publishedAt;
   String? createdAt;
   String? updatedAt;
+  String? gradientCode;
   RxBool? isShowing;
   Map<String, bool>? likedBy = {}; // Key-value pairs for liked users
   Map<String, bool>? savedBy = {}; // Key-value pairs for saved users
@@ -28,6 +29,7 @@ class UserGradientModel {
     this.likedBy,
     this.savedBy,
     this.isShowing,
+    this.gradientCode,
   });
 
   factory UserGradientModel.fromJson(String id, Map<String, dynamic> json) {
@@ -42,6 +44,7 @@ class UserGradientModel {
       updatedAt: json['updated_at'],
       likedBy: Map<String, bool>.from(json['likedBy'] ?? {}),
       savedBy: Map<String, bool>.from(json['savedBy'] ?? {}),
+      gradientCode: json['code'],
       isShowing: RxBool(false),
     );
   }
