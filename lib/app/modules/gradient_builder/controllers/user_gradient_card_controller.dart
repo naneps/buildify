@@ -55,7 +55,6 @@ class UserGradientCardController extends GetxController
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    animationController.forward();
   }
 
   void saveGradient() async {

@@ -1,7 +1,8 @@
 import 'package:buildify/app/commons/theme_manager.dart';
 import 'package:buildify/app/routes/app_pages.dart';
+import 'package:buildify/app/services/firebase/crashlytics_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -13,7 +14,13 @@ class MainApp extends StatelessWidget {
       initialRoute: AppPages.INITIAL,
       debugShowCheckedModeBanner: false,
       theme: ThemeManager().themeData,
+      initialBinding: BindingsBuilder(() {
+        Get.lazyPut(() => CrashlyticsService());
+      }),
       getPages: AppPages.routes,
+      onInit: () {
+        Get.find<CrashlyticsService>().init();
+      },
     );
   }
 }
