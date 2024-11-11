@@ -1,6 +1,6 @@
 import 'package:buildify/app/commons/theme_manager.dart';
-import 'package:buildify/app/commons/typewriter_markdown.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
+import 'package:buildify/app/commons/ui/preview_code_widget.dart';
 import 'package:buildify/app/commons/ui/scroll_to_hide.widget.dart';
 import 'package:buildify/app/modules/container_builder/views/container_builder_view.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_editor_controller.dart';
@@ -98,46 +98,12 @@ class GradientToolsView extends GetView<GradientToolsController> {
   }
 
   void showCode(GlobalKey<ScaffoldState> scaffoldKey) {
-    scaffoldKey.currentState!.showBottomSheet(
-      (context) {
-        return Container(
-          width: Get.width,
-          padding: const EdgeInsets.all(16),
-          height: Get.height,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            border: ThemeManager().defaultBorder(),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 10),
-              Expanded(
-                child: controller.code.value.isNotEmpty
-                    ? TypewriterMarkdown(
-                        controller.code.value,
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(MdiIcons.codeTags),
-                          const Text(
-                            "Nothings code here",
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
-              ),
-              const SizedBox(height: 10),
-            ],
-          ),
-        );
-      },
-      backgroundColor: Colors.transparent,
-      enableDrag: true,
-    );
+    scaffoldKey.currentState!.showBottomSheet((context) {
+      return PreviewCodeWidget(
+        codeCss: "",
+        codeFlutter: controller.code.call(),
+      );
+    });
   }
 
   showSaveDialog(GlobalKey<ScaffoldState> scaffoldKey) {

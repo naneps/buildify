@@ -1,5 +1,6 @@
 import 'package:buildify/app/commons/ui/avatar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -54,7 +55,7 @@ class UserGradientCard extends GetView<UserGradientCardController> {
           ),
         ],
       ),
-    );
+    ).animate().fadeIn();
   }
 
   Widget _buildGradientPreview() {

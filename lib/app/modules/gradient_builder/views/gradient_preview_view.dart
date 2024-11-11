@@ -64,7 +64,9 @@ class GradientPreviewView extends StatelessWidget {
                 StaggeredGridTile.count(
                   crossAxisCellCount: tile.crossAxisCellCount,
                   mainAxisCellCount: tile.mainAxisCellCount,
-                  child: Container(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.fastOutSlowIn,
                     decoration: BoxDecoration(
                       gradient: gradient?.toGradient().value,
                       shape: tile.shape,

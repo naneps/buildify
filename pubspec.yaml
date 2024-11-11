@@ -1,5 +1,5 @@
 name: buildify
-description: "A new Flutter project."
+description: "Buildify is a powerful web platform developed using Flutter, designed to provide a variety of tools that are beneficial for UI development as well as for needs beyond app development.."
 publish_to: 'none'
 version: 0.1.0
 
@@ -36,6 +36,7 @@ dependencies:
   step_progress_indicator: ^1.0.2
   syncfusion_flutter_core: ^27.1.57
   syncfusion_flutter_sliders: ^27.1.57
+  widgets_to_image: ^1.0.0
 
 
 dev_dependencies:

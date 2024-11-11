@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/app/models/user.model.dart';
@@ -6,12 +7,15 @@ import '/app/models/user_gradient.model.dart';
 import '/app/repositories/gradient.repository.dart';
 import '/app/services/user_service.dart';
 
-class UserGradientCardController extends GetxController {
+class UserGradientCardController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final gradientRepo = Get.find<GradientRepository>();
   final userService = Get.find<UserService>();
   UserGradientModel? userGradient;
   RxBool isLoading = true.obs;
   Rx<UserModel?> user = Rx<UserModel?>(null);
+  late AnimationController animationController;
+
   UserGradientCardController({this.userGradient});
 
   Future<UserModel> fetchUser(String userId) async {
@@ -44,6 +48,14 @@ class UserGradientCardController extends GetxController {
   void onInit() {
     super.onInit();
     getUser();
+    animationController = AnimationController(vsync: this);
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    animationController.forward();
   }
 
   void saveGradient() async {

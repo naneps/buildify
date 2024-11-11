@@ -26,7 +26,10 @@ class GradientPublicController extends GetxController
     super.onInit();
     streamGradients();
     everAll(
-      [],
+      [
+        search,
+        filterType,
+      ],
       (callback) {
         streamGradients();
       },
@@ -42,13 +45,14 @@ class GradientPublicController extends GetxController
   }
 
   void streamGradients() {
-    // Set filter to null if 'all', otherwise pass filterType value
     final filter =
         filterType.value == 'all' ? null.obs.value : filterType.value;
     gradientRepo.streamItems(filters: {
       'gradient_type': filter,
       'published': true,
-    }).listen(
+    }, search: {
+      'gradient_name': search.value.isEmpty ? null : search.value,
+    }, orderBy: 'published_at', descending: true).listen(
       (event) {
         if (event.isNotEmpty) {
           gradients.value = event;

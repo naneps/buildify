@@ -1,15 +1,16 @@
 import 'dart:ui';
 
 import 'package:buildify/app/commons/theme_manager.dart';
-import 'package:buildify/app/commons/typewriter_markdown.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_icon_button.dart';
 import 'package:buildify/app/commons/ui/custom_appbar.dart';
 import 'package:buildify/app/commons/ui/loading.widget.dart';
+import 'package:buildify/app/commons/ui/preview_code_widget.dart';
 import 'package:buildify/app/commons/ui/responsive_layout.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_public_controller.dart';
 import 'package:buildify/app/modules/gradient_builder/views/gradient_preview_view.dart';
 import 'package:buildify/app/modules/gradient_builder/views/grid_gradient_public_view.dart';
+import 'package:buildify/app/modules/gradient_builder/widgets/filter_gradient.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -45,17 +46,25 @@ class GradientPublicView extends GetView<GradientPublicController> {
                       Expanded(
                         flex: 2,
                         child: Scaffold(
+                          key: controller.scaffoldKey,
+                          drawer: const FilterGradientWidget(),
                           body: Container(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
                             decoration: BoxDecoration(
                               border: ThemeManager().defaultBorder(),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
                             ),
                             child: CustomScrollView(
                               slivers: [
                                 const SliverAppBar(
+                                  actions: [],
+                                  toolbarHeight: 0,
                                   backgroundColor: Colors.transparent,
                                   leading: SizedBox.shrink(),
                                   expandedHeight: 100,
@@ -91,8 +100,10 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                   backgroundColor: Colors.transparent,
                                   pinned:
                                       true, // Keeps the AppBar visible when scrolling
+                                  floating: true,
                                   leading: const SizedBox.shrink(),
                                   expandedHeight: 40,
+
                                   flexibleSpace: FlexibleSpaceBar(
                                     background: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -106,6 +117,9 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                           children: [
                                             Expanded(
                                               child: TextFormField(
+                                                onChanged: (value) {
+                                                  controller.search(value);
+                                                },
                                                 decoration:
                                                     const InputDecoration(
                                                   contentPadding:
@@ -120,7 +134,11 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                               size: const Size(40, 40),
                                               icon:
                                                   Icon(MdiIcons.filterVariant),
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                controller
+                                                    .scaffoldKey.currentState!
+                                                    .openDrawer();
+                                              },
                                             ),
                                             const SizedBox(width: 10),
                                             SizedBox(
@@ -302,39 +320,10 @@ class GradientPublicView extends GetView<GradientPublicController> {
   void showCode(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState!.showBottomSheet(
       (context) {
-        return Container(
-          width: Get.width,
-          padding: const EdgeInsets.all(16),
-          height: Get.height,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            border: ThemeManager().defaultBorder(),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 10),
-              Expanded(
-                child: controller.previewGradient.value.id != null
-                    ? TypewriterMarkdown(
-                        controller.previewGradient.value.gradient!.toCode(),
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(MdiIcons.codeTags),
-                          const Text(
-                            "Nothings code here",
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
-              ),
-              const SizedBox(height: 10),
-            ],
-          ),
+        return PreviewCodeWidget(
+          codeCss: "",
+          codeFlutter:
+              controller.previewGradient.value.gradient?.toCode() ?? "",
         );
       },
       backgroundColor: Colors.transparent,

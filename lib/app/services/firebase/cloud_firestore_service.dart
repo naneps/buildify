@@ -30,6 +30,7 @@ abstract class FirestoreService<T> {
   // Stream documents with optional filters and ordering
   Stream<List<T>> streamItems({
     Map<String, dynamic>? filters,
+    Map<String, dynamic>? search,
     String? orderBy,
     bool descending = false,
   }) {
@@ -40,6 +41,11 @@ abstract class FirestoreService<T> {
       if (filters != null) {
         filters.forEach((key, value) {
           query = query.where(key, isEqualTo: value);
+        });
+      }
+      if (search != null) {
+        search.forEach((key, value) {
+          query = query.where(key, arrayContains: value);
         });
       }
 
