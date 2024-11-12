@@ -140,6 +140,8 @@ class UserGradientCard extends GetView<UserGradientCardController> {
       ),
       subtitle: Text(
         userGradient.publishedDate,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
         style: Theme.of(context).textTheme.bodySmall,
       ),
       trailing: SizedBox(

@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class FilterGradientController extends GetxController {
   Rx<FilterGradientModel> filter = FilterGradientModel(
-    colorCount: CountColor(count: 2, operator: ComparisonOperator.equals),
+    colorCount: CountColor(count: null, operator: null),
     colors: [],
     type: 'all',
   ).obs;

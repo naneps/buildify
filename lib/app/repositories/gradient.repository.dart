@@ -28,7 +28,9 @@ class GradientRepository extends FirestoreService<UserGradientModel> {
   }
 
   Query filterPublicGradients(FilterGradientModel filter, {String? search}) {
-    Query query = collection.where('published', isEqualTo: true);
+    Query query = collection
+        .where('published', isEqualTo: true)
+        .orderBy('published_at', descending: true);
     if (search != null) {
       query = query.where('name', isGreaterThanOrEqualTo: search);
       query = query.where('name', isLessThanOrEqualTo: '$search\uf8ff');

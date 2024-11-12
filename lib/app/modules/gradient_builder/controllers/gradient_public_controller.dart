@@ -1,5 +1,4 @@
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
-import 'package:buildify/app/enums/comparation_operator.dart';
 import 'package:buildify/app/models/filter/count_color.dart';
 import 'package:buildify/app/models/filter/filter_gradient.dart';
 import 'package:buildify/app/modules/auth/views/form_signin.dart';
@@ -16,7 +15,7 @@ class GradientPublicController extends GetxController
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final scaffoldKeyPreview = GlobalKey<ScaffoldState>();
   Rx<FilterGradientModel> filter = FilterGradientModel(
-    colorCount: CountColor(count: 2, operator: ComparisonOperator.equals),
+    colorCount: CountColor(count: null, operator: null),
     type: 'all',
   ).obs;
 
