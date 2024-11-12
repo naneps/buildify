@@ -27,12 +27,22 @@ class GradientPublicView extends GetView<GradientPublicController> {
       child: Scaffold(
         body: SafeArea(
           child: ResponsiveLayout(
-            mobile: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("UNDER CONSTRUCTION"),
-              ],
+            mobile: SizedBox(
+              width: Get.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "FEATURE NOT YET AVAILABLE ON MOBILE",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  const Text(
+                    "COMING SOON",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
             ),
             tablet: SizedBox(
               height: Get.height,
@@ -46,148 +56,168 @@ class GradientPublicView extends GetView<GradientPublicController> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Scaffold(
-                            key: controller.scaffoldKey,
-                            drawer: const FilterGradientWidget(),
-                            body: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                border: ThemeManager().defaultBorder(),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: Scaffold(
+                              key: controller.scaffoldKey,
+                              drawer: BackdropFilter(
+                                filter: ImageFilter.blur(
+                                  sigmaX: 5,
+                                  sigmaY: 2,
+                                  tileMode: TileMode.mirror,
+                                ),
+                                child: FilterGradientWidget(
+                                  onFilterChange: (filter) {
+                                    controller.filter.value = filter;
+                                    controller.filter.refresh();
+                                  },
                                 ),
                               ),
-                              child: CustomScrollView(
-                                slivers: [
-                                  const SliverAppBar(
-                                    actions: [],
-                                    toolbarHeight: 0,
-                                    backgroundColor: Colors.transparent,
-                                    leading: SizedBox.shrink(),
-                                    expandedHeight: 100,
-                                    flexibleSpace: FlexibleSpaceBar(
-                                      collapseMode: CollapseMode.parallax,
-                                      background: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 10,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Explore Stunning Gradients",
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(height: 5),
-                                            Text(
-                                              "Search for gradients to inspire your next design project. Use the search bar to find specific styles.",
-                                              style: TextStyle(fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                              drawerScrimColor: ThemeManager()
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(0.2),
+                              body: Container(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: ThemeManager().defaultBorder(),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(10),
                                   ),
-                                  SliverAppBar(
-                                    backgroundColor: Colors.transparent,
-                                    pinned:
-                                        true, // Keeps the AppBar visible when scrolling
-                                    floating: true,
-                                    leading: const SizedBox.shrink(),
-                                    expandedHeight: 40,
-
-                                    flexibleSpace: FlexibleSpaceBar(
-                                      background: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 0,
-                                        ),
-                                        child: BackdropFilter(
-                                          filter: ImageFilter.blur(
-                                              sigmaX: 5, sigmaY: 5),
-                                          child: Row(
+                                ),
+                                child: CustomScrollView(
+                                  slivers: [
+                                    const SliverAppBar(
+                                      actions: [],
+                                      toolbarHeight: 0,
+                                      backgroundColor: Colors.transparent,
+                                      leading: SizedBox.shrink(),
+                                      expandedHeight: 100,
+                                      flexibleSpace: FlexibleSpaceBar(
+                                        collapseMode: CollapseMode.parallax,
+                                        background: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 10,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Expanded(
-                                                child: TextFormField(
-                                                  onChanged: (value) {
-                                                    controller.search(value);
-                                                  },
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    contentPadding:
-                                                        EdgeInsets.all(15),
-                                                    hintText: "Search Gradient",
-                                                    border:
-                                                        OutlineInputBorder(),
-                                                  ),
+                                              Text(
+                                                "Explore Stunning Gradients",
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              const SizedBox(width: 10),
-                                              NeoIconButton(
-                                                size: const Size(40, 40),
-                                                icon: Icon(
-                                                    MdiIcons.filterVariant),
-                                                onPressed: () {
-                                                  controller
-                                                      .scaffoldKey.currentState!
-                                                      .openDrawer();
-                                                },
+                                              SizedBox(height: 5),
+                                              Text(
+                                                "Search for gradients to inspire your next design project. Use the search bar to find specific styles.",
+                                                style: TextStyle(fontSize: 14),
                                               ),
-                                              const SizedBox(width: 10),
-                                              SizedBox(
-                                                height: 40,
-                                                child: NeoButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        ThemeManager()
-                                                            .infoColor,
-                                                  ),
-                                                  onPressed: () {
-                                                    controller
-                                                        .toCreateGradient();
-                                                  },
-                                                  child: const Text(
-                                                    "Create your own",
-                                                  ),
-                                                ),
-                                              )
                                             ],
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  SliverToBoxAdapter(
-                                    child: Container(
-                                      constraints: const BoxConstraints(
-                                        maxHeight: double.infinity,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: controller.obx(
-                                        (snapshot) {
-                                          return const GridGradientPublicView();
-                                        },
-                                        onEmpty: const Center(
-                                          child: Text("No gradients found"),
-                                        ),
-                                        onLoading: const Center(
-                                          child: LoadingWidget(),
+                                    SliverAppBar(
+                                      backgroundColor: Colors.transparent,
+                                      pinned:
+                                          true, // Keeps the AppBar visible when scrolling
+                                      floating: true,
+                                      leading: const SizedBox.shrink(),
+                                      expandedHeight: 40,
+
+                                      flexibleSpace: FlexibleSpaceBar(
+                                        background: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 0,
+                                          ),
+                                          child: BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 5, sigmaY: 5),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: TextFormField(
+                                                    onChanged: (value) {
+                                                      controller.search(value);
+                                                    },
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      contentPadding:
+                                                          EdgeInsets.all(15),
+                                                      hintText:
+                                                          "Search Gradient",
+                                                      border:
+                                                          OutlineInputBorder(),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                NeoIconButton(
+                                                  size: const Size(40, 40),
+                                                  icon: Icon(
+                                                      MdiIcons.filterVariant),
+                                                  onPressed: () {
+                                                    controller.scaffoldKey
+                                                        .currentState!
+                                                        .openDrawer();
+                                                  },
+                                                ),
+                                                const SizedBox(width: 10),
+                                                SizedBox(
+                                                  height: 40,
+                                                  child: NeoButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          ThemeManager()
+                                                              .infoColor,
+                                                    ),
+                                                    onPressed: () {
+                                                      controller
+                                                          .toCreateGradient();
+                                                    },
+                                                    child: const Text(
+                                                      "Create your own",
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    SliverToBoxAdapter(
+                                      child: Container(
+                                        constraints: const BoxConstraints(
+                                          maxHeight: double.infinity,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: controller.obx(
+                                          (snapshot) {
+                                            return const GridGradientPublicView();
+                                          },
+                                          onEmpty: const Center(
+                                            child: Text("No gradients found"),
+                                          ),
+                                          onLoading: const Center(
+                                            child: LoadingWidget(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

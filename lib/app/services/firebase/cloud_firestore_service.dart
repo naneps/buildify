@@ -33,28 +33,12 @@ abstract class FirestoreService<T> {
     Map<String, dynamic>? search,
     String? orderBy,
     bool descending = false,
+    required Query query,
   }) {
     try {
-      Query query = _firestore.collection(collectionPath);
-
-      // Apply filters
-      if (filters != null) {
-        filters.forEach((key, value) {
-          query = query.where(key, isEqualTo: value);
-        });
-      }
-      if (search != null) {
-        search.forEach((key, value) {
-          query = query.where(key, arrayContains: value);
-        });
-      }
-
-      // Apply ordering
-      if (orderBy != null) {
-        query = query.orderBy(orderBy, descending: descending);
-      }
-
-      return query.snapshots().map(
+      Query queryDefault = _firestore.collection(collectionPath);
+      queryDefault = query;
+      return queryDefault.snapshots().map(
             (snapshot) => snapshot.docs
                 .map(
                   (doc) =>

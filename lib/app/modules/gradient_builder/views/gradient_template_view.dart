@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class FilterGradient extends StatelessWidget {
+class FilterGradientWidget extends StatelessWidget {
   final GradientTemplateController controller;
 
-  const FilterGradient({
+  const FilterGradientWidget({
     super.key,
     required this.controller,
   });
@@ -273,7 +273,7 @@ class GradientTemplateView extends GetView<GradientTemplateController> {
   showBottomFilterSheet() {
     controller.scaffoldKey.currentState!.showBottomSheet(
       (context) {
-        return FilterGradient(controller: controller);
+        return FilterGradientWidget(controller: controller);
       },
       backgroundColor: Colors.black.withOpacity(0.3),
       elevation: 0,

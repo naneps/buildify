@@ -102,6 +102,7 @@ class UserGradientModel {
       'gradient_type': gradient?.type.name,
       'published': published,
       'created_at': createdAt ?? DateTime.now().toIso8601String(),
+      'color_count': gradient?.colors.length,
       'updated_at': null,
       'likedBy': likedBy,
       'savedBy': savedBy,

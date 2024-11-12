@@ -17,30 +17,36 @@ class GradientBuilderView extends GetView<GradientBuilderController> {
       ),
       body: ResponsiveLayout(
         padding: const EdgeInsets.all(20),
-        mobile: const Column(
-          children: [
-            Text("UNDER CONSTRUCTION"),
-            Text("COMING SOON"),
-            //     const Expanded(
-            //       flex: 2,
-            //       child: GradientTemplateView(),
-            //     ),
-            //     const SizedBox(height: 20),
-            //     Expanded(
-            //       flex: 5,
-            //       child: Container(
-            //         alignment: Alignment.center,
-            //         child: Obx(() {
-            //           return controller.container.value.widget();
-            //         }),
-            //       ),
-            //     ),
-            //     const SizedBox(height: 20),
-            //     const Expanded(
-            //       flex: 3,
-            //       child: GradientToolsView(),
-            //     ),
-          ],
+        mobile: SizedBox(
+          height: Get.height,
+          width: Get.width,
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("UNDER CONSTRUCTION"),
+              Text("COMING SOON"),
+              //     const Expanded(
+              //       flex: 2,
+              //       child: GradientTemplateView(),
+              //     ),
+              //     const SizedBox(height: 20),
+              //     Expanded(
+              //       flex: 5,
+              //       child: Container(
+              //         alignment: Alignment.center,
+              //         child: Obx(() {
+              //           return controller.container.value.widget();
+              //         }),
+              //       ),
+              //     ),
+              //     const SizedBox(height: 20),
+              //     const Expanded(
+              //       flex: 3,
+              //       child: GradientToolsView(),
+              //     ),
+            ],
+          ),
         ),
         tablet: Row(
           children: [

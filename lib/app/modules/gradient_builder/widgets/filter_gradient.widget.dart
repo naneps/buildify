@@ -1,78 +1,241 @@
+import 'dart:math';
+
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
+import 'package:buildify/app/commons/ui/inputs/inc_dec_widget.dart';
+import 'package:buildify/app/enums/comparation_operator.dart';
+import 'package:buildify/app/models/filter/count_color.dart';
+import 'package:buildify/app/models/filter/filter_gradient.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class FilterGradientWidget extends StatelessWidget {
-  const FilterGradientWidget({super.key});
+class FilterGradientController extends GetxController {
+  Rx<FilterGradientModel> filter = FilterGradientModel(
+    colorCount: CountColor(count: 2, operator: ComparisonOperator.equals),
+    colors: [],
+    type: 'all',
+  ).obs;
 
+  void resetFilter() {
+    filter.update((val) {
+      val?.colorCount = CountColor(count: 2, operator: null);
+      val?.colors = [];
+      val?.type = 'all';
+    });
+  }
+
+  void setColorCount(int? count) {
+    filter.update((val) {
+      val?.colorCount!.count = count;
+    });
+  }
+
+  void setColors(List<int>? colors) {
+    filter.update((val) {
+      val?.colors = colors;
+    });
+  }
+
+  void setDirection(String? direction) {
+    filter.update((val) {
+      val?.direction = direction;
+    });
+  }
+
+  void setSort(String? sort) {
+    filter.update((val) {
+      val?.sort = sort;
+    });
+  }
+
+  void setType(String? type) {
+    filter.update((val) {
+      val?.type = type;
+    });
+  }
+
+  // Tambahkan metode lain sesuai kebutuhan
+}
+
+class FilterGradientWidget extends GetView<FilterGradientController> {
+  Function(FilterGradientModel) onFilterChange;
+  FilterGradientWidget({super.key, required this.onFilterChange});
+  @override
+  get controller => Get.put(FilterGradientController());
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
+      width: 350,
+      margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: ThemeManager().scaffoldBackgroundColor,
         border: ThemeManager().defaultBorder(),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header
-          Text(
-            "FILTERS",
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          const Divider(),
-
-          // Sort By Section
-          Text("Sort By", style: Theme.of(context).textTheme.labelMedium),
-          DropdownButton<String>(
-            hint: const Text("Select Sort Option"),
-            items: ["Name", "Color Count", "Direction"]
-                .map((option) => DropdownMenuItem(
-                      value: option,
-                      child: Text(option),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              // Handle sort option selection here
-            },
-          ),
-          const Divider(),
-
-          // Gradient Type Section
-          Text("Gradient Type", style: Theme.of(context).textTheme.labelMedium),
-          DropdownButton<String>(
-            hint: const Text("Select Gradient Type"),
-            items: ["Linear", "Radial", "Sweep"]
-                .map((type) => DropdownMenuItem(
-                      value: type,
-                      child: Text(type),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              // Handle gradient type selection here
-            },
-          ),
-          const Divider(),
-
-          // Gradient Direction Section
-          Text("Gradient Direction",
-              style: Theme.of(context).textTheme.labelMedium),
-          DropdownButton<String>(
-            hint: const Text("Select Direction"),
-            items: ["Top to Bottom", "Left to Right", "Diagonal"]
-                .map((direction) => DropdownMenuItem(
-                      value: direction,
-                      child: Text(direction),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              // Handle gradient direction selection here
-            },
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  "FILTERS",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                const Spacer(),
+                InkWell(
+                  child: const Icon(Icons.close),
+                  onTap: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            ),
+            const Divider(),
+            Text(
+              "Type",
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const SizedBox(height: 5),
+            Obx(
+              () => Wrap(
+                spacing: 5,
+                runSpacing: 5,
+                children: [
+                  for (var type in ['All', 'Linear', 'Radial', 'Sweep'])
+                    ChoiceChip(
+                      label: Text(
+                        type,
+                        style:
+                            Theme.of(context).textTheme.labelMedium?.copyWith(),
+                      ),
+                      selected:
+                          controller.filter.value.type == type.toLowerCase(),
+                      padding: const EdgeInsets.all(5),
+                      selectedColor: ThemeManager().primaryColor,
+                      visualDensity: const VisualDensity(
+                        horizontal: VisualDensity.minimumDensity,
+                        vertical: VisualDensity.minimumDensity,
+                      ),
+                      onSelected: (value) {
+                        controller.setType(type.toLowerCase());
+                      },
+                    )
+                ],
+              ),
+            ),
+            const Divider(),
+            Row(
+              children: [
+                Text("Operators",
+                    style: Theme.of(context).textTheme.labelMedium),
+                const Spacer(),
+                Text("Color Count",
+                    style: Theme.of(context).textTheme.labelMedium),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Obx(() {
+              return Row(
+                children: [
+                  Row(
+                    children: [
+                      ...ComparisonOperator.values.map(
+                        (operator) {
+                          return InkWell(
+                            onTap: () {
+                              controller.filter.value.colorCount!.operator =
+                                  operator;
+                              controller.filter.refresh();
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                operator.symbol,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: controller.filter.value.colorCount!
+                                                  .operator ==
+                                              operator
+                                          ? ThemeManager().primaryColor
+                                          : null,
+                                    ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                  const Spacer(),
+                  IncDecWidget(
+                    min: 2,
+                    max: 10,
+                    value: controller.filter.value.colorCount!.count ?? 2,
+                    step: 1,
+                    onValueChanged: (value) {
+                      controller.setColorCount(value);
+                    },
+                  )
+                ],
+              );
+            }),
+            const Divider(),
+            SizedBox(
+              height: 40,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: NeoButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ThemeManager().scaffoldBackgroundColor,
+                      ),
+                      onPressed: () {
+                        controller.filter.value = FilterGradientModel(
+                          colorCount: CountColor(
+                              count: 2, operator: ComparisonOperator.equals),
+                          colors: [],
+                          type: 'all',
+                        );
+                        controller.resetFilter();
+                        onFilterChange(controller.filter.value);
+                        Get.back();
+                      },
+                      child: const Text("Reset"),
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: NeoButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ThemeManager().successColor,
+                      ),
+                      onPressed: () {
+                        onFilterChange(controller.filter.value);
+                        Get.back();
+                      },
+                      child: const Text("Apply"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  // Fungsi untuk menentukan warna teks berdasarkan warna chip
+  bool useWhiteForeground(Color backgroundColor, {double bias = 0.0}) {
+    int v = sqrt(pow(backgroundColor.red, 2) * 0.299 +
+            pow(backgroundColor.green, 2) * 0.587 +
+            pow(backgroundColor.blue, 2) * 0.114)
+        .round();
+    return v < 130 + bias;
   }
 }

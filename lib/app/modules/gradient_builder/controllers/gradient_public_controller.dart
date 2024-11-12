@@ -1,4 +1,7 @@
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
+import 'package:buildify/app/enums/comparation_operator.dart';
+import 'package:buildify/app/models/filter/count_color.dart';
+import 'package:buildify/app/models/filter/filter_gradient.dart';
 import 'package:buildify/app/modules/auth/views/form_signin.dart';
 import 'package:buildify/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,11 @@ class GradientPublicController extends GetxController
   final gradientRepo = Get.find<GradientRepository>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final scaffoldKeyPreview = GlobalKey<ScaffoldState>();
+  Rx<FilterGradientModel> filter = FilterGradientModel(
+    colorCount: CountColor(count: 2, operator: ComparisonOperator.equals),
+    type: 'all',
+  ).obs;
+
   RxString search = ''.obs;
   RxString filterType = 'all'.obs;
   RxList<UserGradientModel> gradients = RxList<UserGradientModel>([]);
@@ -26,10 +34,7 @@ class GradientPublicController extends GetxController
     super.onInit();
     streamGradients();
     everAll(
-      [
-        search,
-        filterType,
-      ],
+      [search, filter],
       (callback) {
         streamGradients();
       },
@@ -45,14 +50,9 @@ class GradientPublicController extends GetxController
   }
 
   void streamGradients() {
-    final filter =
-        filterType.value == 'all' ? null.obs.value : filterType.value;
-    gradientRepo.streamItems(filters: {
-      'gradient_type': filter,
-      'published': true,
-    }, search: {
-      'gradient_name': search.value.isEmpty ? null : search.value,
-    }, orderBy: 'published_at', descending: true).listen(
+    gradientRepo
+        .streamPublicGradients(search: search.value, filter: filter.value)
+        .listen(
       (event) {
         if (event.isNotEmpty) {
           gradients.value = event;

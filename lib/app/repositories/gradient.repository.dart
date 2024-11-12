@@ -1,3 +1,6 @@
+import 'package:buildify/app/enums/comparation_operator.dart';
+import 'package:buildify/app/models/filter/filter_gradient.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../models/user_gradient.model.dart';
@@ -22,6 +25,50 @@ class GradientRepository extends FirestoreService<UserGradientModel> {
     } catch (e) {
       throw Exception('Failed to delete gradient: $e');
     }
+  }
+
+  Query filterPublicGradients(FilterGradientModel filter, {String? search}) {
+    Query query = collection.where('published', isEqualTo: true);
+    if (search != null) {
+      query = query.where('name', isGreaterThanOrEqualTo: search);
+      query = query.where('name', isLessThanOrEqualTo: '$search\uf8ff');
+    }
+    if (filter.type != null) {
+      query = query.where('gradient_type',
+          isEqualTo: filter.type == 'all' ? null : filter.type);
+    }
+    if (filter.colorCount != null) {
+      if (filter.colorCount!.count != null &&
+          filter.colorCount!.operator != null) {
+        switch (filter.colorCount!.operator) {
+          case ComparisonOperator.equals:
+            query =
+                query.where('color_count', isEqualTo: filter.colorCount!.count);
+            break;
+          case ComparisonOperator.lessThan:
+            query = query.where('color_count',
+                isLessThan: filter.colorCount!.count);
+            break;
+          case ComparisonOperator.moreThan:
+            query = query.where('color_count',
+                isGreaterThan: filter.colorCount!.count);
+            break;
+          case ComparisonOperator.lessThanOrEqual:
+            query = query.where('color_count',
+                isLessThanOrEqualTo: filter.colorCount!.count);
+            break;
+          case ComparisonOperator.moreThanOrEqual:
+            query = query.where('color_count',
+                isGreaterThanOrEqualTo: filter.colorCount!.count);
+            break;
+          case ComparisonOperator.notEquals:
+          default:
+            query = query.where('color_count',
+                isNotEqualTo: filter.colorCount!.count);
+        }
+      }
+    }
+    return query;
   }
 
   @override
@@ -67,13 +114,21 @@ class GradientRepository extends FirestoreService<UserGradientModel> {
 
   saveGradient(String s) {}
 
+  Stream<List<UserGradientModel>> streamPublicGradients(
+      {FilterGradientModel? filter, String? search}) {
+    try {
+      return streamItems(query: filterPublicGradients(filter!, search: search));
+    } catch (e) {
+      throw Exception('Failed to stream gradients: $e');
+    }
+  }
+
   Stream<List<UserGradientModel>> streamUserGradients(
       {Map<String, dynamic>? filters = const {}, Function(String)? onError}) {
     try {
-      return super.streamItems(filters: {
-        'userId': userService.uid,
-        ...filters!,
-      });
+      return super.streamItems(
+        query: collection.where('userId', isEqualTo: userService.uid),
+      );
     } catch (e) {
       onError?.call(e.toString());
       throw Exception('Failed to stream gradients: $e');
