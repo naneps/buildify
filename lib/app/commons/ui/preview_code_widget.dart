@@ -1,5 +1,6 @@
 import 'package:buildify/app/commons/theme_manager.dart';
 import 'package:buildify/app/commons/typewriter_markdown.dart';
+import 'package:buildify/app/commons/ui/inputs/neo_dropdown_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -35,11 +36,24 @@ class _PreviewCodeWidgetState extends State<PreviewCodeWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 10),
-          Text(
-            "Preview Code",
-            style: Theme.of(context).textTheme.labelLarge,
+          Row(
+            children: [
+              Text(
+                "Preview Code",
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              const Spacer(),
+              InkWell(
+                child: Icon(
+                  Icons.close,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                onTap: () => Navigator.pop(context),
+              ),
+            ],
           ),
-          DropdownButton<String>(
+          const Divider(),
+          NeoDropdown<String>(
             hint: const Text("Choose your code type to preview"),
             value: _selectedCodeType,
             items: ['Flutter', 'CSS']

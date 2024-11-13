@@ -1,4 +1,5 @@
 import 'package:buildify/app/modules/gradient_builder/views/gradient_public_template_view.dart';
+import 'package:buildify/app/services/auth_middlerware.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
@@ -42,6 +43,7 @@ class AppPages {
       name: _Paths.GRADIENT_BUILDER,
       page: () => const GradientBuilderView(),
       binding: GradientBuilderBinding(),
+      middlewares: [AuthMiddleware()],
       bindings: [ContainerBuilderBinding()],
     ),
     GetPage(

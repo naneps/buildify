@@ -73,7 +73,7 @@ class GradientPreviewView extends StatelessWidget {
                       border: ThemeManager().defaultBorder(),
                       borderRadius: tile.shape == BoxShape.circle
                           ? null
-                          : BorderRadius.circular(10),
+                          : tile.borderRadius ?? BorderRadius.circular(10),
                     ),
                   ),
                 ),
@@ -90,10 +90,44 @@ class GradientPreviewView extends StatelessWidget {
       _GradientTile(2, 3, BoxShape.rectangle),
       _GradientTile(1, 1, BoxShape.rectangle),
       _GradientTile(1, 1, BoxShape.circle),
-      _GradientTile(2, 3, BoxShape.rectangle),
-      _GradientTile(2, 1, BoxShape.rectangle),
+      _GradientTile(
+        2,
+        3,
+        BoxShape.rectangle,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
+        ),
+      ),
+      _GradientTile(
+        2,
+        1,
+        BoxShape.rectangle,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(40),
+          bottomLeft: Radius.circular(40),
+        ),
+      ),
+      _GradientTile(
+        2,
+        1,
+        BoxShape.rectangle,
+        borderRadius: const BorderRadius.all(Radius.circular(35)),
+      ),
+      _GradientTile(
+        2,
+        1,
+        BoxShape.rectangle,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
+        ),
+      ),
+      _GradientTile(2, 2, BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(30)),
       _GradientTile(2, 2, BoxShape.circle),
-      _GradientTile(4, 4, BoxShape.rectangle),
+      _GradientTile(4, 2, BoxShape.rectangle),
+      _GradientTile(4, 3, BoxShape.rectangle),
       _GradientTile(4, 4, BoxShape.circle),
     ];
   }
@@ -103,6 +137,8 @@ class _GradientTile {
   final int crossAxisCellCount;
   final int mainAxisCellCount;
   final BoxShape shape;
+  final BorderRadius? borderRadius;
 
-  _GradientTile(this.crossAxisCellCount, this.mainAxisCellCount, this.shape);
+  _GradientTile(this.crossAxisCellCount, this.mainAxisCellCount, this.shape,
+      {this.borderRadius});
 }
