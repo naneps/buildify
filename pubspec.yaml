@@ -33,10 +33,13 @@ dependencies:
   markdown_widget: ^2.3.2+6
   material_design_icons_flutter: ^7.0.7296
   path_drawing: ^1.0.1
+  path_provider: ^2.1.5
+  share_plus: ^10.1.2
   shimmer: ^3.0.0
   step_progress_indicator: ^1.0.2
   syncfusion_flutter_core: ^27.1.57
   syncfusion_flutter_sliders: ^27.1.57
+  universal_html: ^2.2.4
   widgets_to_image: ^1.0.0
 
 dev_dependencies:

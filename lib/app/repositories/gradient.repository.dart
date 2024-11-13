@@ -129,7 +129,9 @@ class GradientRepository extends FirestoreService<UserGradientModel> {
       {Map<String, dynamic>? filters = const {}, Function(String)? onError}) {
     try {
       return super.streamItems(
-        query: collection.where('userId', isEqualTo: userService.uid),
+        query: collection
+            .where('userId', isEqualTo: userService.uid)
+            .orderBy('created_at', descending: true),
       );
     } catch (e) {
       onError?.call(e.toString());

@@ -11,6 +11,7 @@ import 'package:buildify/app/modules/gradient_builder/controllers/gradient_publi
 import 'package:buildify/app/modules/gradient_builder/views/gradient_preview_view.dart';
 import 'package:buildify/app/modules/gradient_builder/views/grid_gradient_public_view.dart';
 import 'package:buildify/app/modules/gradient_builder/widgets/filter_gradient.widget.dart';
+import 'package:buildify/app/modules/gradient_builder/widgets/gradient_export_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -297,6 +298,8 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                                 ),
                                                 onPressed: () {
                                                   // Implement save as image functionality
+                                                  showExport(controller
+                                                      .scaffoldKeyPreview);
                                                 },
                                                 icon: const Icon(Icons.image),
                                                 label:
@@ -364,6 +367,16 @@ class GradientPublicView extends GetView<GradientPublicController> {
           codeFlutter:
               controller.previewGradient.value.gradient?.toCode() ?? "",
         );
+      },
+      backgroundColor: Colors.transparent,
+      enableDrag: true,
+    );
+  }
+
+  void showExport(GlobalKey<ScaffoldState> scaffoldKey) {
+    scaffoldKey.currentState!.showBottomSheet(
+      (context) {
+        return const GradientExportImage();
       },
       backgroundColor: Colors.transparent,
       enableDrag: true,

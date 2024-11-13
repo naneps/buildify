@@ -5,6 +5,7 @@ import 'package:buildify/app/modules/auth/views/form_signin.dart';
 import 'package:buildify/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '/app/models/user_gradient.model.dart';
 import '/app/repositories/gradient.repository.dart';
@@ -14,6 +15,8 @@ class GradientPublicController extends GetxController
   final gradientRepo = Get.find<GradientRepository>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final scaffoldKeyPreview = GlobalKey<ScaffoldState>();
+  final controllerImage = WidgetsToImageController();
+
   Rx<FilterGradientModel> filter = FilterGradientModel(
     colorCount: CountColor(count: null, operator: null),
     type: 'all',

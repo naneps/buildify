@@ -326,11 +326,11 @@ class ThemeManager {
         color: color ?? ThemeManager().blackColor,
       ),
       bottom: BorderSide(
-        width: 6,
+        width: 5,
         color: color ?? ThemeManager().blackColor,
       ),
       right: BorderSide(
-        width: 6,
+        width: 5,
         color: color ?? ThemeManager().blackColor,
       ),
     );
