@@ -1,3 +1,4 @@
+import 'package:buildify/app/commons/ui/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,12 +12,7 @@ class GradientBuilderView extends GetView<GradientBuilderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Gradient Builder'),
-        centerTitle: true,
-      ),
       body: ResponsiveLayout(
-        padding: const EdgeInsets.all(20),
         mobile: SizedBox(
           height: Get.height,
           width: Get.width,
@@ -48,30 +44,38 @@ class GradientBuilderView extends GetView<GradientBuilderController> {
             ],
           ),
         ),
-        tablet: Row(
+        tablet: Column(
           children: [
-            const Expanded(
-              flex: 2,
-              child: GradientTemplateView(),
-            ),
-            const SizedBox(width: 20),
+            const SizedBox(height: 90, child: CustomAppBar()),
+            const SizedBox(height: 10),
             Expanded(
-              flex: 5,
-              child: Stack(
+              child: Row(
                 children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: Obx(() {
-                      return controller.container.value.widget();
-                    }),
+                  const Expanded(
+                    flex: 2,
+                    child: GradientTemplateView(),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    flex: 5,
+                    child: Stack(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: Obx(() {
+                            return controller.container.value.widget();
+                          }),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  const Expanded(
+                    flex: 3,
+                    child: GradientToolsView(),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(width: 20),
-            const Expanded(
-              flex: 3,
-              child: GradientToolsView(),
             ),
           ],
         ),

@@ -128,11 +128,9 @@ class GradientRepository extends FirestoreService<UserGradientModel> {
   Stream<List<UserGradientModel>> streamUserGradients(
       {Map<String, dynamic>? filters = const {}, Function(String)? onError}) {
     try {
-      return super.streamItems(
-        query: collection
-            .where('userId', isEqualTo: userService.uid)
-            .orderBy('created_at', descending: true),
-      );
+      Query query = collection.orderBy('created_at', descending: true);
+      query = collection.where('userId', isEqualTo: userService.uid);
+      return streamItems(query: query);
     } catch (e) {
       onError?.call(e.toString());
       throw Exception('Failed to stream gradients: $e');

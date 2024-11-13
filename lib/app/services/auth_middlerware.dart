@@ -14,14 +14,11 @@ class AuthMiddleware extends GetMiddleware {
     final user = FirebaseAuth.instance.currentUser;
 
     if (user == null && route == Routes.GRADIENT_BUILDER) {
-      // Redirect back to the previous page, if available
       final previousRoute = Get.previousRoute;
-
       if (previousRoute.isNotEmpty) {
         return RouteSettings(name: previousRoute);
       }
 
-      // If there's no previous route, fallback to the home route
       return const RouteSettings(name: Routes.HOME);
     }
 
