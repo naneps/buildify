@@ -61,6 +61,7 @@ class AppPages {
       name: _Paths.BOX_SHADOW_BUILDER,
       page: () => const BoxShadowBuilderView(),
       binding: BoxShadowBuilderBinding(),
+      bindings: [AuthBinding(), ContainerBuilderBinding()],
     ),
   ];
 

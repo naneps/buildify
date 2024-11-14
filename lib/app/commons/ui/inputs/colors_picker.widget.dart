@@ -9,13 +9,13 @@ class ColorPickerWidget extends StatefulWidget {
   final List<Color> initialColors;
   final ValueChanged<List<Color>> onColorsChanged;
   final int minColors;
-  final bool multiple;
+  final bool isMultiple;
   const ColorPickerWidget({
     super.key,
     required this.initialColors,
     required this.onColorsChanged,
     this.minColors = 1,
-    this.multiple = false,
+    this.isMultiple = true,
   });
 
   @override
@@ -39,35 +39,36 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
         height: 40,
         child: colors.isEmpty
             ? _buildAddButton()
-            : ReorderableListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                onReorder: _onReorder,
-                footer: Row(
-                  children: [
-                    _buildAddButton(),
-                    Tooltip(
-                      message:
-                          'Double tap to remove color \nTap to edit color \nHold to reorder colors',
-                      waitDuration: const Duration(seconds: 1),
-                      textStyle: Theme.of(context).textTheme.bodySmall,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        border: ThemeManager().defaultBorder(),
-                      ),
-                      child: Icon(
-                        MdiIcons.informationOutline,
-                        color: ThemeManager().infoColor,
-                        size: 20,
-                      ),
-                    )
-                  ],
-                ),
-                itemCount: colors.length,
-                itemBuilder: (context, index) {
-                  return _buildColorItem(index);
-                },
+            : Row(
+                children: [
+                  Tooltip(
+                    message:
+                        'Double tap to remove color \nTap to edit color \nHold to reorder colors',
+                    waitDuration: const Duration(seconds: 1),
+                    textStyle: Theme.of(context).textTheme.bodySmall,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      border: ThemeManager().defaultBorder(),
+                    ),
+                    child: Icon(
+                      MdiIcons.informationOutline,
+                      color: ThemeManager().infoColor,
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  ReorderableListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    onReorder: _onReorder,
+                    footer: _buildAddButton(),
+                    itemCount: colors.length,
+                    itemBuilder: (context, index) {
+                      return _buildColorItem(index);
+                    },
+                  ),
+                ],
               ),
       ),
     );
@@ -97,18 +98,21 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
   }
 
   Widget _buildAddButton() {
-    return IconButton(
-      splashRadius: 20,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        fixedSize: const Size(40, 40),
-        shape: const CircleBorder(),
-        side: BorderSide(color: Colors.grey.shade300),
-        padding: const EdgeInsets.all(0),
-        shadowColor: Colors.grey.shade400,
+    return Visibility(
+      visible: widget.isMultiple,
+      child: IconButton(
+        splashRadius: 20,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          fixedSize: const Size(40, 40),
+          shape: const CircleBorder(),
+          side: BorderSide(color: Colors.grey.shade300),
+          padding: const EdgeInsets.all(0),
+          shadowColor: Colors.grey.shade400,
+        ),
+        icon: const Icon(Icons.add),
+        onPressed: _showColorPicker,
       ),
-      icon: const Icon(Icons.add),
-      onPressed: _showColorPicker,
     );
   }
 

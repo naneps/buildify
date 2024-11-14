@@ -30,10 +30,7 @@ class GradientToolsView extends GetView<GradientToolsController> {
             children: [
               TabBar(
                 controller: controller.tabController,
-                tabs: const [
-                  Tab(text: 'Gradient'),
-                  Tab(text: 'Shape'),
-                ],
+                tabs: const [Tab(text: 'Gradient'), Tab(text: 'Shape')],
               ),
               Expanded(
                 child: TabBarView(

@@ -273,7 +273,6 @@ class GradientExportImage extends GetView<GradientPublicController> {
             ..click();
           html.Url.revokeObjectUrl(url);
         } else {
-          // Platform Mobile/Desktop: Menyimpan gambar ke sistem file dan membagikannya
           final directory = await getApplicationDocumentsDirectory();
           final path = '${directory.path}/$fileName';
           final file = File(path);

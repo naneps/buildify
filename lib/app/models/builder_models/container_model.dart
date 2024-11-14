@@ -38,7 +38,7 @@ class ContainerModel {
       duration: const Duration(milliseconds: 200),
       width: width!.value,
       height: height!.value,
-      color: color,
+      color: decoration != null ? null : color,
       decoration: decoration?.toBoxDecoration(),
     );
   }

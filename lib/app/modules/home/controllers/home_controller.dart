@@ -15,7 +15,7 @@ class HomeController extends GetxController {
         iconData: MdiIcons.gradientHorizontal),
     NavigationModel(
         title: 'Shadows Builder',
-        route: Routes.CONTAINER_BUILDER,
+        route: Routes.BOX_SHADOW_BUILDER,
         iconData: MdiIcons.boxShadow)
   ];
   @override
