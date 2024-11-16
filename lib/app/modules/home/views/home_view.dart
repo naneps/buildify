@@ -104,7 +104,7 @@ class HomeView extends GetView<HomeController> {
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: ThemeManager().scaffoldBackgroundColor,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     border: ThemeManager().defaultBorder(),
                   ),
@@ -113,7 +113,6 @@ class HomeView extends GetView<HomeController> {
                       const Text(
                         'Buildify - Build your work faster',
                         style: TextStyle(
-                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -122,7 +121,7 @@ class HomeView extends GetView<HomeController> {
                       const SizedBox(height: 10),
                       const Text(
                         'Crafted with Flutter. Visit our GitHub for more information.',
-                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                        style: TextStyle(fontSize: 14),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 20),
@@ -130,7 +129,9 @@ class HomeView extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            icon: Icon(MdiIcons.github, color: Colors.white),
+                            icon: Icon(
+                              MdiIcons.github,
+                            ),
                             onPressed: () {
                               // Open GitHub link
                             },
@@ -159,6 +160,7 @@ class HomeView extends GetView<HomeController> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
+          color: Colors.white,
           border:
               ThemeManager().defaultBorder(color: ThemeManager().primaryColor),
           borderRadius: BorderRadius.circular(10),

@@ -18,9 +18,7 @@ class MainApp extends StatelessWidget {
         Get.lazyPut(() => CrashlyticsService());
       }),
       getPages: AppPages.routes,
-      onInit: () {
-        Get.find<CrashlyticsService>().init();
-      },
+      onInit: () {},
     );
   }
 }

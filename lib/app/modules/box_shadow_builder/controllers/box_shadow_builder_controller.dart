@@ -1,23 +1,16 @@
+import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
+import 'package:buildify/app/models/builder_models/container_model.dart';
 import 'package:get/get.dart';
 
 class BoxShadowBuilderController extends GetxController {
-  //TODO: Implement BoxShadowBuilderController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  Rx<ContainerModel> containerModel = ContainerModel(
+    width: (Get.width * 0.3).obs,
+    height: (Get.width * 0.3).obs,
+    decoration: BoxDecorationModel(
+      boxShadow: [],
+      gradient: null,
+      color: ThemeManager().primaryColor,
+    ),
+  ).obs;
 }

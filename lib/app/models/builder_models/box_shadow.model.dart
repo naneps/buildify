@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 /// A model class representing a box shadow.
 class BoxShadowModel {
   Color color;
-  double blurRadius;
-  double spreadRadius;
-  Offset offset;
-  BlurStyle blurStyle;
+  double? blurRadius;
+  double? spreadRadius;
+  Offset? offset;
+  BlurStyle? blurStyle;
 
   /// Constructs a [BoxShadowModel] with the given parameters.
   ///
@@ -14,9 +14,9 @@ class BoxShadowModel {
   /// The [blurStyle] parameter is optional and defaults to [BlurStyle.normal].
   BoxShadowModel({
     required this.color,
-    required this.blurRadius,
-    required this.spreadRadius,
-    required this.offset,
+    this.blurRadius,
+    this.spreadRadius,
+    this.offset,
     this.blurStyle = BlurStyle.normal,
   });
 
@@ -45,10 +45,10 @@ class BoxShadowModel {
   BoxShadow toBoxShadow() {
     return BoxShadow(
       color: color,
-      blurRadius: blurRadius,
-      spreadRadius: spreadRadius,
-      offset: offset,
-      blurStyle: blurStyle,
+      blurRadius: blurRadius!,
+      spreadRadius: spreadRadius!,
+      offset: offset!,
+      blurStyle: blurStyle!,
     );
   }
 
@@ -64,12 +64,12 @@ class BoxShadowModel {
   }
 
   String toCss() {
-    return 'box-shadow: ${offset.dx}px ${offset.dy}px $blurRadius $spreadRadius $color;';
+    return 'box-shadow: ${offset!.dx}px ${offset!.dy}px $blurRadius $spreadRadius $color;';
   }
 
   String toCSS() {
     final colorString = color.toString().substring(10, 16);
-    return 'box-shadow: ${offset.dx}px ${offset.dy}px $blurRadius $spreadRadius #$colorString ${blurStyle.toCSS()};';
+    return 'box-shadow: ${offset!.dx}px ${offset!.dy}px $blurRadius $spreadRadius #$colorString ${blurStyle!.toCSS()};';
   }
 }
 

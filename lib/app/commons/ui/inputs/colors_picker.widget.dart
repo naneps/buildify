@@ -9,13 +9,14 @@ class ColorPickerWidget extends StatefulWidget {
   final List<Color> initialColors;
   final ValueChanged<List<Color>> onColorsChanged;
   final int minColors;
-  final bool multiple;
+  final bool isMultiple;
+
   const ColorPickerWidget({
     super.key,
     required this.initialColors,
     required this.onColorsChanged,
     this.minColors = 1,
-    this.multiple = false,
+    this.isMultiple = true,
   });
 
   @override
@@ -32,49 +33,57 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: ThemeManager().blackColor, width: 2),
-        boxShadow: [ThemeManager().defaultShadow()],
+        border: ThemeManager().defaultBorder(),
       ),
       child: SizedBox(
-        height: 40,
+        height: 35,
         child: colors.isEmpty
-            ? _buildAddButton()
-            : ReorderableListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                onReorder: _onReorder,
-                footer: Row(
-                  children: [
-                    _buildAddButton(),
-                    Tooltip(
-                      message:
-                          'Double tap to remove color \nTap to edit color \nHold to reorder colors',
-                      waitDuration: const Duration(seconds: 1),
-                      textStyle: Theme.of(context).textTheme.bodySmall,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        border: ThemeManager().defaultBorder(),
-                      ),
-                      child: Icon(
-                        MdiIcons.informationOutline,
-                        color: ThemeManager().infoColor,
-                        size: 20,
-                      ),
-                    )
-                  ],
-                ),
-                itemCount: colors.length,
-                itemBuilder: (context, index) {
-                  return _buildColorItem(index);
-                },
+            ? _buildEmptyState() // Show empty state if no colors are selected
+            : Row(
+                children: [
+                  Tooltip(
+                    message:
+                        'Double tap to remove color \nTap to edit color \nHold to reorder colors',
+                    waitDuration: const Duration(seconds: 1),
+                    textStyle: Theme.of(context).textTheme.bodySmall,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      border: ThemeManager().defaultBorder(),
+                    ),
+                    child: Icon(
+                      MdiIcons.informationOutline,
+                      color: ThemeManager().infoColor,
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  ReorderableListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    buildDefaultDragHandles:
+                        false, // Disable default drag handles
+                    onReorder: _onReorder,
+                    footer: _buildAddButton(),
+                    onReorderEnd: _onReorderEnd,
+                    physics: const BouncingScrollPhysics(),
+                    onReorderStart: _onReorderStart,
+                    itemCount: colors.length,
+                    itemBuilder: (context, index) {
+                      return ReorderableDragStartListener(
+                          key: ValueKey(colors[index]),
+                          index: index,
+                          child: _buildColorItem(index));
+                    },
+                  ),
+                ],
               ),
       ),
     );
   }
 
   @override
-  didUpdateWidget(covariant ColorPickerWidget oldWidget) {
+  void didUpdateWidget(covariant ColorPickerWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialColors != widget.initialColors) {
       setState(() {
@@ -97,18 +106,21 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
   }
 
   Widget _buildAddButton() {
-    return IconButton(
-      splashRadius: 20,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        fixedSize: const Size(40, 40),
-        shape: const CircleBorder(),
-        side: BorderSide(color: Colors.grey.shade300),
-        padding: const EdgeInsets.all(0),
-        shadowColor: Colors.grey.shade400,
+    return Visibility(
+      visible: widget.isMultiple,
+      child: IconButton(
+        splashRadius: 20,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          fixedSize: const Size(40, 40),
+          shape: const CircleBorder(),
+          side: BorderSide(color: Colors.grey.shade300),
+          padding: const EdgeInsets.all(0),
+          shadowColor: Colors.grey.shade400,
+        ),
+        icon: const Icon(Icons.add),
+        onPressed: _showColorPicker,
       ),
-      icon: const Icon(Icons.add),
-      onPressed: _showColorPicker,
     );
   }
 
@@ -156,8 +168,17 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       }
       final color = colors.removeAt(oldIndex);
       colors.insert(newIndex, color);
-      widget.onColorsChanged(colors);
+      widget.onColorsChanged(colors); // Notify the parent widget
     });
+  }
+
+  void _onReorderEnd(int index) {
+    print("Item dropped at index: $index");
+    widget.onColorsChanged(colors); // Ensure parent widget is updated
+  }
+
+  void _onReorderStart(int oldIndex) {
+    print("Reordering started at index: $oldIndex");
   }
 
   void _removeColor(int index) {
@@ -167,7 +188,6 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
         widget.onColorsChanged(colors);
       });
     } else {
-      // Show a warning or handle the case when below minimum colors
       Get.snackbar(
         "Minimum Color Requirement",
         "You must keep at least ${widget.minColors} color(s).",

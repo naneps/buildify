@@ -5,13 +5,11 @@ import 'package:get/get.dart';
 import '../user_service.dart';
 
 class FirebaseRDbService<T> extends GetxService {
-  // Mengubah ke protected agar bisa diakses oleh subclass
   late final DatabaseReference dbRef;
   final String collectionPath;
   final uid = Get.find<UserService>().uid;
   FirebaseRDbService(this.collectionPath);
 
-  // Fungsi untuk membuat atau menambahkan data
   Future<void> create(T model, {Map<String, dynamic>? data}) async {
     try {
       print("Collection Path: $collectionPath");
@@ -22,7 +20,6 @@ class FirebaseRDbService<T> extends GetxService {
     }
   }
 
-  // Fungsi untuk menghapus data
   Future<void> delete(String id) async {
     try {
       print(id);
@@ -43,7 +40,6 @@ class FirebaseRDbService<T> extends GetxService {
         .ref();
   }
 
-  // Fungsi untuk mendapatkan data berdasarkan ID
   Future<T?> read(String id) async {
     try {
       DataSnapshot snapshot = await dbRef.child(collectionPath).child(id).get();
