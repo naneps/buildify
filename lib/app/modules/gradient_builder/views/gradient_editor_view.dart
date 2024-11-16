@@ -28,7 +28,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
           duration: const Duration(milliseconds: 300),
           decoration: const BoxDecoration(
               // gradient: controller.gradient.value.toGradient().value,
-              ),
+              color: Colors.white),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: BackdropFilter(
             filter: ImageFilter.blur(
