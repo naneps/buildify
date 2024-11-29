@@ -1,67 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class BorderModel {
-  Rx<BorderSide> top = BorderSide.none.obs;
-  Rx<BorderSide> right = BorderSide.none.obs;
-  Rx<BorderSide> bottom = BorderSide.none.obs;
-  Rx<BorderSide> left = BorderSide.none.obs;
+  BorderType? type;
+  BorderSideModel? all;
+  BorderSideModel? top;
+  BorderSideModel? bottom;
+  BorderSideModel? left;
+  BorderSideModel? right;
 
   BorderModel({
-    BorderSide? top,
-    BorderSide? right,
-    BorderSide? bottom,
-    BorderSide? left,
+    this.type = BorderType.all,
+    this.all,
+    this.top,
+    this.bottom,
+    this.left,
+    this.right,
+  });
+
+  BorderModel copyWith({
+    BorderType? type,
+    BorderSideModel? all,
+    BorderSideModel? top,
+    BorderSideModel? bottom,
+    BorderSideModel? left,
+    BorderSideModel? right,
   }) {
-    this.top.value = top ?? BorderSide.none;
-    this.right.value = right ?? BorderSide.none;
-    this.bottom.value = bottom ?? BorderSide.none;
-    this.left.value = left ?? BorderSide.none;
+    return BorderModel(
+      type: type ?? this.type,
+      all: all ?? this.all,
+      top: top ?? this.top,
+      bottom: bottom ?? this.bottom,
+      left: left ?? this.left,
+      right: right ?? this.right,
+    );
   }
 
-  BorderModel.all(BorderSide border) {
-    top.value = border;
-    right.value = border;
-    bottom.value = border;
-    left.value = border;
+  BoxBorder toBorder() {
+    switch (type) {
+      case BorderType.all:
+        return Border.all(
+          color: all?.color ?? Colors.black,
+          width: all?.width ?? 1.0,
+          style: all?.style ?? BorderStyle.solid,
+        );
+      case BorderType.only:
+        return Border(
+          top: top?.toBorderSide() ?? BorderSide.none,
+          bottom: bottom?.toBorderSide() ?? BorderSide.none,
+          left: left?.toBorderSide() ?? BorderSide.none,
+          right: right?.toBorderSide() ?? BorderSide.none,
+        );
+      default:
+        return Border.all(
+          color: Colors.black,
+          width: 1.0,
+          style: BorderStyle.solid,
+        );
+    }
   }
 
-  BorderModel.only({
-    BorderSide? top,
-    BorderSide? right,
-    BorderSide? bottom,
-    BorderSide? left,
-  }) {
-    this.top.value = top ?? BorderSide.none;
-    this.right.value = right ?? BorderSide.none;
-    this.bottom.value = bottom ?? BorderSide.none;
-    this.left.value = left ?? BorderSide.none;
-  }
-
-  Border get toBorder => Border(
-        top: top.value,
-        right: right.value,
-        bottom: bottom.value,
-        left: left.value,
-      );
-
-  void updateAll(BorderSide border) {
-    top.value = border;
-    right.value = border;
-    bottom.value = border;
-    left.value = border;
-  }
-
-  // Update methods for reactive changes
-  void updateBorder({
-    BorderSide? top,
-    BorderSide? right,
-    BorderSide? bottom,
-    BorderSide? left,
-  }) {
-    if (top != null) this.top.value = top;
-    if (right != null) this.right.value = right;
-    if (bottom != null) this.bottom.value = bottom;
-    if (left != null) this.left.value = left;
+  @override
+  String toString() {
+    return 'BorderModel{type: $type, all: $all, top: $top, bottom: $bottom, left: $left, right: $right}';
   }
 }
+
+class BorderSideModel {
+  Color? color;
+  double? width;
+  BorderStyle? style;
+
+  BorderSideModel({
+    this.color = Colors.black,
+    this.width = 1.0,
+    this.style = BorderStyle.solid,
+  });
+
+  BorderSideModel copyWith({
+    Color? color,
+    double? width,
+    BorderStyle? style,
+  }) {
+    return BorderSideModel(
+      color: color ?? this.color,
+      width: width ?? this.width,
+      style: style ?? this.style,
+    );
+  }
+
+  BorderSide toBorderSide() {
+    return BorderSide(
+      color: color ?? Colors.black,
+      width: width ?? 1.0,
+      style: style ?? BorderStyle.solid,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'BorderSideModel{color: $color, width: $width, style: $style}';
+  }
+}
+
+enum BorderType { all, only }

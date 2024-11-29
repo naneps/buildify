@@ -20,6 +20,16 @@ class BoxShadowModel {
     this.blurStyle = BlurStyle.normal,
   });
 
+  factory BoxShadowModel.fromJson(Map<String, dynamic> json) {
+    return BoxShadowModel(
+      color: Color(json['color']),
+      spreadRadius: json['spreadRadius'],
+      blurRadius: json['blurRadius'],
+      offset: Offset.fromDirection(json['offSet']),
+      blurStyle: BlurStyle.values[json['blurStyle']],
+    );
+  }
+
   @override
   int get hashCode {
     return color.hashCode ^
@@ -70,6 +80,16 @@ class BoxShadowModel {
   String toCSS() {
     final colorString = color.toString().substring(10, 16);
     return 'box-shadow: ${offset!.dx}px ${offset!.dy}px $blurRadius $spreadRadius #$colorString ${blurStyle!.toCSS()};';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'color': color.value,
+      'blurRadius': blurRadius,
+      'spreadRadius': spreadRadius,
+      'offSet': offset!.direction,
+      'blurStyle': blurStyle!.index
+    };
   }
 }
 

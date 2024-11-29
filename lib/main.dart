@@ -6,9 +6,6 @@ import 'app/main_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-//   if (kIsWeb) {
-//     setUrlStrategy(PathUrlStrategy());
-//   }
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MainApp());
 }
