@@ -34,6 +34,7 @@ class UserGradientCard extends GetView<UserGradientCardController> {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
+        color: Colors.white,
         border: ThemeManager().defaultBorder(),
         borderRadius: BorderRadius.circular(10),
       ),

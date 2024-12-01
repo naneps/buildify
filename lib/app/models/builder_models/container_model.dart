@@ -10,7 +10,6 @@ class ContainerModel {
   Color? color;
   BoxDecorationModel? decoration;
   AlignmentType? alignment;
-
   ContainerModel({
     this.width,
     this.height,

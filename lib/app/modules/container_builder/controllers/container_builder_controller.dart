@@ -1,7 +1,8 @@
+import 'package:buildify/app/commons/themes/main_colors.dart';
+import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../models/builder_models/box_decoration_model.dart';
 import '../../../models/builder_models/container_model.dart';
 
 class ContainerBuilderController extends GetxController {
@@ -9,7 +10,6 @@ class ContainerBuilderController extends GetxController {
     width: RxDouble(200),
     height: RxDouble(200),
     decoration: BoxDecorationModel(
-      color: Colors.red,
-    ),
+        color: MainColors.primaryColor, boxShape: BoxShape.circle),
   ).obs;
 }

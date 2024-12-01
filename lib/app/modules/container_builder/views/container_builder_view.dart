@@ -13,6 +13,7 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Get.theme.canvasColor,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -67,54 +68,17 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
             ),
             const SizedBox(height: 10),
             ColorPickerWidget(
-              initialColors: const [],
+              initialColors: [controller.container.value.decoration!.color!],
+              isMultiple: false,
               onColorsChanged: (value) {
-                controller.container.value.decoration!.color = value.first;
+                controller.container.value.decoration?.color = value.first;
                 controller.container.refresh();
               },
             ),
             const SizedBox(height: 20),
             Text(
-              'Border Settings',
+              'Decoration',
               style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            // Border Width Input
-            Row(
-              children: [
-                Expanded(
-                  child: XInput(
-                    label: 'Border Width',
-                    keyboardType: TextInputType.number,
-                    initialValue: '1', // default value
-                    contentPadding: const EdgeInsets.all(20),
-                    prefixIcon: Icon(MdiIcons.borderStyle),
-                    onChanged: (value) {
-                      double borderWidth = double.parse(value);
-                      controller.container.value.decoration?.border?.updateAll(
-                        BorderSide(width: borderWidth),
-                      );
-                      controller.container.refresh();
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            // Border Color Picker
-            Text(
-              'Border Color',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            ColorPickerWidget(
-              initialColors: const [],
-              onColorsChanged: (value) {
-                controller.container.value.decoration?.border?.updateAll(
-                  BorderSide(color: value.first, width: 2), // default width
-                );
-                controller.container.refresh();
-              },
             ),
           ],
         ),
