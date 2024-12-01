@@ -8,6 +8,7 @@ class ContainerModel {
   RxDouble? height;
   Color? color;
   BoxDecorationModel? decoration;
+
   ContainerModel({
     this.width,
     this.height,
