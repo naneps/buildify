@@ -10,13 +10,20 @@ class HomeController extends GetxController {
 
   final sourceNavigationItems = [
     NavigationModel(
-        title: 'Gradient Builder',
-        route: Routes.GRADIENT_PUBLIC,
-        iconData: MdiIcons.gradientHorizontal),
+      title: 'Gradient Builder',
+      route: Routes.GRADIENT_PUBLIC,
+      iconData: MdiIcons.gradientHorizontal,
+    ),
     NavigationModel(
-        title: 'Shadows Builder',
-        route: Routes.BOX_SHADOW_BUILDER,
-        iconData: MdiIcons.boxShadow)
+      title: 'Shadows Builder',
+      route: Routes.BOX_SHADOW_BUILDER,
+      iconData: MdiIcons.boxShadow,
+    ),
+    NavigationModel(
+      title: 'Widget builder',
+      route: Routes.WIDGET_BUILDER,
+      iconData: MdiIcons.widgets,
+    )
   ];
   @override
   void onInit() {

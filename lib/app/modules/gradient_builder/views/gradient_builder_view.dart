@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/ui/custom_appbar.dart';
+import 'package:buildify/app/models/builder_models/container_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -63,7 +64,7 @@ class GradientBuilderView extends GetView<GradientBuilderController> {
                         Container(
                           alignment: Alignment.center,
                           child: Obx(() {
-                            return controller.container.value.widget();
+                            return controller.container.value.build();
                           }),
                         ),
                       ],
