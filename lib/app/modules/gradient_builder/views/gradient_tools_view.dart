@@ -23,7 +23,7 @@ class GradientToolsView extends GetView<GradientToolsController> {
         key: controller.scaffoldKey,
         body: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Get.theme.canvasColor,
             borderRadius: BorderRadius.circular(10),
             border: ThemeManager().defaultBorder(),
           ),

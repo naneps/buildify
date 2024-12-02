@@ -12,9 +12,11 @@ class InputDecorationThemes {
     hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
     labelStyle: TextStyle(
       color: MainColors.textColor,
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
     ),
+    isDense: true,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     prefixIconColor: MainColors.darkColor,
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),

@@ -5,19 +5,19 @@ class ThemeManager {
   Border defaultBorder({Color? color}) {
     return Border(
       top: BorderSide(
-        width: 2,
+        width: 1.5,
         color: color ?? MainColors.darkColor,
       ),
       left: BorderSide(
-        width: 2,
+        width: 1.5,
         color: color ?? MainColors.darkColor,
       ),
       bottom: BorderSide(
-        width: 5,
+        width: 3,
         color: color ?? MainColors.darkColor,
       ),
       right: BorderSide(
-        width: 5,
+        width: 3,
         color: color ?? MainColors.darkColor,
       ),
     );

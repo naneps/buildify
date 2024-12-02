@@ -260,8 +260,7 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                     leading: const SizedBox.shrink(),
                                     expandedHeight: 40,
                                     pinned: true,
-                                    backgroundColor:
-                                        MainColors.scaffoldBackgroundColor,
+                                    backgroundColor: Colors.transparent,
                                     flexibleSpace: ClipRect(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
                                       child: BackdropFilter(

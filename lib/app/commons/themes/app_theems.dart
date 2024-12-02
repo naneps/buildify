@@ -8,18 +8,21 @@ import 'text_themes.dart';
 
 class AppThemes {
   static ThemeData lightTheme = ThemeData(
-    primarySwatch: MainColors.createMaterialColor(Get.theme.primaryColor),
+    primarySwatch: MainColors.createMaterialColor(MainColors.primaryColor),
     brightness: Brightness.light,
     scaffoldBackgroundColor: MainColors.scaffoldBackgroundColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: Get.theme.primaryColor,
+      backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
       titleTextStyle: TextStyle(color: MainColors.whiteColor, fontSize: 14),
     ),
-    visualDensity: const VisualDensity(horizontal: -2, vertical: -1),
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -4),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Get.theme.primaryColor,
+      backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
+    ),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: InputDecorationThemes.inputDecorationTheme,
     ),
     elevatedButtonTheme: ButtonThemes.elevatedButtonTheme,
     outlinedButtonTheme: ButtonThemes.outlinedButtonTheme,
@@ -34,9 +37,9 @@ class AppThemes {
     textTheme: TextThemes.lightTextTheme,
     colorScheme: ColorScheme.fromSeed(
       brightness: Brightness.light,
-      seedColor: Get.theme.primaryColor,
+      seedColor: MainColors.primaryColor,
       onPrimary: MainColors.whiteColor,
-      primary: Get.theme.primaryColor,
+      primary: MainColors.primaryColor,
       secondary: MainColors.secondaryColor,
     ),
     fontFamily: 'Poppins',
@@ -45,7 +48,7 @@ class AppThemes {
   );
 
   static ThemeData darkTheme = ThemeData(
-    primarySwatch: MainColors.createMaterialColor(Get.theme.primaryColor),
+    primarySwatch: MainColors.createMaterialColor(MainColors.primaryColor),
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       backgroundColor: MainColors.primaryDarkColor,
@@ -71,6 +74,7 @@ class AppThemes {
     outlinedButtonTheme: ButtonThemes.outlinedButtonDarkTheme,
     iconButtonTheme: ButtonThemes.iconButtonDarkTheme,
     textButtonTheme: ButtonThemes.textButtonDarkTheme,
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -4),
     inputDecorationTheme: InputDecorationThemes.inputDecorationTheme.copyWith(
       fillColor: MainColors.primaryDarkColor,
       enabledBorder: OutlineInputBorder(
@@ -83,7 +87,7 @@ class AppThemes {
       suffixIconColor: MainColors.whiteColor,
       labelStyle: TextStyle(color: MainColors.whiteColor),
     ),
-    fontFamily: 'Poppins',
+    fontFamily: 'monospace',
     bottomNavigationBarTheme: BottomNavBarThemes.bottomNavDarkTheme,
   );
 }

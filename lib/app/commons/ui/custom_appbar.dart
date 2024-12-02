@@ -74,7 +74,8 @@ class CustomAppBar extends GetView<CustomAppBarController> {
                   visible: controller.userService.user.value.uid == null,
                   child: NeoButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).canvasColor,
+                      foregroundColor: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
                       Get.dialog(const ScaleDialog(

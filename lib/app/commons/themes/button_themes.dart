@@ -5,13 +5,14 @@ import 'main_colors.dart';
 class ButtonThemes {
   static ElevatedButtonThemeData elevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: Get.theme.primaryColor,
+      backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
       disabledBackgroundColor: Colors.grey.shade100,
       disabledForegroundColor: Colors.grey.shade500,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
+      textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
       elevation: 0,
       animationDuration: const Duration(milliseconds: 500),
       minimumSize: const Size(30, 20),
@@ -28,6 +29,7 @@ class ButtonThemes {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
+      textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
       elevation: 0,
       animationDuration: const Duration(milliseconds: 500),
       minimumSize: const Size(30, 20),
@@ -37,14 +39,14 @@ class ButtonThemes {
   static OutlinedButtonThemeData outlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       backgroundColor: MainColors.whiteColor,
-      foregroundColor: Get.theme.primaryColor,
+      foregroundColor: MainColors.primaryColor,
       disabledBackgroundColor: Colors.grey.shade100,
       disabledForegroundColor: Colors.grey.shade500,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 0,
-      side: BorderSide(color: Get.theme.primaryColor),
+      side: BorderSide(color: MainColors.primaryColor),
       animationDuration: const Duration(milliseconds: 500),
       minimumSize: const Size(30, 20),
       fixedSize: const Size(double.infinity, 40),
@@ -71,7 +73,7 @@ class ButtonThemes {
   static TextButtonThemeData textButtonTheme = TextButtonThemeData(
     style: TextButton.styleFrom(
       backgroundColor: Colors.transparent,
-      foregroundColor: Get.theme.primaryColor,
+      foregroundColor: MainColors.primaryColor,
       disabledBackgroundColor: Colors.grey.shade100,
       disabledForegroundColor: Colors.grey.shade500,
       shape: RoundedRectangleBorder(
@@ -102,7 +104,7 @@ class ButtonThemes {
   static IconButtonThemeData iconButtonTheme = IconButtonThemeData(
     style: IconButton.styleFrom(
       visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
-      backgroundColor: Get.theme.primaryColor,
+      backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
       disabledBackgroundColor: Colors.grey.shade100,
       disabledForegroundColor: Colors.grey.shade500,
@@ -121,7 +123,7 @@ class ButtonThemes {
     style: IconButton.styleFrom(
       visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
       backgroundColor: MainColors.primaryDarkColor,
-      foregroundColor: Get.theme.primaryColor,
+      foregroundColor: MainColors.primaryColor,
       disabledBackgroundColor: MainColors.darkColor,
       disabledForegroundColor: Colors.grey.shade500,
       shape: RoundedRectangleBorder(

@@ -1,5 +1,4 @@
 import 'package:buildify/app/commons/ui/custom_appbar.dart';
-import 'package:buildify/app/models/builder_models/container_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

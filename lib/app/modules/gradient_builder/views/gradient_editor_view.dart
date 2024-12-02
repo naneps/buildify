@@ -27,9 +27,10 @@ class GradientEditorView extends GetView<GradientEditorController> {
       body: Obx(() {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          decoration: const BoxDecoration(
-              // gradient: controller.gradient.value.toGradient().value,
-              color: Colors.white),
+          decoration: BoxDecoration(
+            // gradient: controller.gradient.value.toGradient().value,
+            color: Get.theme.canvasColor,
+          ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: BackdropFilter(
             filter: ImageFilter.blur(
@@ -99,7 +100,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
                         children: [
                           Text(
                             "Stops",
-                            style: Theme.of(context).textTheme.labelMedium,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const Spacer(),
                           SizedBox(
@@ -118,7 +119,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
                                     controller.gradient.value.stops == null
                                         ? MainColors.successColor
                                         : MainColors.dangerColor,
-                                textStyle: Get.textTheme.labelMedium!,
+                                textStyle: Get.textTheme.bodyMedium!,
                               ),
                               child: Text(
                                 controller.gradient.value.stops == null
@@ -284,7 +285,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Alignment", style: Theme.of(context).textTheme.labelLarge),
+        Text("Alignment", style: Theme.of(context).textTheme.labelMedium),
         const SizedBox(height: 5),
         Row(
           children: [
@@ -333,7 +334,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
           children: [
             Text(
               "Custom End & Begin Alignment",
-              style: Theme.of(context).textTheme.labelLarge,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: 10),
             Row(
@@ -388,7 +389,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Colors", style: Theme.of(context).textTheme.labelMedium),
+        Text("Colors", style: Theme.of(context).textTheme.bodyMedium),
         const SizedBox(height: 5),
         Obx(() {
           return ColorPickerWidget(
@@ -415,7 +416,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: Theme.of(context).textTheme.labelMedium),
+        Text(label, style: Theme.of(context).textTheme.bodyMedium),
         const SizedBox(height: 10),
         NeoDropdown(
           value: value,
@@ -443,7 +444,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (hasLabel) ...[
-          Text(label, style: Theme.of(context).textTheme.labelMedium),
+          Text(label, style: Theme.of(context).textTheme.bodyMedium),
         ],
         SfSliderTheme(
           data: SfSliderThemeData(
@@ -458,7 +459,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
             thumbStrokeColor: Get.theme.primaryColor,
             inactiveTrackHeight: 0.5,
             thumbStrokeWidth: 2,
-            tooltipTextStyle: Theme.of(context).textTheme.labelLarge,
+            tooltipTextStyle: Theme.of(context).textTheme.labelMedium,
           ),
           child: SfSlider(
             value: value,

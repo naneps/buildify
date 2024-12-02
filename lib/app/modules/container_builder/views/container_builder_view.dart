@@ -1,6 +1,8 @@
 import 'package:buildify/app/enums/gradient.enum.dart';
 import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
+import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -38,12 +40,16 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                       const SizedBox(height: 10),
-                      XInput(
-                        label: 'Width',
+                      TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(MdiIcons.squareOutline),
+                          label: const Text('Width'),
+                        ),
                         keyboardType: TextInputType.number,
-                        initialValue:
-                            controller.container.value.width!.value.toString(),
-                        prefixIcon: Icon(MdiIcons.squareOutline),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
                         onChanged: (value) {
                           double width = double.parse(value);
                           controller.container.value.width!.value = width;
@@ -114,14 +120,41 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
                 ),
               ],
             ),
-            const Divider(
-              height: 10,
+            const Divider(height: 10),
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Padding',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 5),
+                  DropdownButtonFormField(
+                    items: [
+                      ...EdgeInsetType.values.map(
+                        (type) {
+                          return DropdownMenuItem(
+                            value: type,
+                            child: Text(
+                              type.name,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                    onChanged: (value) {},
+                  )
+                ],
+              ),
             ),
+            const Divider(height: 10),
             Text(
               'Decoration',
               style: Theme.of(context).textTheme.labelSmall,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(

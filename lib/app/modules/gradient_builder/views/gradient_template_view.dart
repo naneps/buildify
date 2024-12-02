@@ -23,7 +23,7 @@ class FilterGradientWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).canvasColor,
         border: ThemeManager().defaultBorder(),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -152,7 +152,7 @@ class GradientTemplateView extends GetView<GradientTemplateController> {
         body: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).canvasColor,
             border: ThemeManager().defaultBorder(),
             borderRadius: BorderRadius.circular(10),
           ),
