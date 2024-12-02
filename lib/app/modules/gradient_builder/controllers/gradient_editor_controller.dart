@@ -1,7 +1,7 @@
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '/app/commons/theme_manager.dart';
 import '/app/enums/gradient.enum.dart';
 import '/app/models/builder_models/aligment_geomertry.model.dart';
 import '/app/models/builder_models/gradient.model.dart';
@@ -12,8 +12,8 @@ class GradientEditorController extends GetxController {
   Rx<GradientModel> gradient = GradientModel(
     type: GradientType.linear,
     colors: [
-      ThemeManager().primaryColor,
-      ThemeManager().secondaryColor,
+      MainColors.primaryColor,
+      MainColors.secondaryColor,
     ].obs,
     stops: null,
     begin: AlignmentGeometryModel(x: 0, y: 0, type: AlignmentType.topLeft),

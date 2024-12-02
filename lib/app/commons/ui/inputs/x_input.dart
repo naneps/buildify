@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -83,7 +84,7 @@ class _XInputState extends State<XInput> {
         maxLines: widget.maxLines,
         minLines: widget.minLines,
         keyboardType: widget.keyboardType,
-        cursorColor: ThemeManager().primaryColor,
+        cursorColor: MainColors.primaryColor,
         inputFormatters: widget.inputFormatters,
         decoration: InputDecoration(
           labelText: widget.label,

@@ -22,29 +22,31 @@ class NavigationTile extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       margin: const EdgeInsets.symmetric(vertical: 2),
       decoration: BoxDecoration(
-          color: isActive ? ThemeManager().backgroundColor : Colors.white,
+          color: isActive
+              ? Theme.of(context).scaffoldBackgroundColor
+              : Colors.white,
           borderRadius: BorderRadius.circular(10),
           border: Border(
             left: BorderSide(
-              color: isActive ? ThemeManager().primaryColor : Colors.white,
+              color: isActive ? Get.theme.primaryColor : Colors.white,
               width: 5,
             ),
             right: BorderSide(
-              color: isActive ? ThemeManager().primaryColor : Colors.white,
+              color: isActive ? Get.theme.primaryColor : Colors.white,
               width: 1,
             ),
             top: BorderSide(
-              color: isActive ? ThemeManager().primaryColor : Colors.white,
+              color: isActive ? Get.theme.primaryColor : Colors.white,
               width: 1,
             ),
             bottom: BorderSide(
-              color: isActive ? ThemeManager().primaryColor : Colors.white,
+              color: isActive ? Get.theme.primaryColor : Colors.white,
               width: 2,
             ),
           ),
           boxShadow: [
             ThemeManager().defaultShadow(
-              color: isActive ? ThemeManager().primaryColor : Colors.white,
+              color: isActive ? Get.theme.primaryColor : Colors.white,
             ),
           ]),
       child: ListTile(
@@ -62,7 +64,7 @@ class NavigationTile extends StatelessWidget {
               ? Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: ThemeManager().primaryColor,
+                    color: Get.theme.primaryColor,
                     shape: BoxShape.circle,
                   ),
                   child: Text(

@@ -48,7 +48,6 @@ class BoxDecorationModel {
 }
 
 extension BoxShapeExtension on BoxShape {
-  BoxShape get shape => BoxShape.values[index];
   IconData get icon {
     switch (this) {
       case BoxShape.circle:
@@ -59,6 +58,8 @@ extension BoxShapeExtension on BoxShape {
         return MdiIcons.circleOutline;
     }
   }
+
+  BoxShape get shape => BoxShape.values[index];
 
   bool isSame(BoxShape shape) => this == shape;
 }

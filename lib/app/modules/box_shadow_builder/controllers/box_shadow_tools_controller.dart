@@ -1,4 +1,4 @@
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/models/builder_models/box_shadow.model.dart';
 import 'package:buildify/app/modules/box_shadow_builder/controllers/box_shadow_builder_controller.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class BoxShadowToolsController extends GetxController
   RxInt tabIndex = 0.obs;
   RxList<BoxShadowModel> boxShadows = RxList<BoxShadowModel>([
     BoxShadowModel(
-      color: ThemeManager().blackColor,
+      color: MainColors.darkColor,
       blurRadius: 0,
       spreadRadius: 1,
       offset: const Offset(2, 3),
@@ -21,7 +21,7 @@ class BoxShadowToolsController extends GetxController
 
   void addShadow() {
     boxShadows.add(BoxShadowModel(
-      color: ThemeManager().blackColor,
+      color: MainColors.darkColor,
       blurRadius: 0,
       spreadRadius: 1,
       offset: const Offset(2, 3),

@@ -1,6 +1,8 @@
-import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/enums/gradient.enum.dart';
+import 'package:buildify/app/models/builder_models/border_model.dart';
 import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
+import 'package:buildify/app/models/flex_models/column.model.dart';
+import 'package:buildify/app/models/widget_models/widget.%20model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,8 +14,16 @@ class ContainerBuilderController extends GetxController {
     height: RxDouble(200),
     alignment: AlignmentType.topLeft,
     decoration: BoxDecorationModel(
-      color: MainColors.primaryColor,
+      color: Get.theme.primaryColor,
       boxShape: BoxShape.rectangle,
     ),
   ).obs;
+  WidgetModel container2 = ContainerModel(
+    decoration: BoxDecorationModel(
+      border: BorderModel(
+        all: BorderSideModel(),
+      ),
+    ),
+    child: ColumnModel(),
+  );
 }

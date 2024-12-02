@@ -1,4 +1,4 @@
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 
 enum TypeButton { primary, secondary, tertiary, danger, warning, success, none }
@@ -7,17 +7,17 @@ extension TypeButtonExtension on TypeButton {
   Color get color {
     switch (this) {
       case TypeButton.primary:
-        return ThemeManager().primaryColor;
+        return MainColors.primaryColor;
       case TypeButton.secondary:
-        return ThemeManager().secondaryColor;
+        return MainColors.secondaryColor;
       case TypeButton.tertiary:
-        return ThemeManager().tertiaryColor;
+        return MainColors.tertiaryColor;
       case TypeButton.danger:
-        return ThemeManager().errorColor;
+        return MainColors.errorColor;
       case TypeButton.warning:
-        return ThemeManager().warningColor;
+        return MainColors.warningColor;
       case TypeButton.success:
-        return ThemeManager().successColor;
+        return MainColors.successColor;
       case TypeButton.none:
         return Colors.transparent;
     }

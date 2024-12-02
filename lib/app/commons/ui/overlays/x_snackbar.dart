@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 
 enum SnackBarType {
@@ -29,7 +30,7 @@ class XSnackBar {
       content: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: ThemeManager().scaffoldBackgroundColor,
+            color: MainColors.scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: type.backgroundColor),
             boxShadow: [
@@ -81,26 +82,26 @@ extension SnackBarTypeExtension on SnackBarType {
   Color get backgroundColor {
     switch (this) {
       case SnackBarType.success:
-        return ThemeManager().successColor;
+        return MainColors.successColor;
       case SnackBarType.error:
-        return ThemeManager().errorColor;
+        return MainColors.errorColor;
       case SnackBarType.warning:
-        return ThemeManager().warningColor;
+        return MainColors.warningColor;
       case SnackBarType.info:
-        return ThemeManager().infoColor;
+        return MainColors.infoColor;
     }
   }
 
   Color get color {
     switch (this) {
       case SnackBarType.success:
-        return ThemeManager().successColor;
+        return MainColors.successColor;
       case SnackBarType.error:
-        return ThemeManager().errorColor;
+        return MainColors.errorColor;
       case SnackBarType.warning:
-        return ThemeManager().warningColor;
+        return MainColors.warningColor;
       case SnackBarType.info:
-        return ThemeManager().infoColor;
+        return MainColors.infoColor;
     }
   }
 
@@ -111,9 +112,9 @@ extension SnackBarTypeExtension on SnackBarType {
       case SnackBarType.error:
         return Colors.white;
       case SnackBarType.warning:
-        return ThemeManager().textColor;
+        return MainColors.textColor;
       case SnackBarType.info:
-        return ThemeManager().textColor;
+        return MainColors.textColor;
     }
   }
 }

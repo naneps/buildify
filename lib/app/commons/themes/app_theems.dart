@@ -8,17 +8,17 @@ import 'text_themes.dart';
 
 class AppThemes {
   static ThemeData lightTheme = ThemeData(
-    primarySwatch: MainColors.createMaterialColor(MainColors.primaryColor),
+    primarySwatch: MainColors.createMaterialColor(Get.theme.primaryColor),
     brightness: Brightness.light,
     scaffoldBackgroundColor: MainColors.scaffoldBackgroundColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: MainColors.primaryColor,
+      backgroundColor: Get.theme.primaryColor,
       foregroundColor: MainColors.whiteColor,
       titleTextStyle: TextStyle(color: MainColors.whiteColor, fontSize: 14),
     ),
     visualDensity: const VisualDensity(horizontal: -2, vertical: -1),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: MainColors.primaryColor,
+      backgroundColor: Get.theme.primaryColor,
       foregroundColor: MainColors.whiteColor,
     ),
     elevatedButtonTheme: ButtonThemes.elevatedButtonTheme,
@@ -34,9 +34,9 @@ class AppThemes {
     textTheme: TextThemes.lightTextTheme,
     colorScheme: ColorScheme.fromSeed(
       brightness: Brightness.light,
-      seedColor: MainColors.primaryColor,
+      seedColor: Get.theme.primaryColor,
       onPrimary: MainColors.whiteColor,
-      primary: MainColors.primaryColor,
+      primary: Get.theme.primaryColor,
       secondary: MainColors.secondaryColor,
     ),
     fontFamily: 'Poppins',
@@ -45,7 +45,7 @@ class AppThemes {
   );
 
   static ThemeData darkTheme = ThemeData(
-    primarySwatch: MainColors.createMaterialColor(MainColors.primaryColor),
+    primarySwatch: MainColors.createMaterialColor(Get.theme.primaryColor),
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       backgroundColor: MainColors.primaryDarkColor,

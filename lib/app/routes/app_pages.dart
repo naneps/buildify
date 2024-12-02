@@ -18,7 +18,7 @@ import '../services/auth_middlerware.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const INITIAL = Routes.CONTAINER_BUILDER;
+  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(

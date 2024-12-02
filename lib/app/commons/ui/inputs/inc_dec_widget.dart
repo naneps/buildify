@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -37,7 +37,7 @@ class _IncDecWidgetState extends State<IncDecWidget> {
           onLongPressUp: _stopTimer,
           child: Icon(
             Icons.remove,
-            color: ThemeManager().dangerColor,
+            color: MainColors.dangerColor,
           ),
         ),
         Padding(
@@ -50,7 +50,7 @@ class _IncDecWidgetState extends State<IncDecWidget> {
           onLongPressUp: _stopTimer,
           child: Icon(
             Icons.add,
-            color: ThemeManager().primaryColor,
+            color: MainColors.primaryColor,
           ),
         ),
       ],

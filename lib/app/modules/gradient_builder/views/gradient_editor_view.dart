@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/inputs/colors_picker.widget.dart';
 import 'package:buildify/app/commons/ui/inputs/neo_dropdown_formfield.dart';
@@ -115,8 +116,8 @@ class GradientEditorView extends GetView<GradientEditorController> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     controller.gradient.value.stops == null
-                                        ? ThemeManager().successColor
-                                        : ThemeManager().dangerColor,
+                                        ? MainColors.successColor
+                                        : MainColors.dangerColor,
                                 textStyle: Get.textTheme.labelMedium!,
                               ),
                               child: Text(
@@ -446,15 +447,15 @@ class GradientEditorView extends GetView<GradientEditorController> {
         ],
         SfSliderTheme(
           data: SfSliderThemeData(
-            activeTrackColor: ThemeManager().primaryColor,
-            inactiveTrackColor: ThemeManager().blackColor,
-            thumbColor: ThemeManager().backgroundColor,
-            inactiveDividerColor: ThemeManager().blackColor,
-            activeDividerColor: ThemeManager().primaryColor,
-            tooltipBackgroundColor: ThemeManager().primaryColor,
+            activeTrackColor: Get.theme.primaryColor,
+            inactiveTrackColor: MainColors.darkColor,
+            thumbColor: MainColors.scaffoldBackgroundColor,
+            inactiveDividerColor: MainColors.darkColor,
+            activeDividerColor: Get.theme.primaryColor,
+            tooltipBackgroundColor: Get.theme.primaryColor,
             thumbRadius: 15,
             trackCornerRadius: 10,
-            thumbStrokeColor: ThemeManager().primaryColor,
+            thumbStrokeColor: Get.theme.primaryColor,
             inactiveTrackHeight: 0.5,
             thumbStrokeWidth: 2,
             tooltipTextStyle: Theme.of(context).textTheme.labelLarge,

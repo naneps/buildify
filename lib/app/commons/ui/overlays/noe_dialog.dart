@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:flutter/material.dart';
@@ -19,17 +20,17 @@ class NeoDialog {
     final Color primaryColor;
     switch (type) {
       case NeoDialogType.warning:
-        primaryColor = ThemeManager().warningColor;
+        primaryColor = MainColors.warningColor;
         break;
       case NeoDialogType.error:
-        primaryColor = ThemeManager().dangerColor;
+        primaryColor = MainColors.dangerColor;
         break;
       case NeoDialogType.success:
-        primaryColor = ThemeManager().successColor;
+        primaryColor = MainColors.successColor;
         break;
       case NeoDialogType.info:
       default:
-        primaryColor = ThemeManager().infoColor;
+        primaryColor = MainColors.infoColor;
         break;
     }
 
@@ -38,7 +39,7 @@ class NeoDialog {
           BoxConstraints(minWidth: Get.width * 0.2, maxWidth: Get.width * 0.5),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: ThemeManager().scaffoldBackgroundColor,
+        color: MainColors.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(10),
         border: ThemeManager().defaultBorder(),
         boxShadow: [
@@ -56,7 +57,7 @@ class NeoDialog {
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: ThemeManager().blackColor,
+              color: MainColors.darkColor,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -66,7 +67,7 @@ class NeoDialog {
             message,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: ThemeManager().blackColor,
+              color: MainColors.darkColor,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -79,7 +80,7 @@ class NeoDialog {
                 Expanded(
                   child: NeoButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: ThemeManager().dangerColor),
+                        backgroundColor: MainColors.dangerColor),
                     onPressed: onCancel ?? () => Navigator.of(context).pop(),
                     child: const Text("Close"),
                   ),
@@ -89,8 +90,8 @@ class NeoDialog {
                   Expanded(
                     child: NeoButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: ThemeManager().successColor,
-                        foregroundColor: ThemeManager().blackColor,
+                        backgroundColor: MainColors.successColor,
+                        foregroundColor: MainColors.darkColor,
                       ),
                       onPressed: onConfirm,
                       child: const Text("Confirm"),
@@ -155,7 +156,7 @@ class NeoDialog {
     VoidCallback? onCancel,
   }) {
     showDialog(
-      barrierColor: ThemeManager().blackColor.withOpacity(0.5),
+      barrierColor: MainColors.darkColor.withOpacity(0.5),
       useSafeArea: true,
       context: context,
       builder: (_) => ScaleDialog(

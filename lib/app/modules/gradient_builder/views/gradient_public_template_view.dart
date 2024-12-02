@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_icon_button.dart';
 import 'package:buildify/app/commons/ui/custom_appbar.dart';
@@ -75,7 +76,7 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                   },
                                 ),
                               ),
-                              drawerScrimColor: ThemeManager()
+                              drawerScrimColor: MainColors
                                   .scaffoldBackgroundColor
                                   .withOpacity(0.2),
                               body: Container(
@@ -179,8 +180,7 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                                     style: ElevatedButton
                                                         .styleFrom(
                                                       backgroundColor:
-                                                          ThemeManager()
-                                                              .infoColor,
+                                                          MainColors.infoColor,
                                                     ),
                                                     onPressed: () {
                                                       controller
@@ -261,7 +261,7 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                     expandedHeight: 40,
                                     pinned: true,
                                     backgroundColor:
-                                        ThemeManager().scaffoldBackgroundColor,
+                                        MainColors.scaffoldBackgroundColor,
                                     flexibleSpace: ClipRect(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
                                       child: BackdropFilter(
@@ -278,11 +278,8 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                             scrollDirection: Axis.horizontal,
                                             children: [
                                               ElevatedButton.icon(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      ThemeManager()
-                                                          .successColor,
-                                                ),
+                                                style:
+                                                    ElevatedButton.styleFrom(),
                                                 onPressed: () {
                                                   showCode(controller
                                                       .scaffoldKeyPreview);
@@ -294,7 +291,7 @@ class GradientPublicView extends GetView<GradientPublicController> {
                                               ElevatedButton.icon(
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:
-                                                      ThemeManager().infoColor,
+                                                      MainColors.infoColor,
                                                 ),
                                                 onPressed: () {
                                                   // Implement save as image functionality

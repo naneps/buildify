@@ -21,18 +21,15 @@ class HomeView extends GetView<HomeController> {
               const SliverAppBar(
                 pinned: true,
                 expandedHeight: 80,
+                backgroundColor: Colors.transparent,
                 flexibleSpace: CustomAppBar(),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Text(
                     'A suite of tools to accelerate your workflow:',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               ),
@@ -60,7 +57,6 @@ class HomeView extends GetView<HomeController> {
                       NeoIconButton(
                           icon: Icon(
                             MdiIcons.filterVariant,
-                            color: ThemeManager().blackColor,
                           ),
                           onPressed: () {}),
                     ],
@@ -161,8 +157,7 @@ class HomeView extends GetView<HomeController> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
-          border:
-              ThemeManager().defaultBorder(color: ThemeManager().primaryColor),
+          border: ThemeManager().defaultBorder(color: Get.theme.primaryColor),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(

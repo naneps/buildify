@@ -1,4 +1,4 @@
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -75,9 +75,9 @@ class _InputDateState extends State<InputDate> {
               return Theme(
                 data: ThemeData.light().copyWith(
                   colorScheme: ColorScheme.light(
-                    primary: ThemeManager().primaryColor,
+                    primary: MainColors.primaryColor,
                     onPrimary: Colors.white,
-                    onSurface: ThemeManager().primaryColor,
+                    onSurface: MainColors.primaryColor,
                   ),
                   dialogBackgroundColor: Colors.white,
                 ),
@@ -120,7 +120,7 @@ class _InputDateState extends State<InputDate> {
               return Theme(
                 data: ThemeData.light().copyWith(
                   colorScheme: ColorScheme.light(
-                    primary: ThemeManager().primaryColor,
+                    primary: MainColors.primaryColor,
                     onPrimary: Colors.white,
                   ),
                   dialogBackgroundColor: Colors.white,

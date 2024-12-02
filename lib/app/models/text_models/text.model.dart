@@ -1,13 +1,19 @@
 import 'package:buildify/app/models/text_models/text_style.model.dart';
+import 'package:buildify/app/models/widget_models/widget.%20model.dart';
 import 'package:flutter/material.dart';
 
-class TextModel {
+class TextModel extends WidgetModel {
   String? text;
-  TextModel({this.text, TextStyleModel? style});
   TextStyleModel? style;
   int? maxLines;
   int? minLines;
-  Widget toWidget() {
+  TextModel({
+    this.text,
+    this.style,
+    this.maxLines,
+  });
+  @override
+  Widget build() {
     return Text(
       text ?? 'content text',
       style: style?.toTextStyle(),

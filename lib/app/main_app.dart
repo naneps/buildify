@@ -1,4 +1,4 @@
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/app_theems.dart';
 import 'package:buildify/app/routes/app_pages.dart';
 import 'package:buildify/app/services/firebase/crashlytics_service.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,9 @@ class MainApp extends StatelessWidget {
       title: "Buildify App",
       initialRoute: AppPages.INITIAL,
       debugShowCheckedModeBanner: false,
-      theme: ThemeManager().themeData,
+      theme: AppThemes.lightTheme,
+      darkTheme: AppThemes.darkTheme,
+      themeMode: ThemeMode.light,
       initialBinding: BindingsBuilder(() {
         Get.lazyPut(() => CrashlyticsService());
       }),

@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_icon_button.dart';
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,10 @@ class UnderConstruction extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: ThemeManager().primaryColor, width: 2),
+            border: Border.all(color: Theme.of(context).primaryColor, width: 2),
             boxShadow: [
               ThemeManager().defaultShadow(
-                color: ThemeManager().primaryColor,
+                color: Theme.of(context).primaryColor,
               ),
             ],
           ),
@@ -40,7 +41,7 @@ class UnderConstruction extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(0),
-                      side: BorderSide(color: ThemeManager().blackColor),
+                      side: BorderSide(color: MainColors.darkColor),
                     ),
                     icon: Icon(MdiIcons.close),
                   ),
@@ -54,7 +55,7 @@ class UnderConstruction extends StatelessWidget {
               Text(
                 'Coming Soon',
                 style: Get.textTheme.labelMedium!.copyWith(
-                  color: ThemeManager().blackColor,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ],

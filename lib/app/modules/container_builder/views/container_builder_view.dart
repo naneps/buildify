@@ -23,6 +23,7 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            controller.container2.build(),
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,

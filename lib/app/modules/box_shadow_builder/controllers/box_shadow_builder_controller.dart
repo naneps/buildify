@@ -1,4 +1,4 @@
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
 import 'package:buildify/app/models/builder_models/container_model.dart';
 import 'package:buildify/app/modules/container_builder/controllers/container_builder_controller.dart';
@@ -12,7 +12,7 @@ class BoxShadowBuilderController extends GetxController {
     decoration: BoxDecorationModel(
       boxShadow: [],
       gradient: null,
-      color: ThemeManager().primaryColor,
+      color: MainColors.primaryColor,
     ),
   ).obs;
 

@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -53,7 +54,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                     ),
                     child: Icon(
                       MdiIcons.informationOutline,
-                      color: ThemeManager().infoColor,
+                      color: MainColors.infoColor,
                       size: 20,
                     ),
                   ),

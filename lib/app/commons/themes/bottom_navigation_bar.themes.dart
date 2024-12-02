@@ -7,13 +7,13 @@ class BottomNavBarThemes {
       BottomNavigationBarThemeData(
     elevation: 0,
     backgroundColor: MainColors.whiteColor,
-    selectedItemColor: MainColors.primaryColor,
+    selectedItemColor: Get.theme.primaryColor,
     unselectedItemColor: Colors.grey.shade300,
     showSelectedLabels: true,
     showUnselectedLabels: false,
-    selectedIconTheme: IconThemeData(color: MainColors.primaryColor, size: 28),
+    selectedIconTheme: IconThemeData(color: Get.theme.primaryColor, size: 28),
     selectedLabelStyle: TextStyle(
-      color: MainColors.primaryColor,
+      color: Get.theme.primaryColor,
       fontWeight: FontWeight.bold,
       fontSize: 12,
     ),
@@ -31,11 +31,11 @@ class BottomNavBarThemes {
   static BottomNavigationBarThemeData bottomNavDarkTheme =
       bottomNavTheme.copyWith(
     backgroundColor: MainColors.primaryDarkColor,
-    selectedItemColor: MainColors.primaryColor,
+    selectedItemColor: Get.theme.primaryColor,
     unselectedItemColor: Colors.grey.shade400,
-    selectedIconTheme: IconThemeData(color: MainColors.primaryColor, size: 28),
+    selectedIconTheme: IconThemeData(color: Get.theme.primaryColor, size: 28),
     selectedLabelStyle: TextStyle(
-      color: MainColors.primaryColor,
+      color: Get.theme.primaryColor,
       fontWeight: FontWeight.bold,
       fontSize: 12,
     ),

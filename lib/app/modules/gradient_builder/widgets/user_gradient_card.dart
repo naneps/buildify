@@ -1,3 +1,4 @@
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,8 +109,8 @@ class UserGradientCard extends GetView<UserGradientCardController> {
 
   Widget _buildShimmer() {
     return Shimmer.fromColors(
-      baseColor: ThemeManager().secondaryColor,
-      highlightColor: ThemeManager().primaryColor,
+      baseColor: Get.theme.colorScheme.secondary,
+      highlightColor: Get.theme.primaryColor,
       child: ListTile(
         visualDensity: VisualDensity.compact,
         contentPadding: EdgeInsets.zero,
@@ -152,8 +153,8 @@ class UserGradientCard extends GetView<UserGradientCardController> {
             LikeButton(
               size: 20,
               circleColor: CircleColor(
-                start: ThemeManager().dangerColor,
-                end: ThemeManager().secondaryColor,
+                start: MainColors.dangerColor,
+                end: MainColors.secondaryColor,
               ),
               bubblesColor: const BubblesColor(
                 dotPrimaryColor: Color(0xff33b5e5),
@@ -170,15 +171,15 @@ class UserGradientCard extends GetView<UserGradientCardController> {
             LikeButton(
               size: 20,
               circleColor: CircleColor(
-                start: ThemeManager().dangerColor,
-                end: ThemeManager().secondaryColor,
+                start: MainColors.dangerColor,
+                end: MainColors.secondaryColor,
               ),
               likeBuilder: (isSaved) {
                 return Icon(
                   isSaved ? MdiIcons.bookmark : MdiIcons.bookmarkOutline,
                   color: isSaved
-                      ? ThemeManager().dangerColor
-                      : ThemeManager().secondaryColor,
+                      ? MainColors.dangerColor
+                      : MainColors.secondaryColor,
                   size: 20,
                 );
               },

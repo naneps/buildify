@@ -1,4 +1,4 @@
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,16 +45,16 @@ extension XBadgeTypeExtension on XBadgeType {
   Color get color {
     switch (this) {
       case XBadgeType.primary:
-        return ThemeManager().primaryColor;
+        return MainColors.primaryColor;
 
       case XBadgeType.success:
-        return ThemeManager().successColor;
+        return MainColors.successColor;
 
       case XBadgeType.error:
-        return ThemeManager().errorColor;
+        return MainColors.errorColor;
 
       case XBadgeType.warning:
-        return ThemeManager().warningColor;
+        return MainColors.warningColor;
 
       default:
         return Colors.transparent;
