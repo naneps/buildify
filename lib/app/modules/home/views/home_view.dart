@@ -16,130 +16,128 @@ class HomeView extends GetView<HomeController> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: CustomScrollView(
-            slivers: [
-              const SliverAppBar(
-                pinned: true,
-                expandedHeight: 80,
-                backgroundColor: Colors.transparent,
-                flexibleSpace: CustomAppBar(),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    'A suite of tools to accelerate your workflow:',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+          child: LayoutBuilder(builder: (context, constraints) {
+            return CustomScrollView(
+              slivers: [
+                const SliverAppBar(
+                  pinned: false,
+                  expandedHeight: 80,
+                  backgroundColor: Colors.transparent,
+                  flexibleSpace: CustomAppBar(),
                 ),
-              ),
-              SliverAppBar(
-                pinned: true,
-                backgroundColor: Colors.transparent,
-                flexibleSpace: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            hintText: 'Search for tools...',
-                            contentPadding: const EdgeInsets.all(20),
-                            prefixIcon: Icon(MdiIcons.magnify),
-                          ),
-                          onChanged: (value) {
-                            // Handle search
-                            controller.search(value);
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      NeoIconButton(
-                          icon: Icon(
-                            MdiIcons.filterVariant,
-                          ),
-                          onPressed: () {}),
-                    ],
-                  ),
-                ),
-              ),
-              // Feature Grid
-              SliverFillRemaining(
-                //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Obx(() {
-                  return GridView.builder(
-                    itemCount: controller.navigationItems.length,
-                    padding: const EdgeInsets.all(20),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final item = controller.navigationItems[index];
-                      return _buildFeatureCard(
-                        icon: item.iconData!,
-                        label: item.title!,
-                        description: 'Description for ${item.title}',
-                        onPressed: () {
-                          // Handle feature click
-                          Get.toNamed(item.route!);
-                        },
-                      );
-                    },
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      mainAxisSpacing: 15,
-                      crossAxisSpacing: 15,
-                      childAspectRatio: 1.0,
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      'A suite of tools to accelerate your workflow:',
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
-                  );
-                }),
-              ),
-
-              // Footer Section
-              SliverToBoxAdapter(
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: ThemeManager().defaultBorder(),
                   ),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Buildify - Build your work faster',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Crafted with Flutter. Visit our GitHub for more information.',
-                        style: TextStyle(fontSize: 14),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              MdiIcons.github,
+                ),
+                SliverAppBar(
+                  pinned: true,
+                  backgroundColor: Colors.transparent,
+                  flexibleSpace: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              hintText: 'Search for tools...',
+                              contentPadding: const EdgeInsets.all(20),
+                              prefixIcon: Icon(MdiIcons.magnify),
                             ),
-                            onPressed: () {
-                              // Open GitHub link
+                            onChanged: (value) {
+                              // Handle search
+                              controller.search(value);
                             },
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        const SizedBox(width: 10),
+                        NeoIconButton(
+                            icon: Icon(
+                              MdiIcons.filterVariant,
+                            ),
+                            onPressed: () {}),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 10,
+                  ),
+                ),
+                SliverGrid.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: Get.width ~/ 370,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1,
+                    ),
+                    itemCount: controller.navigationItems.length,
+                    itemBuilder: (context, index) {
+                      final feature = controller.navigationItems[index];
+                      return _buildFeatureCard(
+                        icon: feature.iconData!,
+                        label: feature.title!,
+                        description: "description",
+                        onPressed: () {
+                          // Open feature page
+                          if (feature.route != null) {
+                            Get.toNamed(feature.route!);
+                          }
+                        },
+                      );
+                    }),
+                const SliverFillRemaining(),
+                // Footer Section
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Get.theme.canvasColor,
+                      borderRadius: BorderRadius.circular(10),
+                      border: ThemeManager().defaultBorder(),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Buildify - Build your work faster',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Crafted with Flutter. Visit our GitHub for more information.',
+                          style: TextStyle(fontSize: 14),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                MdiIcons.github,
+                              ),
+                              onPressed: () {
+                                // Open GitHub link
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
         ),
       ),
     );
@@ -156,7 +154,7 @@ class HomeView extends GetView<HomeController> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Get.theme.canvasColor,
           border: ThemeManager().defaultBorder(color: Get.theme.primaryColor),
           borderRadius: BorderRadius.circular(10),
         ),
@@ -167,17 +165,13 @@ class HomeView extends GetView<HomeController> {
             const SizedBox(height: 10),
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+              style: Get.textTheme.labelLarge,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 5),
             Text(
               description,
-              style: const TextStyle(fontSize: 14, color: Colors.black54),
+              style: Get.textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
           ],

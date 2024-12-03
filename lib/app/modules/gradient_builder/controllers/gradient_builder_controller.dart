@@ -1,3 +1,4 @@
+import 'package:buildify/app/modules/container_builder/controllers/container_editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,7 +6,6 @@ import '/app/models/builder_models/box_decoration_model.dart';
 import '/app/models/builder_models/container_model.dart';
 import '/app/models/builder_models/gradient.model.dart';
 import '../../../repositories/gradient.repository.dart';
-import '../../container_builder/controllers/container_builder_controller.dart';
 
 class GradientBuilderController extends GetxController {
   final gradientRepository = Get.find<GradientRepository>();
@@ -33,12 +33,19 @@ class GradientBuilderController extends GetxController {
   void onInit() {
     super.onInit();
     ever(
-      Get.find<ContainerBuilderController>().container,
+      Get.find<ContainerEditorController>().container,
       (newContainer) {
         container.update(
           (val) {
             val!.width!.value = newContainer.width!.value;
             val.height!.value = newContainer.height!.value;
+            val.padding = newContainer.padding;
+            val.margin = newContainer.margin;
+            val.alignment = newContainer.alignment;
+            val.decoration!.color = newContainer.decoration?.color;
+            val.decoration?.boxShape = newContainer.decoration!.boxShape;
+            val.decoration?.borderRadius =
+                newContainer.decoration?.borderRadius;
           },
         );
       },

@@ -19,9 +19,7 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
         centerTitle: true,
       ),
       body: ResponsiveLayout(
-        mobile: const Center(
-          child: Text("Mobile View \n Coming Soon"),
-        ),
+        mobile: const ContainerEditorView(),
         tablet: Obx(() {
           return Row(
             children: [

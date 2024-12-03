@@ -21,7 +21,7 @@ class AppThemes {
       ),
     ),
     tabBarTheme: TabBarThemes.tabBarTheme,
-    visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -1),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
@@ -79,7 +79,7 @@ class AppThemes {
     outlinedButtonTheme: ButtonThemes.outlinedButtonDarkTheme,
     iconButtonTheme: ButtonThemes.iconButtonDarkTheme,
     textButtonTheme: ButtonThemes.textButtonDarkTheme,
-    visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -1),
     inputDecorationTheme: InputDecorationThemes.inputDecorationTheme.copyWith(
       fillColor: MainColors.primaryDarkColor,
       enabledBorder: OutlineInputBorder(

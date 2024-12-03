@@ -9,14 +9,22 @@ class BorderModel {
   BorderSideModel? left;
   BorderSideModel? right;
 
-  BorderModel({
-    this.type = BorderType.all,
-    this.all,
-    this.top,
-    this.bottom,
-    this.left,
-    this.right,
-  });
+  BorderModel(
+      {this.type = BorderType.all,
+      this.all,
+      this.top,
+      this.bottom,
+      this.left,
+      this.right});
+
+  static BorderModel defaultBorder() => BorderModel(
+        type: BorderType.all,
+        all: BorderSideModel(width: 1, color: Colors.black),
+        top: BorderSideModel(width: 1, color: Colors.black),
+        bottom: BorderSideModel(width: 1, color: Colors.black),
+        left: BorderSideModel(width: 1, color: Colors.black),
+        right: BorderSideModel(width: 1, color: Colors.black),
+      );
 
   BorderModel copyWith({
     BorderType? type,
@@ -50,6 +58,11 @@ class BorderModel {
           bottom: bottom?.toBorderSide() ?? BorderSide.none,
           left: left?.toBorderSide() ?? BorderSide.none,
           right: right?.toBorderSide() ?? BorderSide.none,
+        );
+      case BorderType.symmetric:
+        return Border.symmetric(
+          horizontal: left?.toBorderSide() ?? BorderSide.none,
+          vertical: right?.toBorderSide() ?? BorderSide.none,
         );
       default:
         return Border.all(

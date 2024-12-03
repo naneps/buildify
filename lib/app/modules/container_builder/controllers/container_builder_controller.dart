@@ -47,6 +47,7 @@ class ContainerBuilderController extends GetxController {
             val.decoration!.color = value.decoration?.color;
             val.decoration?.boxShape = value.decoration!.boxShape;
             val.decoration?.borderRadius = value.decoration?.borderRadius;
+            val.decoration!.border = value.decoration?.border;
           },
         );
       },
