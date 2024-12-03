@@ -242,8 +242,9 @@ class GradientExportImage extends GetView<GradientPublicController> {
               ),
               NeoButton(
                 style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: MainColors.darkColor),
+                  foregroundColor: Colors.white,
+                  backgroundColor: MainColors.darkColor,
+                ),
                 onPressed: () {
                   capture();
                 },

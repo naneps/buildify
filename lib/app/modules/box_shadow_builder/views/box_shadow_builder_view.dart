@@ -1,5 +1,4 @@
 import 'package:buildify/app/commons/ui/responsive_layout.dart';
-import 'package:buildify/app/models/builder_models/container_model.dart';
 import 'package:buildify/app/modules/box_shadow_builder/views/box_shadow_tools_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +27,7 @@ class BoxShadowBuilderView extends GetView<BoxShadowBuilderController> {
         tablet: Row(
           children: [
             Expanded(
+              flex: Get.width > 800 ? 2 : 1,
               child: Obx(
                 () {
                   return Center(

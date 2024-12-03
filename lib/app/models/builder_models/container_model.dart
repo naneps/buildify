@@ -1,6 +1,6 @@
 import 'package:buildify/app/enums/gradient.enum.dart';
 import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
-import 'package:buildify/app/models/widget_models/widget.%20model.dart';
+import 'package:buildify/app/models/widget_models/widget.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,6 +36,7 @@ class ContainerModel extends WidgetModel {
       clipBehavior: clipBehavior ?? Clip.none,
       width: width?.value,
       height: height?.value,
+      padding: padding?.toEdgeInsets(),
       alignment: alignment?.alignment,
       color: decoration != null ? null : color,
       margin: margin?.toEdgeInsets(),

@@ -1,7 +1,7 @@
 import 'package:buildify/app/commons/theme_manager.dart';
 import 'package:buildify/app/modules/box_shadow_builder/controllers/box_shadow_tools_controller.dart';
 import 'package:buildify/app/modules/box_shadow_builder/views/shadow_tools_section.dart';
-import 'package:buildify/app/modules/container_builder/views/container_builder_view.dart';
+import 'package:buildify/app/modules/container_builder/views/container_editor_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +31,7 @@ class BoxShadowToolsView extends GetView<BoxShadowToolsController> {
                 controller: controller.mainTabController,
                 children: [
                   ShadowToolsSection(controller: controller),
-                  const ContainerBuilderView(),
+                  const ContainerEditorView()
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class BorderModel {
   BorderType? type;
@@ -102,4 +103,24 @@ class BorderSideModel {
   }
 }
 
-enum BorderType { all, only }
+enum BorderType { all, only, symmetric }
+
+extension BorderTypeExtension on BorderType {
+  IconData get icon => {
+        BorderType.all: MdiIcons.borderAllVariant,
+        BorderType.only:
+            MdiIcons.borderLeftVariant, // atau ikon untuk sisi spesifik
+        BorderType.symmetric: MdiIcons.borderStyle, // atau borderVertical
+      }[this]!;
+  bool get isAll => this == BorderType.all;
+  bool get isOnly => this == BorderType.only;
+
+  bool get isSymmetric => this == BorderType.symmetric;
+
+  String get name => toString().split('.').last;
+  BorderType get type => {
+        BorderType.all: BorderType.all,
+        BorderType.only: BorderType.only,
+        BorderType.symmetric: BorderType.symmetric,
+      }[this]!;
+}

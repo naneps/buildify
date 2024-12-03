@@ -1,4 +1,4 @@
-import 'package:buildify/app/models/widget_models/widget.%20model.dart';
+import 'package:buildify/app/models/widget_models/widget.model.dart';
 import 'package:flutter/material.dart';
 
 abstract class FlexModel extends WidgetModel {

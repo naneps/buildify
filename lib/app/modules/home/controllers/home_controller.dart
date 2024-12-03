@@ -23,7 +23,12 @@ class HomeController extends GetxController {
       title: 'Widget builder',
       route: Routes.WIDGET_BUILDER,
       iconData: MdiIcons.widgets,
-    )
+    ),
+    NavigationModel(
+      title: 'Container Builder',
+      route: Routes.CONTAINER_BUILDER,
+      iconData: MdiIcons.trainCarContainer,
+    ),
   ];
   @override
   void onInit() {

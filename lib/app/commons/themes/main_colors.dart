@@ -4,6 +4,8 @@ class MainColors {
   static Color primaryColor = const Color.fromARGB(255, 43, 58, 197);
   static Color primaryDarkColor = const Color.fromARGB(255, 23, 26, 51);
   static Color tertiaryColor = const Color.fromARGB(255, 234, 139, 139);
+  static Color tertiaryDarkColor = const Color.fromARGB(255, 133, 52, 52);
+  static Color cardColor = const Color.fromARGB(255, 255, 255, 255);
   static Color secondaryColor = const Color.fromARGB(255, 130, 230, 255);
   static Color secondaryDarkColor = const Color.fromARGB(255, 36, 113, 133);
   static Color textColor = const Color.fromARGB(255, 27, 29, 28);
@@ -20,7 +22,7 @@ class MainColors {
   static Color dividerColor = Colors.grey.shade200;
   static Color borderColor = Colors.grey.shade200;
   static Color scaffoldBackgroundColor =
-      const Color.fromARGB(255, 240, 242, 255);
+      const Color.fromARGB(255, 245, 246, 251);
   static Color scaffoldDarkBackgroundColor =
       const Color.fromARGB(255, 19, 22, 21);
 

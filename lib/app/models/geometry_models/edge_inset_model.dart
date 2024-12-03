@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class EdgeInsetModel {
-  final EdgeInsetType type;
-  final double? all;
-  final double? left;
-  final double? top;
-  final double? right;
-  final double? bottom;
-  final double? horizontal;
-  final double? vertical;
+  EdgeInsetType type;
+  double? all;
+  double? left;
+  double? top;
+  double? right;
+  double? bottom;
+  double? horizontal;
+  double? vertical;
 
   EdgeInsetModel({
     required this.type,
     this.all,
-    this.left,
-    this.top,
-    this.right,
-    this.bottom,
-    this.horizontal,
-    this.vertical,
+    this.left = 0.0,
+    this.top = 0.0,
+    this.right = 0.0,
+    this.bottom = 0.0,
+    this.horizontal = 0.0,
+    this.vertical = 0.0,
   });
 
   /// Factory constructors for convenience
@@ -107,3 +108,13 @@ class EdgeInsetModel {
 }
 
 enum EdgeInsetType { all, only, symmetric }
+
+extension EdgeInsetTypeExtension on EdgeInsetType {
+  IconData get icon => {
+        EdgeInsetType.all: MdiIcons.borderAllVariant,
+        EdgeInsetType.only:
+            MdiIcons.borderLeftVariant, // atau ikon untuk sisi spesifik
+        EdgeInsetType.symmetric: MdiIcons.borderStyle, // atau borderVertical
+      }[this]!;
+  String get name => toString().split('.').last;
+}

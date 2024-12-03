@@ -55,7 +55,7 @@ extension BoxShapeExtension on BoxShape {
       case BoxShape.rectangle:
         return MdiIcons.rectangleOutline;
       default:
-        return MdiIcons.circleOutline;
+        return MdiIcons.circle;
     }
   }
 
