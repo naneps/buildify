@@ -1,5 +1,3 @@
-import 'package:buildify/app/modules/gradient_builder/views/gradient_public_template_view.dart';
-import 'package:buildify/app/services/auth_middlerware.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
@@ -10,8 +8,12 @@ import '../modules/container_builder/bindings/container_builder_binding.dart';
 import '../modules/container_builder/views/container_builder_view.dart';
 import '../modules/gradient_builder/bindings/gradient_builder_binding.dart';
 import '../modules/gradient_builder/views/gradient_builder_view.dart';
+import '../modules/gradient_builder/views/gradient_public_template_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/widget_builder/bindings/widget_builder_binding.dart';
+import '../modules/widget_builder/views/widget_builder_view.dart';
+import '../services/auth_middlerware.dart';
 
 part 'app_routes.dart';
 
@@ -62,6 +64,11 @@ class AppPages {
       page: () => const BoxShadowBuilderView(),
       binding: BoxShadowBuilderBinding(),
       bindings: [AuthBinding(), ContainerBuilderBinding()],
+    ),
+    GetPage(
+      name: _Paths.WIDGET_BUILDER,
+      page: () => const WidgetBuilderView(),
+      binding: WidgetBuilderBinding(),
     ),
   ];
 

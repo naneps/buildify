@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/code_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
@@ -35,13 +36,13 @@ class _TypewriterMarkdownState extends State<TypewriterMarkdown>
               CodeConfig(
                 style: TextStyle(
                   fontFamily: 'monospace',
-                  color: ThemeManager().primaryColor,
+                  color: MainColors.primaryColor,
                 ),
               ),
               PreConfig(
                 textStyle: TextStyle(
                   fontSize: 14,
-                  color: ThemeManager().primaryColor,
+                  color: MainColors.primaryColor,
                   fontFamily: 'monospace',
                 ),
                 decoration: BoxDecoration(
@@ -57,7 +58,7 @@ class _TypewriterMarkdownState extends State<TypewriterMarkdown>
                 style: TextStyle(
                   fontFamily: 'monospace',
                   fontSize: 14,
-                  backgroundColor: ThemeManager().successColor,
+                  backgroundColor: MainColors.successColor,
                 ),
               ),
             ],

@@ -32,7 +32,7 @@ class NeoIconButton extends StatelessWidget {
             ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               padding: EdgeInsets.zero,
-              foregroundColor: color ?? ThemeManager().blackColor,
+              foregroundColor: color ?? Theme.of(context).primaryColor,
               shape: const CircleBorder(),
             ),
         onPressed: onPressed,

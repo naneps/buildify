@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class Logo extends StatelessWidget {
         vertical: 5,
       ),
       decoration: BoxDecoration(
-        color: ThemeManager().scaffoldBackgroundColor,
+        color: Get.theme.scaffoldBackgroundColor,
         boxShadow: const [],
         border: ThemeManager().defaultBorder(),
         borderRadius: BorderRadius.circular(15),
@@ -35,7 +36,7 @@ class Logo extends StatelessWidget {
             TextSpan(
               text: ' Build',
               style: Get.textTheme.labelLarge!.copyWith(
-                color: ThemeManager().blackColor,
+                color: MainColors.darkColor,
                 height: 1.3,
                 fontFamily: 'Poppins',
                 letterSpacing: 1.5,
@@ -46,7 +47,7 @@ class Logo extends StatelessWidget {
             TextSpan(
               text: 'ify',
               style: Get.textTheme.labelLarge!.copyWith(
-                color: ThemeManager().primaryColor,
+                color: MainColors.primaryColor,
                 fontFamily: 'Poppins',
                 fontSize: fontSize ?? 20,
                 height: 1.3,

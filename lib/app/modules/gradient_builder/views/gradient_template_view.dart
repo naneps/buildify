@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/inputs/neo_dropdown_formfield.dart';
 import 'package:buildify/app/commons/ui/loading.widget.dart';
@@ -22,7 +23,7 @@ class FilterGradientWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).canvasColor,
         border: ThemeManager().defaultBorder(),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -62,9 +63,9 @@ class FilterGradientWidget extends StatelessWidget {
           //     onToggle: (index) {
           //       controller.filterType.value = GradientType.values[index!].name;
           //     },
-          //     inactiveBgColor: ThemeManager().scaffoldBackgroundColor,
-          //     inactiveFgColor: ThemeManager().blackColor,
-          //     activeFgColor: ThemeManager().backgroundColor,
+          //     inactiveBgColor: MainColors.scaffoldBackgroundColor,
+          //     inactiveFgColor: MainColors.blackColor,
+          //     activeFgColor: MainColors.backgroundColor,
           //     totalSwitches: 3,
           //     initialLabelIndex: controller.filterType.value == "all"
           //         ? 0
@@ -98,7 +99,7 @@ class FilterGradientWidget extends StatelessWidget {
             height: 30,
             child: NeoButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: ThemeManager().infoColor,
+                backgroundColor: MainColors.infoColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -115,7 +116,7 @@ class FilterGradientWidget extends StatelessWidget {
             height: 30,
             child: NeoButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: ThemeManager().successColor,
+                backgroundColor: MainColors.successColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -151,7 +152,7 @@ class GradientTemplateView extends GetView<GradientTemplateController> {
         body: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).canvasColor,
             border: ThemeManager().defaultBorder(),
             borderRadius: BorderRadius.circular(10),
           ),

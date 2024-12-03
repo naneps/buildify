@@ -29,7 +29,6 @@ class ShadowToolsSection extends StatelessWidget {
               width: Get.width,
               child: Row(
                 children: [
-                  // TabBar to navigate between box shadows
                   Expanded(
                     child: TabBar.secondary(
                       controller: controller.tabController,
@@ -78,8 +77,6 @@ class ShadowToolsSection extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(),
-            // TabBarView to display each box shadow editor
             Expanded(
               child: TabBarView(
                 controller: controller.tabController,

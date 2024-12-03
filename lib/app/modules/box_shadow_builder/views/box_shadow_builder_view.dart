@@ -27,10 +27,11 @@ class BoxShadowBuilderView extends GetView<BoxShadowBuilderController> {
         tablet: Row(
           children: [
             Expanded(
+              flex: Get.width > 800 ? 2 : 1,
               child: Obx(
                 () {
                   return Center(
-                    child: controller.containerModel.value.widget(),
+                    child: controller.containerModel.value.build(),
                   );
                 },
               ),

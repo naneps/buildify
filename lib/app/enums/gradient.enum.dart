@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 enum AlignmentType {
-  center,
   topLeft,
   topCenter,
   topRight,
   centerLeft,
+  center,
   centerRight,
   bottomLeft,
   bottomCenter,

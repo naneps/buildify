@@ -63,7 +63,7 @@ class GradientBuilderView extends GetView<GradientBuilderController> {
                         Container(
                           alignment: Alignment.center,
                           child: Obx(() {
-                            return controller.container.value.widget();
+                            return controller.container.value.build();
                           }),
                         ),
                       ],

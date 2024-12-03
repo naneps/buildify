@@ -12,6 +12,7 @@ class ButtonThemes {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
+      textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
       elevation: 0,
       animationDuration: const Duration(milliseconds: 500),
       minimumSize: const Size(30, 20),
@@ -28,6 +29,7 @@ class ButtonThemes {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
+      textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
       elevation: 0,
       animationDuration: const Duration(milliseconds: 500),
       minimumSize: const Size(30, 20),

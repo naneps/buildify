@@ -15,6 +15,7 @@ abstract class Routes {
   static const BOX_SHADOW_BUILDER = _Paths.BOX_SHADOW_BUILDER;
   static const GRADIENT_PUBLIC = _Paths.GRADIENT_PUBLIC;
   Routes._();
+  static const WIDGET_BUILDER = _Paths.WIDGET_BUILDER;
 }
 
 abstract class _Paths {
@@ -31,4 +32,5 @@ abstract class _Paths {
   static const BOX_SHADOW_BUILDER = '/box-shadow-builder';
   static const GRADIENT_PUBLIC = '/gradient-public';
   _Paths._();
+  static const WIDGET_BUILDER = '/widget-builder';
 }

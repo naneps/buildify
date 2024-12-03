@@ -1,4 +1,4 @@
-import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/inputs/x_input.dart';
 import 'package:buildify/app/commons/ui/logo.dart';
@@ -24,10 +24,10 @@ class FormSignIn extends GetView<AuthController> {
         vertical: 20,
       ),
       decoration: BoxDecoration(
-        color: ThemeManager().scaffoldBackgroundColor,
-        border: Border.all(color: ThemeManager().blackColor, width: 3),
-        boxShadow: [
-          ThemeManager().defaultShadow(),
+        color: Get.theme.scaffoldBackgroundColor,
+        border: Border.all(color: MainColors.darkColor, width: 3),
+        boxShadow: const [
+          //   MainColors.darkColor,
         ],
         borderRadius: BorderRadius.circular(10),
       ),
@@ -111,7 +111,7 @@ class FormSignIn extends GetView<AuthController> {
             child: NeoButton(
               //   icon: const Icon(FontAwesomeIcons.user),
               style: ElevatedButton.styleFrom(
-                foregroundColor: ThemeManager().blackColor,
+                foregroundColor: MainColors.darkColor,
                 backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -130,10 +130,10 @@ class FormSignIn extends GetView<AuthController> {
           NeoButton.icon(
             icon: Icon(
               FontAwesomeIcons.github,
-              color: ThemeManager().blackColor,
+              color: MainColors.darkColor,
             ),
             style: ElevatedButton.styleFrom(
-              foregroundColor: ThemeManager().blackColor,
+              foregroundColor: MainColors.darkColor,
               backgroundColor: Colors.grey.shade300,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -162,7 +162,7 @@ class FormSignIn extends GetView<AuthController> {
           //   const SizedBox(height: 10),
           //   NeoButton(
           //     style: ElevatedButton.styleFrom(
-          //       foregroundColor: ThemeManager().blackColor,
+          //       foregroundColor: MainColors.darkColor,
           //       backgroundColor: Colors.white,
           //       shape: RoundedRectangleBorder(
           //         borderRadius: BorderRadius.circular(10),

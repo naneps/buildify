@@ -4,7 +4,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// A service class for handling Crashlytics functionality.
 class CrashlyticsService extends GetxService {
   static CrashlyticsService get to => Get.find();
 

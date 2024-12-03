@@ -28,7 +28,7 @@ class _PreviewCodeWidgetState extends State<PreviewCodeWidget> {
       padding: const EdgeInsets.all(16),
       height: Get.height,
       decoration: BoxDecoration(
-        color: ThemeManager().scaffoldBackgroundColor,
+        color: Get.theme.scaffoldBackgroundColor,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         border: ThemeManager().defaultBorder(),
       ),

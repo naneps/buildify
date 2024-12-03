@@ -1,3 +1,4 @@
+import 'package:buildify/app/commons/themes/tab_bar_themes.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_navigation_bar.themes.dart';
@@ -14,12 +15,19 @@ class AppThemes {
     appBarTheme: AppBarTheme(
       backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
-      titleTextStyle: TextStyle(color: MainColors.whiteColor, fontSize: 14),
+      titleTextStyle: TextStyle(
+        color: MainColors.whiteColor,
+        fontSize: 14,
+      ),
     ),
-    visualDensity: const VisualDensity(horizontal: -2, vertical: -1),
+    tabBarTheme: TabBarThemes.tabBarTheme,
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
+    ),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: InputDecorationThemes.inputDecorationTheme,
     ),
     elevatedButtonTheme: ButtonThemes.elevatedButtonTheme,
     outlinedButtonTheme: ButtonThemes.outlinedButtonTheme,
@@ -71,6 +79,7 @@ class AppThemes {
     outlinedButtonTheme: ButtonThemes.outlinedButtonDarkTheme,
     iconButtonTheme: ButtonThemes.iconButtonDarkTheme,
     textButtonTheme: ButtonThemes.textButtonDarkTheme,
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
     inputDecorationTheme: InputDecorationThemes.inputDecorationTheme.copyWith(
       fillColor: MainColors.primaryDarkColor,
       enabledBorder: OutlineInputBorder(
@@ -83,7 +92,7 @@ class AppThemes {
       suffixIconColor: MainColors.whiteColor,
       labelStyle: TextStyle(color: MainColors.whiteColor),
     ),
-    fontFamily: 'Poppins',
+    fontFamily: 'monospace',
     bottomNavigationBarTheme: BottomNavBarThemes.bottomNavDarkTheme,
   );
 }

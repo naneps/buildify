@@ -3,6 +3,7 @@ import 'package:buildify/app/models/builder_models/border_radius.model.dart';
 import 'package:buildify/app/models/builder_models/box_shadow.model.dart';
 import 'package:buildify/app/models/builder_models/gradient.model.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class BoxDecorationModel {
   Color? color;
@@ -44,4 +45,21 @@ class BoxDecorationModel {
       'borderRadius': borderRadius?.toJson()
     };
   }
+}
+
+extension BoxShapeExtension on BoxShape {
+  IconData get icon {
+    switch (this) {
+      case BoxShape.circle:
+        return MdiIcons.circle;
+      case BoxShape.rectangle:
+        return MdiIcons.rectangleOutline;
+      default:
+        return MdiIcons.circle;
+    }
+  }
+
+  BoxShape get shape => BoxShape.values[index];
+
+  bool isSame(BoxShape shape) => this == shape;
 }

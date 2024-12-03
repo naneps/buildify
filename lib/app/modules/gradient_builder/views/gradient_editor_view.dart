@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/inputs/colors_picker.widget.dart';
 import 'package:buildify/app/commons/ui/inputs/neo_dropdown_formfield.dart';
@@ -26,9 +27,10 @@ class GradientEditorView extends GetView<GradientEditorController> {
       body: Obx(() {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          decoration: const BoxDecoration(
-              // gradient: controller.gradient.value.toGradient().value,
-              color: Colors.white),
+          decoration: BoxDecoration(
+            // gradient: controller.gradient.value.toGradient().value,
+            color: Get.theme.canvasColor,
+          ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: BackdropFilter(
             filter: ImageFilter.blur(
@@ -98,7 +100,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
                         children: [
                           Text(
                             "Stops",
-                            style: Theme.of(context).textTheme.labelMedium,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const Spacer(),
                           SizedBox(
@@ -115,9 +117,9 @@ class GradientEditorView extends GetView<GradientEditorController> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     controller.gradient.value.stops == null
-                                        ? ThemeManager().successColor
-                                        : ThemeManager().dangerColor,
-                                textStyle: Get.textTheme.labelMedium!,
+                                        ? MainColors.successColor
+                                        : MainColors.dangerColor,
+                                textStyle: Get.textTheme.bodyMedium!,
                               ),
                               child: Text(
                                 controller.gradient.value.stops == null
@@ -283,7 +285,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Alignment", style: Theme.of(context).textTheme.labelLarge),
+        Text("Alignment", style: Theme.of(context).textTheme.labelMedium),
         const SizedBox(height: 5),
         Row(
           children: [
@@ -332,7 +334,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
           children: [
             Text(
               "Custom End & Begin Alignment",
-              style: Theme.of(context).textTheme.labelLarge,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: 10),
             Row(
@@ -387,7 +389,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Colors", style: Theme.of(context).textTheme.labelMedium),
+        Text("Colors", style: Theme.of(context).textTheme.bodyMedium),
         const SizedBox(height: 5),
         Obx(() {
           return ColorPickerWidget(
@@ -414,7 +416,7 @@ class GradientEditorView extends GetView<GradientEditorController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: Theme.of(context).textTheme.labelMedium),
+        Text(label, style: Theme.of(context).textTheme.bodyMedium),
         const SizedBox(height: 10),
         NeoDropdown(
           value: value,
@@ -442,22 +444,22 @@ class GradientEditorView extends GetView<GradientEditorController> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (hasLabel) ...[
-          Text(label, style: Theme.of(context).textTheme.labelMedium),
+          Text(label, style: Theme.of(context).textTheme.bodyMedium),
         ],
         SfSliderTheme(
           data: SfSliderThemeData(
-            activeTrackColor: ThemeManager().primaryColor,
-            inactiveTrackColor: ThemeManager().blackColor,
-            thumbColor: ThemeManager().backgroundColor,
-            inactiveDividerColor: ThemeManager().blackColor,
-            activeDividerColor: ThemeManager().primaryColor,
-            tooltipBackgroundColor: ThemeManager().primaryColor,
+            activeTrackColor: Get.theme.primaryColor,
+            inactiveTrackColor: MainColors.darkColor,
+            thumbColor: MainColors.scaffoldBackgroundColor,
+            inactiveDividerColor: MainColors.darkColor,
+            activeDividerColor: Get.theme.primaryColor,
+            tooltipBackgroundColor: Get.theme.primaryColor,
             thumbRadius: 15,
             trackCornerRadius: 10,
-            thumbStrokeColor: ThemeManager().primaryColor,
+            thumbStrokeColor: Get.theme.primaryColor,
             inactiveTrackHeight: 0.5,
             thumbStrokeWidth: 2,
-            tooltipTextStyle: Theme.of(context).textTheme.labelLarge,
+            tooltipTextStyle: Theme.of(context).textTheme.labelMedium,
           ),
           child: SfSlider(
             value: value,

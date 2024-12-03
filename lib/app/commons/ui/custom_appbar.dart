@@ -2,6 +2,7 @@ import 'package:buildify/app/commons/theme_manager.dart';
 import 'package:buildify/app/commons/ui/avatar_widget.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_icon_button.dart';
+import 'package:buildify/app/commons/ui/buttons/theme_toggle_button.dart';
 import 'package:buildify/app/commons/ui/logo.dart';
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:buildify/app/modules/auth/views/form_signin.dart';
@@ -21,10 +22,11 @@ class CustomAppBar extends GetView<CustomAppBarController> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
-        color: ThemeManager().primaryColor,
+        color: Theme.of(context).colorScheme.primary,
         border: ThemeManager().defaultBorder(),
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(40)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,10 +45,10 @@ class CustomAppBar extends GetView<CustomAppBarController> {
                       vertical: 0,
                     ),
                     decoration: BoxDecoration(
-                        border: ThemeManager().defaultBorder(),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        color: ThemeManager().backgroundColor),
+                      border: ThemeManager().defaultBorder(),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      color: Theme.of(context).canvasColor,
+                    ),
                     width: 200,
                     child: ListTile(
                       visualDensity: VisualDensity.compact,
@@ -63,7 +65,6 @@ class CustomAppBar extends GetView<CustomAppBarController> {
                       ),
                       trailing: Icon(
                         MdiIcons.dotsVertical,
-                        color: ThemeManager().blackColor,
                         size: 20,
                       ),
                     ),
@@ -73,7 +74,8 @@ class CustomAppBar extends GetView<CustomAppBarController> {
                   visible: controller.userService.user.value.uid == null,
                   child: NeoButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).canvasColor,
+                      foregroundColor: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
                       Get.dialog(const ScaleDialog(
@@ -89,9 +91,9 @@ class CustomAppBar extends GetView<CustomAppBarController> {
               ],
             );
           }),
+          const ThemeToggleButton(),
           const SizedBox(width: 10),
           NeoIconButton(
-            color: ThemeManager().blackColor,
             size: const Size(50, 50),
             onPressed: () {},
             icon: Icon(

@@ -1,3 +1,4 @@
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -106,7 +107,7 @@ class GradientTile extends StatelessWidget {
                   child: NeoButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStatePropertyAll(ThemeManager().infoColor),
+                          WidgetStatePropertyAll(MainColors.infoColor),
                       elevation: const WidgetStatePropertyAll(0),
                       shadowColor:
                           const WidgetStatePropertyAll(Colors.transparent),
@@ -145,7 +146,7 @@ class GradientTile extends StatelessWidget {
                 },
                 child: Icon(
                   MdiIcons.trashCanOutline,
-                  color: ThemeManager().dangerColor,
+                  color: MainColors.dangerColor,
                 ),
               ),
             ],

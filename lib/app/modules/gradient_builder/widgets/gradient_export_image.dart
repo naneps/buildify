@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_public_controller.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -242,7 +243,7 @@ class GradientExportImage extends GetView<GradientPublicController> {
               NeoButton(
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: ThemeManager().blackColor,
+                  backgroundColor: MainColors.darkColor,
                 ),
                 onPressed: () {
                   capture();

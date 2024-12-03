@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/preview_code_widget.dart';
 import 'package:buildify/app/commons/ui/scroll_to_hide.widget.dart';
@@ -22,7 +23,7 @@ class GradientToolsView extends GetView<GradientToolsController> {
         key: controller.scaffoldKey,
         body: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Get.theme.canvasColor,
             borderRadius: BorderRadius.circular(10),
             border: ThemeManager().defaultBorder(),
           ),
@@ -62,7 +63,7 @@ class GradientToolsView extends GetView<GradientToolsController> {
                             showSaveDialog(controller.scaffoldKey);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: ThemeManager().infoColor,
+                            backgroundColor: MainColors.infoColor,
                             textStyle: Get.textTheme.labelMedium,
                           ),
                           child: const Text("Make Template"),
@@ -76,7 +77,7 @@ class GradientToolsView extends GetView<GradientToolsController> {
                             showCode(controller.scaffoldKey);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: ThemeManager().successColor,
+                            backgroundColor: MainColors.successColor,
                             textStyle: Get.textTheme.labelMedium,
                           ),
                           icon: Icon(MdiIcons.codeTags),

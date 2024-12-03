@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/scroll_to_hide.widget.dart';
 import 'package:buildify/app/models/user_gradient.model.dart';
@@ -21,7 +22,7 @@ class FormTemplateView extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
-        color: ThemeManager().scaffoldBackgroundColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         border: ThemeManager().defaultBorder(),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -131,7 +132,7 @@ class FormTemplateView extends StatelessWidget {
                   Expanded(
                     child: NeoButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: ThemeManager().successColor,
+                        backgroundColor: MainColors.successColor,
                         textStyle: Theme.of(context).textTheme.labelMedium,
                       ),
                       onPressed: () {
@@ -147,7 +148,7 @@ class FormTemplateView extends StatelessWidget {
                   Expanded(
                     child: NeoButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: ThemeManager().dangerColor,
+                        backgroundColor: MainColors.dangerColor,
                         textStyle: Theme.of(context).textTheme.labelMedium,
                       ),
                       onPressed: () {

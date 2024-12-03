@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
 import 'package:buildify/app/commons/ui/inputs/inc_dec_widget.dart';
 import 'package:buildify/app/enums/comparation_operator.dart';
@@ -69,7 +70,7 @@ class FilterGradientWidget extends GetView<FilterGradientController> {
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: ThemeManager().scaffoldBackgroundColor,
+        color: Get.theme.scaffoldBackgroundColor,
         border: ThemeManager().defaultBorder(),
         borderRadius: BorderRadius.circular(15),
       ),
@@ -113,7 +114,7 @@ class FilterGradientWidget extends GetView<FilterGradientController> {
                       selected:
                           controller.filter.value.type == type.toLowerCase(),
                       padding: const EdgeInsets.all(5),
-                      selectedColor: ThemeManager().primaryColor,
+                      selectedColor: Get.theme.primaryColor,
                       visualDensity: const VisualDensity(
                         horizontal: VisualDensity.minimumDensity,
                         vertical: VisualDensity.minimumDensity,
@@ -161,7 +162,7 @@ class FilterGradientWidget extends GetView<FilterGradientController> {
                                       color: controller.filter.value.colorCount!
                                                   .operator ==
                                               operator
-                                          ? ThemeManager().primaryColor
+                                          ? Get.theme.primaryColor
                                           : null,
                                     ),
                               ),
@@ -192,7 +193,7 @@ class FilterGradientWidget extends GetView<FilterGradientController> {
                   Expanded(
                     child: NeoButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: ThemeManager().scaffoldBackgroundColor,
+                        backgroundColor: MainColors.scaffoldBackgroundColor,
                       ),
                       onPressed: () {
                         controller.filter.value = FilterGradientModel(
@@ -212,7 +213,7 @@ class FilterGradientWidget extends GetView<FilterGradientController> {
                   Expanded(
                     child: NeoButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: ThemeManager().successColor,
+                        backgroundColor: MainColors.successColor,
                       ),
                       onPressed: () {
                         onFilterChange(controller.filter.value);

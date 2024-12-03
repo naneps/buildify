@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/theme_manager.dart';
+import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -29,14 +30,14 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
-        border: ThemeManager().defaultBorder(),
+        border: Border.all(color: Colors.grey.shade300),
       ),
       child: SizedBox(
-        height: 35,
+        height: 30,
         child: colors.isEmpty
             ? _buildEmptyState() // Show empty state if no colors are selected
             : Row(
@@ -44,7 +45,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                   Tooltip(
                     message:
                         'Double tap to remove color \nTap to edit color \nHold to reorder colors',
-                    waitDuration: const Duration(seconds: 1),
+                    waitDuration: const Duration(milliseconds: 500),
                     textStyle: Theme.of(context).textTheme.bodySmall,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -53,7 +54,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                     ),
                     child: Icon(
                       MdiIcons.informationOutline,
-                      color: ThemeManager().infoColor,
+                      color: MainColors.infoColor,
                       size: 20,
                     ),
                   ),
@@ -69,6 +70,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                     physics: const BouncingScrollPhysics(),
                     onReorderStart: _onReorderStart,
                     itemCount: colors.length,
+                    itemExtent: 35,
                     itemBuilder: (context, index) {
                       return ReorderableDragStartListener(
                           key: ValueKey(colors[index]),
