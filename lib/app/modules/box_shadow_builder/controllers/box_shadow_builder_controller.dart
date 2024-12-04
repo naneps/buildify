@@ -9,13 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BoxShadowBuilderController extends GetxController {
-  final containerEditorController = Get.find<ContainerEditorController>();
+  final containerEditorController =
+      Get.put(ContainerEditorController(), tag: 'shape');
   Rx<ContainerModel> containerModel = ContainerModel(
       width: (Get.width * 0.3).obs,
       height: (Get.width * 0.3).obs,
       decoration: BoxDecorationModel(
         boxShadow: [],
         gradient: null,
+        image: null,
+        border: null,
         color: MainColors.primaryColor,
       ),
       child: TextModel(
@@ -37,9 +40,14 @@ class BoxShadowBuilderController extends GetxController {
           (val) {
             val!.width!.value = container.width!.value;
             val.height!.value = container.height!.value;
+            val.padding = container.padding;
+            val.margin = container.margin;
             val.alignment = container.alignment;
             val.decoration!.color = container.decoration?.color;
             val.decoration?.boxShape = container.decoration!.boxShape;
+            val.decoration?.borderRadius = container.decoration?.borderRadius;
+            val.decoration!.border = container.decoration?.border;
+            val.decoration?.image = container.decoration?.image;
           },
         );
       },

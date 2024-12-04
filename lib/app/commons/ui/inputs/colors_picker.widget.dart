@@ -1,4 +1,3 @@
-import 'package:buildify/app/commons/theme_manager.dart';
 import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:flutter/material.dart';
@@ -46,12 +45,6 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                     message:
                         'Double tap to remove color \nTap to edit color \nHold to reorder colors',
                     waitDuration: const Duration(milliseconds: 500),
-                    textStyle: Theme.of(context).textTheme.bodySmall,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                      border: ThemeManager().defaultBorder(),
-                    ),
                     child: Icon(
                       MdiIcons.informationOutline,
                       color: MainColors.infoColor,
@@ -113,7 +106,8 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       child: IconButton(
         splashRadius: 20,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).canvasColor,
+          foregroundColor: Theme.of(context).primaryColor,
           fixedSize: const Size(40, 40),
           shape: const CircleBorder(),
           side: BorderSide(color: Colors.grey.shade300),

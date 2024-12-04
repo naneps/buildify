@@ -1,4 +1,3 @@
-import 'package:buildify/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,14 +12,14 @@ class AuthMiddleware extends GetMiddleware {
     // Check if the user is authenticated
     final user = FirebaseAuth.instance.currentUser;
 
-    if (user == null && route == Routes.GRADIENT_BUILDER) {
-      final previousRoute = Get.previousRoute;
-      if (previousRoute.isNotEmpty) {
-        return RouteSettings(name: previousRoute);
-      }
+    // if (user == null && route == Routes.GRADIENT_BUILDER) {
+    //   final previousRoute = Get.previousRoute;
+    //   if (previousRoute.isNotEmpty) {
+    //     return RouteSettings(name: previousRoute);
+    //   }
 
-      return const RouteSettings(name: Routes.HOME);
-    }
+    //   return const RouteSettings(name: Routes.HOME);
+    // }
 
     return null;
   }

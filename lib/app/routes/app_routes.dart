@@ -16,6 +16,7 @@ abstract class Routes {
   static const GRADIENT_PUBLIC = _Paths.GRADIENT_PUBLIC;
   Routes._();
   static const WIDGET_BUILDER = _Paths.WIDGET_BUILDER;
+  static const FIND_ICON = _Paths.FIND_ICON;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const GRADIENT_PUBLIC = '/gradient-public';
   _Paths._();
   static const WIDGET_BUILDER = '/widget-builder';
+  static const FIND_ICON = '/find-icon';
 }

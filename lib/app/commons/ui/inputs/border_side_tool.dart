@@ -2,15 +2,18 @@ import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/inputs/picker_color.widget.dart';
 import 'package:buildify/app/models/builder_models/border_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class BorderSideTool extends GetView<BorderSideToolController> {
   final Function(BorderModel)? onChange;
   final BorderModel? initValue;
-  const BorderSideTool({
+  GlobalKey<ScaffoldState>? scaffoldKey;
+  BorderSideTool({
     super.key,
     required this.onChange,
     this.initValue,
+    this.scaffoldKey,
   });
 
   @override
@@ -110,6 +113,41 @@ class BorderSideTool extends GetView<BorderSideToolController> {
     });
   }
 
+  Widget _buildBorderInput({
+    required String label,
+    BorderSideModel? borderSide,
+    required ValueChanged<String> onWidthChanged,
+    required ValueChanged<Color> onColorChanged,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            initialValue: borderSide?.width?.toString() ?? "1.0",
+            decoration: InputDecoration(label: Text(label)),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*\.?[0-9]*$')),
+            ],
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                onWidthChanged(value);
+              } else {
+                onWidthChanged("0");
+              }
+            },
+          ),
+        ),
+        const SizedBox(width: 5),
+        PickerColor(
+          key: UniqueKey(),
+          scaffoldKey: scaffoldKey,
+          initialColor: borderSide?.color ?? Colors.black,
+          onColorChanged: onColorChanged,
+        ),
+      ],
+    );
+  }
+
   Widget _buildToolbar(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,30 +180,6 @@ class BorderSideTool extends GetView<BorderSideToolController> {
     );
   }
 
-  Widget _buildBorderInput({
-    required String label,
-    BorderSideModel? borderSide,
-    required ValueChanged<String> onWidthChanged,
-    required ValueChanged<Color> onColorChanged,
-  }) {
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-            initialValue: borderSide?.width?.toString() ?? "1.0",
-            decoration: InputDecoration(label: Text(label)),
-            onChanged: onWidthChanged,
-          ),
-        ),
-        const SizedBox(width: 5),
-        PickerColor(
-          initialColor: borderSide?.color ?? Colors.black,
-          onColorChanged: onColorChanged,
-        ),
-      ],
-    );
-  }
-
   void _updateBorder(BorderModel border) {
     controller.border.refresh();
     onChange?.call(border);
@@ -193,13 +207,6 @@ class BorderSideToolController extends GetxController {
     }
   }
 
-  void updateSideWidth(String side, double width) {
-    final sideModel = getSide(side);
-    if (sideModel != null) {
-      sideModel.width = width;
-    }
-  }
-
   void updateSideColor(String side, Color color) {
     final sideModel = getSide(side);
     if (sideModel != null) {
@@ -207,8 +214,11 @@ class BorderSideToolController extends GetxController {
     }
   }
 
-  void updateType(BorderType type) {
-    border.value.type = type;
+  void updateSideWidth(String side, double width) {
+    final sideModel = getSide(side);
+    if (sideModel != null) {
+      sideModel.width = width;
+    }
   }
 
   void updateSymmetricHorizontal(double width) {
@@ -216,18 +226,22 @@ class BorderSideToolController extends GetxController {
     border.value.right?.width = width;
   }
 
-  void updateSymmetricVertical(double width) {
-    border.value.top?.width = width;
-    border.value.bottom?.width = width;
-  }
-
   void updateSymmetricHorizontalColor(Color color) {
     border.value.left?.color = color;
     border.value.right?.color = color;
   }
 
+  void updateSymmetricVertical(double width) {
+    border.value.top?.width = width;
+    border.value.bottom?.width = width;
+  }
+
   void updateSymmetricVerticalColor(Color color) {
     border.value.top?.color = color;
     border.value.bottom?.color = color;
+  }
+
+  void updateType(BorderType type) {
+    border.value.type = type;
   }
 }

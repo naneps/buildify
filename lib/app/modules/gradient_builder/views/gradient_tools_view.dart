@@ -1,13 +1,16 @@
 import 'package:buildify/app/commons/theme_manager.dart';
 import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/buttons/neo_button.dart';
+import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:buildify/app/commons/ui/preview_code_widget.dart';
 import 'package:buildify/app/commons/ui/scroll_to_hide.widget.dart';
+import 'package:buildify/app/modules/auth/views/form_signin.dart';
 import 'package:buildify/app/modules/container_builder/views/container_editor_view.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_editor_controller.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_tools_controller.dart';
 import 'package:buildify/app/modules/gradient_builder/views/gradient_editor_view.dart';
 import 'package:buildify/app/modules/gradient_builder/views/gradient_form_template_view.dart';
+import 'package:buildify/app/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -60,7 +63,16 @@ class GradientToolsView extends GetView<GradientToolsController> {
                       Expanded(
                         child: NeoButton(
                           onPressed: () {
-                            showSaveDialog(controller.scaffoldKey);
+                            if (Get.find<UserService>().uid.isEmpty) {
+                              Get.dialog(const ScaleDialog(
+                                child: AlertDialog(
+                                  contentPadding: EdgeInsets.zero,
+                                  content: FormSignIn(),
+                                ),
+                              ));
+                            } else {
+                              showSaveDialog(controller.scaffoldKey);
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: MainColors.infoColor,

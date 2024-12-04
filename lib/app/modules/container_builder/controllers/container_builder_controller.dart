@@ -20,13 +20,16 @@ class ContainerBuilderController extends GetxController {
       color: Get.theme.primaryColor,
       boxShape: BoxShape.rectangle,
       borderRadius: null,
+      border: null,
+      image: null,
+      gradient: null,
     ),
     child: CircleAvatarModel(
       radius: 20,
       backgroundColor: Get.theme.canvasColor,
       backgroundImage: ImageProviderModel(
         pathImage: 'https://avatars.githubusercontent.com/u/72372613?v=4',
-        imageProviderType: ImageProviderType.network,
+        type: ImageProviderType.network,
       ),
     ),
   ).obs;
@@ -35,7 +38,9 @@ class ContainerBuilderController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    Get.find<ContainerEditorController>().container.listen(
+    Get.put(ContainerEditorController(), tag: "containerEditor")
+        .container
+        .listen(
       (value) {
         container.update(
           (val) {
@@ -48,6 +53,8 @@ class ContainerBuilderController extends GetxController {
             val.decoration?.boxShape = value.decoration!.boxShape;
             val.decoration?.borderRadius = value.decoration?.borderRadius;
             val.decoration!.border = value.decoration?.border;
+            val.decoration?.image = value.decoration?.image;
+            // print(val.decoration!.image);
           },
         );
       },

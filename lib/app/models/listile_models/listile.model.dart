@@ -18,4 +18,14 @@ class ListTileModel extends WidgetModel {
       trailing: trailing?.build(),
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'leading': leading?.toJson(),
+      'title': title?.toJson(),
+      'subtitle': subtitle?.toJson(),
+      'trailing': trailing?.toJson(),
+    };
+  }
 }

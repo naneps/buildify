@@ -12,6 +12,15 @@ class TextModel extends WidgetModel {
     this.style,
     this.maxLines,
   });
+  factory TextModel.fromJson(Map<String, dynamic> json) {
+    return TextModel(
+      text: json['text'],
+      style:
+          json['style'] != null ? TextStyleModel.fromJson(json['style']) : null,
+      maxLines: json['maxLines'],
+    );
+  }
+
   @override
   Widget build() {
     return Text(
@@ -19,5 +28,15 @@ class TextModel extends WidgetModel {
       style: style?.toTextStyle(),
       maxLines: maxLines,
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
+      'style': style?.toJson(),
+      'maxLines': maxLines,
+      'minLines': minLines
+    };
   }
 }

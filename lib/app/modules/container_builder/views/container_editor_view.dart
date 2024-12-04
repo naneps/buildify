@@ -3,8 +3,9 @@ import 'package:buildify/app/commons/themes/main_colors.dart';
 import 'package:buildify/app/commons/ui/inputs/alignment_selector.widget.dart';
 import 'package:buildify/app/commons/ui/inputs/border_radius_tool.dart';
 import 'package:buildify/app/commons/ui/inputs/border_side_tool.dart';
-import 'package:buildify/app/commons/ui/inputs/colors_picker.widget.dart';
 import 'package:buildify/app/commons/ui/inputs/edgeinset_tool.dart';
+import 'package:buildify/app/commons/ui/inputs/image_decoration_tool.dart';
+import 'package:buildify/app/commons/ui/inputs/picker_color.widget.dart';
 import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
 import 'package:buildify/app/modules/container_builder/controllers/container_editor_controller.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,12 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
   const ContainerEditorView({super.key});
 
   @override
-  get controller => Get.put(ContainerEditorController());
-
+  get controller =>
+      Get.put(ContainerEditorController(), tag: (key as ValueKey).value);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.scaffoldKey,
       body: Container(
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
@@ -30,57 +32,40 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
         child: ListView(
           children: [
             Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Width and Height',
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
+                      Text('Width and Height',
+                          style: Theme.of(context).textTheme.labelSmall),
                       const SizedBox(height: 10),
                       TextFormField(
                         initialValue: controller.container.value.width
                             ?.toInt()
                             .toString(),
-                        decoration: const InputDecoration(
-                          label: Text('Width'),
-                        ),
+                        decoration: const InputDecoration(label: Text('Width')),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,2}'),
-                          ),
+                              RegExp(r'^\d+\.?\d{0,2}')),
                         ],
-                        onChanged: (value) {
-                          double width = double.parse(value);
-                          controller.container.value.width!.value = width;
-                          controller.container.refresh();
-                        },
+                        onChanged: controller.updateWidth,
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
                         initialValue: controller.container.value.height
                             ?.toInt()
                             .toString(),
-                        decoration: const InputDecoration(
-                          label: Text('Height'),
-                        ),
+                        decoration:
+                            const InputDecoration(label: Text('Height')),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                               RegExp(r'^\d+\.?\d{0,2}')),
                         ],
-                        onChanged: (value) {
-                          double width = double.parse(value);
-                          controller.container.value.height!.value = width;
-                          controller.container.refresh();
-                        },
-                      )
+                        onChanged: controller.updateHeight,
+                      ),
                     ],
                   ),
                 ),
@@ -88,17 +73,12 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Alignment",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
+                    Text('Alignment',
+                        style: Theme.of(context).textTheme.labelSmall),
                     const SizedBox(height: 10),
                     AlignmentSelector(
                       key: const ValueKey('container-alignment'),
-                      onChange: (alignment) {
-                        controller.container.value.alignment = alignment;
-                        controller.container.refresh();
-                      },
+                      onChange: controller.updateAlignment,
                       initialAlignment: controller.container.value.alignment,
                     ),
                   ],
@@ -107,18 +87,12 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
             ),
             const SizedBox(height: 15),
             Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: EdgeInsetTool(
                     key: const ValueKey('container-padding'),
                     label: 'Padding',
-                    onChange: (value) {
-                      controller.container.value.padding = value;
-                      controller.container.refresh();
-                    },
+                    onChange: controller.updatePadding,
                     initValue: controller.container.value.padding!,
                   ),
                 ),
@@ -127,91 +101,68 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
                   child: EdgeInsetTool(
                     key: const ValueKey('container-margin'),
                     label: 'Margin',
-                    onChange: (value) {
-                      controller.container.value.margin = value;
-                      controller.container.refresh();
-                    },
+                    onChange: controller.updateMargin,
                     initValue: controller.container.value.margin!,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            Text(
-              'Decoration',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
+            Text('Decoration', style: Theme.of(context).textTheme.labelSmall),
             const SizedBox(height: 10),
             Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Color',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                    Text('Color',
+                        style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 5),
-                    ColorPickerWidget(
-                      initialColors: [
-                        controller.container.value.decoration!.color!
-                      ],
-                      isMultiple: false,
-                      onColorsChanged: (value) {
-                        controller.container.value.decoration?.color =
-                            value.first;
-                        controller.container.refresh();
+                    PickerColor(
+                      key: const ValueKey('container-color'),
+                      scaffoldKey: controller.scaffoldKey,
+                      initialColor:
+                          controller.container.value.decoration?.color,
+                      onColorChanged: (color) {
+                        controller.updateDecorationColor(color);
                       },
                     ),
                   ],
                 ),
                 const SizedBox(width: 20),
                 Expanded(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Shape",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 5),
-                    Obx(() {
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ...BoxShape.values.map(
-                            (boxShape) => Container(
-                              margin: const EdgeInsets.only(right: 5),
-                              child: ActionChip(
-                                onPressed: () {
-                                  controller.onBoxShapeChanged(boxShape);
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Shape',
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      const SizedBox(height: 5),
+                      Obx(() {
+                        return Row(
+                          children: BoxShape.values.map((shape) {
+                            return Tooltip(
+                              message: shape.name,
+                              child: InkWell(
+                                onTap: () {
+                                  controller.updateBoxShape(shape);
                                 },
-                                side: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey.shade300,
-                                ),
-                                label: Icon(
-                                  boxShape.icon,
-                                  color: controller.container.value.decoration
-                                              ?.boxShape ==
-                                          boxShape
-                                      ? Theme.of(context).primaryColor
-                                      : MainColors.darkColor,
+                                child: Icon(
+                                  shape.icon,
+                                  color: shape ==
+                                          controller.container.value.decoration
+                                              ?.boxShape
+                                      ? MainColors.primaryColor
+                                      : Colors.grey,
+                                  size: 25,
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      );
-                    })
-                  ],
-                ))
+                            );
+                          }).toList(),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 10),
@@ -220,22 +171,39 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
                 visible: controller.container.value.decoration?.boxShape ==
                     BoxShape.rectangle,
                 child: BorderRadiusTool(
+                  key: const ValueKey('container-border-radius'),
                   initValue:
                       controller.container.value.decoration?.borderRadius,
-                  key: const ValueKey('container-border-radius'),
-                  onChange: (value) {
-                    controller.onRadiusChanged(value);
-                  },
+                  onChange: controller.updateBorderRadius,
                 ),
               );
             }),
             const SizedBox(height: 10),
             BorderSideTool(
-              onChange: (border) {
-                controller.onBorderChanged(border);
-              },
+              key: const ValueKey('container-border'),
+              scaffoldKey: controller.scaffoldKey,
+              onChange: controller.updateBorder,
               initValue: controller.container.value.decoration?.border,
             ),
+            const SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Image Decoration",
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(height: 10),
+                ImageDecorationTool(
+                  key: const ValueKey('container-image-decoration'),
+                  initialValue: controller.container.value.decoration?.image,
+                  onChange: (value) {
+                    controller.updateDecorationImage(value);
+                  },
+                )
+              ],
+            )
           ],
         ),
       ),

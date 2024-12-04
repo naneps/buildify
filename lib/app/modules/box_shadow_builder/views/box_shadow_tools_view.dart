@@ -31,7 +31,9 @@ class BoxShadowToolsView extends GetView<BoxShadowToolsController> {
                 controller: controller.mainTabController,
                 children: [
                   ShadowToolsSection(controller: controller),
-                  const ContainerEditorView()
+                  const ContainerEditorView(
+                    key: ValueKey("shape"),
+                  )
                 ],
               ),
             ),

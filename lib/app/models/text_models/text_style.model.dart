@@ -29,6 +29,40 @@ class TextStyleModel {
     this.textBaseline,
   });
 
+  factory TextStyleModel.fromJson(Map<String, dynamic> json) {
+    return TextStyleModel(
+      fontFamily: json['fontFamily'],
+      fontSize: json['fontSize'],
+      fontWeight: XFontWeight.values[json['fontWeight']],
+      fontStyle: FontStyle.values[json['fontStyle']],
+      color: Color(json['color']),
+      letterSpacing: json['letterSpacing'],
+      wordSpacing: json['wordSpacing'],
+      decoration: XTextDecoration.values[json['decoration']],
+      decorationThickness: json['decorationThickness'],
+      backgroundColor: Color(json['backgroundColor']),
+      height: json['height'],
+      textBaseline: TextBaseline.values[json['textBaseline']],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fontFamily': fontFamily,
+      'fontSize': fontSize,
+      'fontWeight': fontWeight?.index,
+      'fontStyle': fontStyle?.index,
+      'color': color?.value,
+      'letterSpacing': letterSpacing,
+      'wordSpacing': wordSpacing,
+      'decoration': decoration?.name,
+      'decorationThickness': decorationThickness,
+      'backgroundColor': backgroundColor?.value,
+      'height': height,
+      'textBaseline': textBaseline?.index,
+    };
+  }
+
   TextStyle toTextStyle() {
     return TextStyle(
       fontFamily: fontFamily,

@@ -1,3 +1,4 @@
+import 'package:buildify/app/commons/utils/widget_parser.dart';
 import 'package:buildify/app/enums/gradient.enum.dart';
 import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
 import 'package:buildify/app/models/widget_models/widget.model.dart';
@@ -10,7 +11,8 @@ class ContainerModel extends WidgetModel {
   RxDouble? width;
   RxDouble? height;
   Color? color;
-
+  @override
+  String? name;
   BoxDecorationModel? decoration;
   Clip? clipBehavior;
   AlignmentType? alignment;
@@ -27,7 +29,25 @@ class ContainerModel extends WidgetModel {
     this.clipBehavior,
     this.margin,
     this.padding,
-  });
+    this.name,
+  }) : super();
+
+  factory ContainerModel.fromJson(Map<String, dynamic> json) {
+    return ContainerModel(
+      width: RxDouble(json['width']),
+      height: RxDouble(json['height']),
+      color: json['color'] != null ? Color(json['color']) : null,
+      alignment: AlignmentType.values[json['alignment'] ?? 0],
+      decoration: BoxDecorationModel.fromJson(json['decoration']),
+      child:
+          json['child'] != null ? WidgetParser.fromJson(json['child']) : null,
+      padding: EdgeInsetModel.fromJson(json['padding']),
+      margin: EdgeInsetModel.fromJson(json['margin']),
+      clipBehavior: json['clipBehavior'] != null
+          ? Clip.values[json['clipBehavior']]
+          : null,
+    );
+  }
 
   @override
   Widget build() {
@@ -60,20 +80,25 @@ class ContainerModel extends WidgetModel {
       color: color ?? this.color,
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'width': width?.value,
+      'height': height?.value,
+      'color': color?.value,
+      'alignment': alignment?.index,
+      'decoration': decoration?.toJson(),
+      'child': child?.toJson(),
+      'padding': padding?.toJson(),
+      'margin': margin?.toJson(),
+      'clipBehavior': clipBehavior?.name,
+      'runtimeType': runtimeType
+    };
+  }
 }
 
 extension ContainerModelExtension on ContainerModel {
-  ContainerModel fromJson(Map<String, dynamic> json) {
-    return ContainerModel(
-      width: RxDouble(json['width']),
-      height: RxDouble(json['height']),
-      color: json['color'] != null ? Color(json['color']) : null,
-      alignment: json['alignment'] != null
-          ? AlignmentType.values[json['alignment']]
-          : null,
-    );
-  }
-
   String toCode() {
     return '```dart\n${build().toString()}\n```';
   }

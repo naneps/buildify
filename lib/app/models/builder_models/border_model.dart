@@ -17,14 +17,22 @@ class BorderModel {
       this.left,
       this.right});
 
-  static BorderModel defaultBorder() => BorderModel(
-        type: BorderType.all,
-        all: BorderSideModel(width: 1, color: Colors.black),
-        top: BorderSideModel(width: 1, color: Colors.black),
-        bottom: BorderSideModel(width: 1, color: Colors.black),
-        left: BorderSideModel(width: 1, color: Colors.black),
-        right: BorderSideModel(width: 1, color: Colors.black),
-      );
+  factory BorderModel.fromJson(Map<String, dynamic> json) {
+    return BorderModel(
+      type:
+          json['type'] != null ? BorderType.values.byName(json['type']) : null,
+      all: json['all'] != null ? BorderSideModel.fromJson(json['all']) : null,
+      top: json['top'] != null ? BorderSideModel.fromJson(json['top']) : null,
+      bottom: json['bottom'] != null
+          ? BorderSideModel.fromJson(json['bottom'])
+          : null,
+      left:
+          json['left'] != null ? BorderSideModel.fromJson(json['left']) : null,
+      right: json['right'] != null
+          ? BorderSideModel.fromJson(json['right'])
+          : null,
+    );
+  }
 
   BorderModel copyWith({
     BorderType? type,
@@ -73,10 +81,30 @@ class BorderModel {
     }
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type?.name,
+      'all': all?.toJson(),
+      'top': top?.toJson(),
+      'bottom': bottom?.toJson(),
+      'left': left?.toJson(),
+      'right': right?.toJson(),
+    };
+  }
+
   @override
   String toString() {
     return 'BorderModel{type: $type, all: $all, top: $top, bottom: $bottom, left: $left, right: $right}';
   }
+
+  static BorderModel defaultBorder() => BorderModel(
+        type: BorderType.all,
+        all: BorderSideModel(width: 1, color: Colors.black),
+        top: BorderSideModel(width: 1, color: Colors.black),
+        bottom: BorderSideModel(width: 1, color: Colors.black),
+        left: BorderSideModel(width: 1, color: Colors.black),
+        right: BorderSideModel(width: 1, color: Colors.black),
+      );
 }
 
 class BorderSideModel {
@@ -89,6 +117,16 @@ class BorderSideModel {
     this.width = 1.0,
     this.style = BorderStyle.solid,
   });
+
+  factory BorderSideModel.fromJson(Map<String, dynamic> json) {
+    return BorderSideModel(
+      color: json['color'] != null ? Color(json['color']) : null,
+      width: json['width'],
+      style: json['style'] != null
+          ? BorderStyle.values.byName(json['style'])
+          : null,
+    );
+  }
 
   BorderSideModel copyWith({
     Color? color,
@@ -108,6 +146,14 @@ class BorderSideModel {
       width: width ?? 1.0,
       style: style ?? BorderStyle.solid,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'color': color?.value,
+      'width': width,
+      'style': style?.name,
+    };
   }
 
   @override

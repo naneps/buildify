@@ -103,7 +103,7 @@ class BorderRadiusModel {
       'bottomLeft': bottomLeft,
       'bottomRight': bottomRight,
       'radius': all,
-      'type': type?.index,
+      'type': type?.name,
     };
   }
 }

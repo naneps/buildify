@@ -30,4 +30,17 @@ class CircleAvatarModel extends WidgetModel {
       child: child?.build(),
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'radius': radius,
+      'maxRadius': maxRadius,
+      'minRadius': minRadius,
+      'backgroundImage': backgroundImage?.toJson(),
+      'backgroundColor': backgroundColor?.value,
+      'foreGroundColor': foreGroundColor?.value,
+      'child': child?.toJson(),
+    };
+  }
 }

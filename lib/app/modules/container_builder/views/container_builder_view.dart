@@ -19,7 +19,9 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
         centerTitle: true,
       ),
       body: ResponsiveLayout(
-        mobile: const ContainerEditorView(),
+        mobile: const ContainerEditorView(
+          key: ValueKey('containerEditor'),
+        ),
         tablet: Obx(() {
           return Row(
             children: [
@@ -29,7 +31,9 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
               ),
               const SizedBox(width: 20),
               const Expanded(
-                child: ContainerEditorView(),
+                child: ContainerEditorView(
+                  key: ValueKey('containerEditor'),
+                ),
               ),
             ],
           );

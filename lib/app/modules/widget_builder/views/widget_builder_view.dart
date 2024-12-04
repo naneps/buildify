@@ -13,12 +13,38 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
         title: const Text('WidgetBuilderView'),
         centerTitle: true,
       ),
-      body: const ResponsiveLayout(
-        mobile: Center(
+      body: ResponsiveLayout(
+        mobile: const Center(
           child: Text("Mobile View \n Coming Soon"),
         ),
         tablet: Row(
-          children: [],
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade500, width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Obx(() {
+                  return controller.widget.value.build();
+                }),
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade500, width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -25,4 +25,17 @@ class ColumnModel extends FlexModel {
       children: children?.map((child) => child.build()).toList() ?? [],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'mainAxisAlignment': mainAxisAlignment?.index,
+      'crossAxisAlignment': crossAxisAlignment?.index,
+      'mainAxisSize': mainAxisSize?.index,
+      'textDirection': textDirection?.index,
+      'verticalDirection': verticalDirection?.index,
+      'textBaseline': textBaseline?.index,
+      'children': children?.map((child) => child.toJson()).toList(),
+    };
+  }
 }
