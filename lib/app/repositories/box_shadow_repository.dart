@@ -5,6 +5,6 @@ class BoxShadowRepository extends FirestoreService<UserBoxShadowMel> {
   BoxShadowRepository() : super('box_shadows');
   @override
   UserBoxShadowMel fromFirestore(Map<String, dynamic> data, String documentId) {
-    throw UserBoxShadowMel.fromFirestore(documentId, data);
+    return UserBoxShadowMel.fromFirestore(documentId, data);
   }
 }

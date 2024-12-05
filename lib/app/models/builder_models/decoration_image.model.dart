@@ -30,19 +30,19 @@ class DecorationImageModel {
   factory DecorationImageModel.fromJson(Map<String, dynamic> json) =>
       DecorationImageModel(
         image: ImageProviderModel.fromJson(json['image']),
-        fit: json['fit'] != null ? BoxFit.values[json['fit']] : null,
-        alignmentType: json['alignment'] != null
-            ? AlignmentType.values[json['alignment']]
+        fit: json['fit'] != null ? BoxFit.values.byName(json['fit']) : null,
+        alignmentType:
+            AlignmentType.values.byName(json['alignment'] ?? 'center'),
+        repeat: json['repeat'] != null
+            ? ImageRepeat.values.byName(json['repeat'])
             : null,
-        repeat:
-            json['repeat'] != null ? ImageRepeat.values[json['repeat']] : null,
         invertColors: json['invertColors'] ?? false,
         isAntiAlias: json['isAntiAlias'] ?? false,
         matchTextDirection: json['matchTextDirection'] ?? false,
         scale: json['scale'] ?? 1.0,
         opacity: json['opacity'] ?? 1.0,
         filterQuality: json['filterQuality'] != null
-            ? FilterQuality.values[json['filterQuality']]
+            ? FilterQuality.values.byName(json['filterQuality'])
             : FilterQuality.high,
       );
 
@@ -72,7 +72,8 @@ class DecorationImageModel {
         'scale': scale,
         'opacity': opacity,
         'filterQuality': filterQuality.name,
-      };
+        'runtimeType': runtimeType.toString(),
+      }..removeWhere((key, value) => value == null);
 
   @override
   String toString() {

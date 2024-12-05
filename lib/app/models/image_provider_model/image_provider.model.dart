@@ -12,7 +12,7 @@ class ImageProviderModel {
   factory ImageProviderModel.fromJson(Map<String, dynamic> json) {
     return ImageProviderModel(
       pathImage: json['pathImage'],
-      type: json['type'],
+      type: ImageProviderType.values.byName(json['type'] ?? 'network'),
     );
   }
 
@@ -31,7 +31,7 @@ class ImageProviderModel {
     }
   }
 
-  toJson() => {'pathImage': pathImage, 'type': type!.name};
+  toJson() => {'pathImage': pathImage, 'type': type?.name};
 }
 
 enum ImageProviderType { network, asset, memory }

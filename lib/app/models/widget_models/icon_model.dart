@@ -46,24 +46,40 @@ class IconModel extends WidgetModel {
     );
   }
 
+  @override
+  Widget buildEditor() {
+    // TODO: implement buildEditor
+    throw UnimplementedError();
+  }
+
+  @override
   Map<String, dynamic> toJson() => {
-        'icon': icon?.codePoint,
+        'icon': {
+          'codePoint': icon?.codePoint,
+          'fontFamily': icon?.fontFamily,
+          'fontPackage': icon?.fontPackage,
+          'fontPackagePath': icon?.fontFamilyFallback,
+        },
         'size': size,
         'color': color?.value,
         'weight': weight,
         'applyTextScaling': applyTextScaling,
         'grade': grade,
         'fill': fill,
-        'textDirection': textDirection?.index,
+        'textDirection': textDirection?.name,
         'opticalSize': opticalSize,
         'semanticLabel': semanticLabel,
         'shadows': shadows?.map((e) => e.toJson()).toList(),
-      };
+        'runtimeType': runtimeType.toString(),
+      }..removeWhere((key, value) => value == null);
 
   static IconModel fromJson(Map<String, dynamic> json) => IconModel(
         icon: IconData(
-          json['icon'],
-          fontFamily: 'MaterialIcons',
+          json['icon']['codePoint'],
+          fontFamily: json['icon']['fontFamily'],
+          fontPackage: json['icon']['fontPackage'],
+          fontFamilyFallback: json['icon']['fontPackagePath'],
+          matchTextDirection: false,
         ),
         size: json['size'],
         weight: json['weight'],
@@ -72,7 +88,7 @@ class IconModel extends WidgetModel {
         grade: json['grade'],
         fill: json['fill'],
         textDirection: json['textDirection'] != null
-            ? TextDirection.values[json['textDirection']]
+            ? TextDirection.values.byName(json['textDirection'])
             : null,
         opticalSize: json['opticalSize'],
         semanticLabel: json['semanticLabel'],

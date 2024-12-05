@@ -2,6 +2,7 @@ import 'package:buildify/app/commons/utils/widget_parser.dart';
 import 'package:buildify/app/enums/gradient.enum.dart';
 import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
 import 'package:buildify/app/models/widget_models/widget.model.dart';
+import 'package:buildify/app/modules/container_builder/views/container_editor_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,8 +12,6 @@ class ContainerModel extends WidgetModel {
   RxDouble? width;
   RxDouble? height;
   Color? color;
-  @override
-  String? name;
   BoxDecorationModel? decoration;
   Clip? clipBehavior;
   AlignmentType? alignment;
@@ -29,23 +28,24 @@ class ContainerModel extends WidgetModel {
     this.clipBehavior,
     this.margin,
     this.padding,
-    this.name,
   }) : super();
 
   factory ContainerModel.fromJson(Map<String, dynamic> json) {
     return ContainerModel(
-      width: RxDouble(json['width']),
-      height: RxDouble(json['height']),
+      width: json['width'] != null ? RxDouble(json['width']) : null,
+      height: json['height'] != null ? RxDouble(json['height']) : null,
       color: json['color'] != null ? Color(json['color']) : null,
       alignment: AlignmentType.values[json['alignment'] ?? 0],
       decoration: BoxDecorationModel.fromJson(json['decoration']),
       child:
           json['child'] != null ? WidgetParser.fromJson(json['child']) : null,
-      padding: EdgeInsetModel.fromJson(json['padding']),
-      margin: EdgeInsetModel.fromJson(json['margin']),
-      clipBehavior: json['clipBehavior'] != null
-          ? Clip.values[json['clipBehavior']]
+      padding: json['padding'] != null
+          ? EdgeInsetModel.fromJson(json['padding'])
           : null,
+      //   margin: EdgeInsetModel.fromJson(json['margin']),
+      //   clipBehavior: json['clipBehavior'] != null
+      //       ? Clip.values[json['clipBehavior']]
+      //       : null,
     );
   }
 
@@ -54,14 +54,22 @@ class ContainerModel extends WidgetModel {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       clipBehavior: clipBehavior ?? Clip.none,
-      width: width?.value,
-      height: height?.value,
+      width: width?.value ?? 0.0,
+      height: height?.value ?? 0.0,
       padding: padding?.toEdgeInsets(),
       alignment: alignment?.alignment,
       color: decoration != null ? null : color,
       margin: margin?.toEdgeInsets(),
       decoration: decoration?.toBoxDecoration(),
       child: child?.build(),
+    );
+  }
+
+  @override
+  Widget buildEditor() {
+    // TODO: implement buildEditor
+    return ContainerEditorView(
+      container: Rx<ContainerModel>(this),
     );
   }
 
@@ -92,9 +100,9 @@ class ContainerModel extends WidgetModel {
       'child': child?.toJson(),
       'padding': padding?.toJson(),
       'margin': margin?.toJson(),
-      'clipBehavior': clipBehavior?.name,
-      'runtimeType': runtimeType
-    };
+      'clipBehavior': clipBehavior?.index,
+      'runtimeType': runtimeType.toString(),
+    }..removeWhere((key, value) => value == null);
   }
 }
 

@@ -24,11 +24,18 @@ class SizedBoxModel extends WidgetModel {
   }
 
   @override
+  Widget buildEditor() {
+    // TODO: implement buildEditor
+    throw UnimplementedError();
+  }
+
+  @override
   Map<String, dynamic> toJson() {
     return {
       'width': width,
       'height': height,
       'child': child?.toJson(),
-    }..removeWhere((key, value) => value == null);
+      'runtimeType': runtimeType.toString(),
+    };
   }
 }

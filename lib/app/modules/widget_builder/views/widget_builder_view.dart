@@ -20,7 +20,6 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
         tablet: Row(
           children: [
             Expanded(
-              flex: 2,
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
@@ -28,9 +27,21 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
                   border: Border.all(color: Colors.grey.shade500, width: 1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Obx(() {
-                  return controller.widget.value.build();
-                }),
+                child: Column(
+                  children: [
+                    Obx(() {
+                      return controller.widget.value.build();
+                    }),
+                    SizedBox(height: Get.height * 0.1),
+                    ElevatedButton(
+                      onPressed: () {
+                        print('save');
+                        controller.saveWidget();
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(width: 20),
@@ -41,6 +52,33 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade500, width: 1),
                   borderRadius: BorderRadius.circular(10),
+                ),
+                child: StreamBuilder(
+                  stream: controller.streamWidgets(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      print(snapshot);
+                      return Center(child: Text('Errors: ${snapshot.error}'));
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(child: Text('No widgets found'));
+                    } else {
+                      return ListView.separated(
+                        separatorBuilder: (context, index) => const Divider(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                              onDoubleTap: () {
+                                controller.repo
+                                    .deleteItem(snapshot.data![index].id!);
+                              },
+                              child: snapshot.data![index].widget?.build());
+                        },
+                      );
+                    }
+                  },
                 ),
               ),
             ),

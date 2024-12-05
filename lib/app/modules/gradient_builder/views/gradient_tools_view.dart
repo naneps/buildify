@@ -6,6 +6,7 @@ import 'package:buildify/app/commons/ui/preview_code_widget.dart';
 import 'package:buildify/app/commons/ui/scroll_to_hide.widget.dart';
 import 'package:buildify/app/modules/auth/views/form_signin.dart';
 import 'package:buildify/app/modules/container_builder/views/container_editor_view.dart';
+import 'package:buildify/app/modules/gradient_builder/controllers/gradient_builder_controller.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_editor_controller.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_tools_controller.dart';
 import 'package:buildify/app/modules/gradient_builder/views/gradient_editor_view.dart';
@@ -46,7 +47,10 @@ class GradientToolsView extends GetView<GradientToolsController> {
                         controller.onGradientChanged(gradient);
                       },
                     ),
-                    const ContainerEditorView(),
+                    ContainerEditorView(
+                        key: const ValueKey("shape"),
+                        container:
+                            Get.find<GradientBuilderController>().container),
                   ],
                 ),
               ),

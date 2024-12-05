@@ -3,7 +3,6 @@ import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
 import 'package:buildify/app/models/circle_avatar_models/circle_avatar.model.dart';
 import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
 import 'package:buildify/app/models/image_provider_model/image_provider.model.dart';
-import 'package:buildify/app/modules/container_builder/controllers/container_editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,26 +37,26 @@ class ContainerBuilderController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    Get.put(ContainerEditorController(), tag: "containerEditor")
-        .container
-        .listen(
-      (value) {
-        container.update(
-          (val) {
-            val!.width!.value = value.width!.value;
-            val.height!.value = value.height!.value;
-            val.padding = value.padding;
-            val.margin = value.margin;
-            val.alignment = value.alignment;
-            val.decoration!.color = value.decoration?.color;
-            val.decoration?.boxShape = value.decoration!.boxShape;
-            val.decoration?.borderRadius = value.decoration?.borderRadius;
-            val.decoration!.border = value.decoration?.border;
-            val.decoration?.image = value.decoration?.image;
-            // print(val.decoration!.image);
-          },
-        );
-      },
-    );
+    // Get.put(ContainerEditorController(), tag: "containerEditor")
+    //     .container
+    //     .listen(
+    //   (value) {
+    //     container.update(
+    //       (val) {
+    //         val!.width!.value = value.width!.value;
+    //         val.height!.value = value.height!.value;
+    //         val.padding = value.padding;
+    //         val.margin = value.margin;
+    //         val.alignment = value.alignment;
+    //         val.decoration!.color = value.decoration?.color;
+    //         val.decoration?.boxShape = value.decoration!.boxShape;
+    //         val.decoration?.borderRadius = value.decoration?.borderRadius;
+    //         val.decoration!.border = value.decoration?.border;
+    //         val.decoration?.image = value.decoration?.image;
+    //         // print(val.decoration!.image);
+    //       },
+    //     );
+    //   },
+    // );
   }
 }

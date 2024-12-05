@@ -44,7 +44,7 @@ class BoxDecorationModel {
       border:
           json['border'] != null ? BorderModel.fromJson(json['border']) : null,
       boxShape: json['boxShape'] != null
-          ? BoxShape.values[json['boxShape']]
+          ? BoxShape.values.byName(json['boxShape'])
           : BoxShape.rectangle,
       image: json['image'] != null
           ? DecorationImageModel.fromJson(json['image'])
@@ -74,10 +74,8 @@ class BoxDecorationModel {
       'borderRadius': borderRadius?.toJson(),
       'border': border?.toJson(),
       'boxShape': boxShape.name,
-
-      // 'boxShape': boxShape.index,
-      // 'border': border?.toJson(),q
-    };
+      'image': image?.toJson(),
+    }..removeWhere((key, value) => value == null);
   }
 }
 

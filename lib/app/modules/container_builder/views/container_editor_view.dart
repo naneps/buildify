@@ -7,17 +7,25 @@ import 'package:buildify/app/commons/ui/inputs/edgeinset_tool.dart';
 import 'package:buildify/app/commons/ui/inputs/image_decoration_tool.dart';
 import 'package:buildify/app/commons/ui/inputs/picker_color.widget.dart';
 import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
+import 'package:buildify/app/models/builder_models/container_model.dart';
+import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
 import 'package:buildify/app/modules/container_builder/controllers/container_editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class ContainerEditorView extends GetView<ContainerEditorController> {
-  const ContainerEditorView({super.key});
+  final Rx<ContainerModel> container;
+  const ContainerEditorView({
+    super.key,
+    required this.container,
+  });
 
   @override
-  get controller =>
-      Get.put(ContainerEditorController(), tag: (key as ValueKey).value);
+  get controller => Get.put(
+        ContainerEditorController(container),
+        tag: (key as ValueKey).value,
+      );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +101,10 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
                     key: const ValueKey('container-padding'),
                     label: 'Padding',
                     onChange: controller.updatePadding,
-                    initValue: controller.container.value.padding!,
+                    initValue: controller.container.value.padding ??
+                        EdgeInsetModel(
+                          type: EdgeInsetType.zero,
+                        ),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -102,7 +113,10 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
                     key: const ValueKey('container-margin'),
                     label: 'Margin',
                     onChange: controller.updateMargin,
-                    initValue: controller.container.value.margin!,
+                    initValue: controller.container.value.margin ??
+                        EdgeInsetModel(
+                          type: EdgeInsetType.zero,
+                        ),
                   ),
                 ),
               ],

@@ -1,3 +1,5 @@
+import 'package:buildify/app/enums/gradient.enum.dart';
+import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
 import 'package:buildify/app/modules/container_builder/controllers/container_editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,10 +12,17 @@ import '../../../repositories/gradient.repository.dart';
 class GradientBuilderController extends GetxController {
   final gradientRepository = Get.find<GradientRepository>();
   Rx<ContainerModel> container = ContainerModel(
-    width: RxDouble(300),
-    height: RxDouble(300),
+    width: RxDouble(200),
+    height: RxDouble(200),
+    padding: EdgeInsetModel(type: EdgeInsetType.zero),
+    margin: EdgeInsetModel(type: EdgeInsetType.zero),
+    alignment: AlignmentType.topLeft,
     decoration: BoxDecorationModel(
-      color: Colors.red,
+      color: Get.theme.primaryColor,
+      boxShape: BoxShape.rectangle,
+      borderRadius: null,
+      border: null,
+      image: null,
       gradient: null,
     ),
   ).obs;
