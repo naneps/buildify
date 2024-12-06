@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 class BorderSideTool extends GetView<BorderSideToolController> {
   final Function(BorderModel)? onChange;
   final BorderModel? initValue;
-  GlobalKey<ScaffoldState>? scaffoldKey;
-  BorderSideTool({
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  const BorderSideTool({
     super.key,
     required this.onChange,
     this.initValue,
@@ -142,7 +142,10 @@ class BorderSideTool extends GetView<BorderSideToolController> {
           key: UniqueKey(),
           scaffoldKey: scaffoldKey,
           initialColor: borderSide?.color ?? Colors.black,
-          onColorChanged: onColorChanged,
+          onColorChanged: (value) {
+            onColorChanged(value);
+            controller.updateSideColor(label, value);
+          },
         ),
       ],
     );
@@ -183,7 +186,6 @@ class BorderSideTool extends GetView<BorderSideToolController> {
   void _updateBorder(BorderModel border) {
     controller.border.refresh();
     onChange?.call(border);
-    print(border);
   }
 }
 

@@ -12,9 +12,9 @@ class ContainerBuilderController extends GetxController {
   Rx<ContainerModel> container = ContainerModel(
     width: RxDouble(200),
     height: RxDouble(200),
-    padding: EdgeInsetModel(type: EdgeInsetType.all),
-    margin: EdgeInsetModel(type: EdgeInsetType.all),
-    alignment: AlignmentType.topLeft,
+    padding: EdgeInsetModel(type: EdgeInsetType.zero).obs,
+    margin: EdgeInsetModel(type: EdgeInsetType.all).obs,
+    alignment: AlignmentType.topLeft.obs,
     decoration: BoxDecorationModel(
       color: Get.theme.primaryColor,
       boxShape: BoxShape.rectangle,
@@ -22,7 +22,7 @@ class ContainerBuilderController extends GetxController {
       border: null,
       image: null,
       gradient: null,
-    ),
+    ).obs,
     child: CircleAvatarModel(
       radius: 20,
       backgroundColor: Get.theme.canvasColor,
@@ -30,7 +30,7 @@ class ContainerBuilderController extends GetxController {
         pathImage: 'https://avatars.githubusercontent.com/u/72372613?v=4',
         type: ImageProviderType.network,
       ),
-    ),
+    ).obs,
   ).obs;
 
   @override

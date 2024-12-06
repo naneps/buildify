@@ -1,11 +1,15 @@
 import 'package:buildify/app/commons/ui/responsive_layout.dart';
+import 'package:buildify/app/modules/widget_builder/views/tools_section.dart';
+import 'package:buildify/app/modules/widget_builder/views/widgets_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../commons/ui/resizedable_widget/resizable_widget.dart';
 import '../controllers/widget_builder_controller.dart';
 
 class WidgetBuilderView extends GetView<WidgetBuilderController> {
   const WidgetBuilderView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,74 +18,50 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
         centerTitle: true,
       ),
       body: ResponsiveLayout(
+        padding: const EdgeInsets.all(0),
         mobile: const Center(
           child: Text("Mobile View \n Coming Soon"),
         ),
-        tablet: Row(
+        tablet: ResizableWidget(
+          separatorColor: Theme.of(context).primaryColor,
+          separatorSize: 2,
+          onResized: (infoList) {},
+          percentages: const [0.2, 0.6, 0.2],
+          //   maxSizes: const [400, 200, 200],
           children: [
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade500, width: 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
+            const WidgetsSection(),
+            Scaffold(
+              body: Obx(() {
+                return Stack(
                   children: [
-                    Obx(() {
-                      return controller.widget.value.build();
-                    }),
-                    SizedBox(height: Get.height * 0.1),
-                    ElevatedButton(
-                      onPressed: () {
-                        print('save');
-                        controller.saveWidget();
-                      },
-                      child: const Text('Save'),
+                    Positioned(
+                      left: controller.xAxis.value,
+                      top: controller.yAxis.value,
+                      child: GestureDetector(
+                        onPanStart: (details) {
+                          // Handle the start of the drag (if needed)
+                        },
+                        onPanUpdate: (details) {
+                          // Update x and y axis based on drag delta
+                          controller.updateYAxis(
+                              controller.yAxis.value + details.delta.dy);
+                          controller.updateXAxis(
+                              controller.xAxis.value + details.delta.dx);
+                        },
+                        onPanEnd: (details) {
+                          // Handle the end of the drag (if needed)
+                        },
+                        child: Container(
+                          // Replace with your widget logic
+                          child: controller.widget.value.build(),
+                        ),
+                      ),
                     ),
                   ],
-                ),
-              ),
+                );
+              }),
             ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade500, width: 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: StreamBuilder(
-                  stream: controller.streamWidgets(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      print(snapshot);
-                      return Center(child: Text('Errors: ${snapshot.error}'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(child: Text('No widgets found'));
-                    } else {
-                      return ListView.separated(
-                        separatorBuilder: (context, index) => const Divider(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                              onDoubleTap: () {
-                                controller.repo
-                                    .deleteItem(snapshot.data![index].id!);
-                              },
-                              child: snapshot.data![index].widget?.build());
-                        },
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
+            const ToolsSectionView(),
           ],
         ),
       ),

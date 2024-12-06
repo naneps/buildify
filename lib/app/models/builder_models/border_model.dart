@@ -33,7 +33,6 @@ class BorderModel {
           : null,
     );
   }
-
   BorderModel copyWith({
     BorderType? type,
     BorderSideModel? all,
@@ -51,6 +50,8 @@ class BorderModel {
       right: right ?? this.right,
     );
   }
+
+  void refreshBorder() {}
 
   BoxBorder toBorder() {
     switch (type) {
@@ -76,7 +77,7 @@ class BorderModel {
         return Border.all(
           color: Colors.black,
           width: 1.0,
-          style: BorderStyle.solid,
+          style: BorderStyle.none,
         );
     }
   }
@@ -99,11 +100,26 @@ class BorderModel {
 
   static BorderModel defaultBorder() => BorderModel(
         type: BorderType.all,
-        all: BorderSideModel(width: 1, color: Colors.black),
-        top: BorderSideModel(width: 1, color: Colors.black),
-        bottom: BorderSideModel(width: 1, color: Colors.black),
-        left: BorderSideModel(width: 1, color: Colors.black),
-        right: BorderSideModel(width: 1, color: Colors.black),
+        all: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        top: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        bottom: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        left: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        right: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
       );
 }
 
@@ -113,7 +129,7 @@ class BorderSideModel {
   BorderStyle? style;
 
   BorderSideModel({
-    this.color = Colors.black,
+    this.color,
     this.width = 1.0,
     this.style = BorderStyle.solid,
   });
@@ -134,7 +150,6 @@ class BorderSideModel {
     BorderStyle? style,
   }) {
     return BorderSideModel(
-      color: color ?? this.color,
       width: width ?? this.width,
       style: style ?? this.style,
     );
@@ -142,7 +157,6 @@ class BorderSideModel {
 
   BorderSide toBorderSide() {
     return BorderSide(
-      color: color ?? Colors.black,
       width: width ?? 1.0,
       style: style ?? BorderStyle.solid,
     );
@@ -150,7 +164,7 @@ class BorderSideModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'color': color?.value,
+      'color': color,
       'width': width,
       'style': style?.name,
     };
@@ -162,14 +176,20 @@ class BorderSideModel {
   }
 }
 
-enum BorderType { all, only, symmetric }
+enum BorderType {
+  all,
+  only,
+  symmetric,
+  none,
+}
 
 extension BorderTypeExtension on BorderType {
   IconData get icon => {
         BorderType.all: MdiIcons.borderAllVariant,
         BorderType.only:
             MdiIcons.borderLeftVariant, // atau ikon untuk sisi spesifik
-        BorderType.symmetric: MdiIcons.borderStyle, // atau borderVertical
+        BorderType.symmetric: MdiIcons.borderStyle,
+        BorderType.none: MdiIcons.borderNone // atau borderVertical
       }[this]!;
   bool get isAll => this == BorderType.all;
   bool get isOnly => this == BorderType.only;

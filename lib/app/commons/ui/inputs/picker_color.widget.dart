@@ -69,10 +69,13 @@ class _PickerColorState extends State<PickerColor> {
               portraitOnly: true,
               pickerAreaHeightPercent: 0.7,
               onColorChanged: (color) {
-                setState(() {
-                  _color = color;
-                });
-                widget.onColorChanged(_color);
+                print(color);
+                if (mounted) {
+                  setState(() {
+                    _color = color;
+                    widget.onColorChanged(_color);
+                  });
+                }
               },
             ),
           ),

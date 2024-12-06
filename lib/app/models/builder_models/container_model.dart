@@ -11,13 +11,13 @@ import 'box_decoration_model.dart';
 class ContainerModel extends WidgetModel {
   RxDouble? width;
   RxDouble? height;
-  Color? color;
-  BoxDecorationModel? decoration;
-  Clip? clipBehavior;
-  AlignmentType? alignment;
-  WidgetModel? child;
-  EdgeInsetModel? padding;
-  EdgeInsetModel? margin;
+  Rx<Color>? color;
+  Rx<BoxDecorationModel>? decoration;
+  Rx<Clip>? clipBehavior;
+  Rx<AlignmentType>? alignment;
+  Rx<WidgetModel>? child;
+  Rx<EdgeInsetModel>? padding;
+  Rx<EdgeInsetModel>? margin;
   ContainerModel({
     this.width,
     this.height,
@@ -34,15 +34,21 @@ class ContainerModel extends WidgetModel {
     return ContainerModel(
       width: json['width'] != null ? RxDouble(json['width']) : null,
       height: json['height'] != null ? RxDouble(json['height']) : null,
-      color: json['color'] != null ? Color(json['color']) : null,
-      alignment: AlignmentType.values[json['alignment'] ?? 0],
-      decoration: BoxDecorationModel.fromJson(json['decoration']),
-      child:
-          json['child'] != null ? WidgetParser.fromJson(json['child']) : null,
-      padding: json['padding'] != null
-          ? EdgeInsetModel.fromJson(json['padding'])
+      color: json['color'] != null ? Color(json['color']).obs : null,
+      alignment: AlignmentType.values.byName(json['alignment']).obs,
+      decoration: BoxDecorationModel.fromJson(json['decoration']).obs,
+      clipBehavior: json['clipBehavior'] != null
+          ? Clip.values.byName(json['clipBehavior']).obs
           : null,
-      //   margin: EdgeInsetModel.fromJson(json['margin']),
+      child: json['child'] != null
+          ? WidgetParser.fromJson(json['child'])?.obs
+          : null,
+      padding: json['padding'] != null
+          ? EdgeInsetModel.fromJson(json['padding']).obs
+          : null,
+      margin: json['margin'] != null
+          ? EdgeInsetModel.fromJson(json['margin']).obs
+          : null,
       //   clipBehavior: json['clipBehavior'] != null
       //       ? Clip.values[json['clipBehavior']]
       //       : null,
@@ -51,25 +57,29 @@ class ContainerModel extends WidgetModel {
 
   @override
   Widget build() {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      clipBehavior: clipBehavior ?? Clip.none,
-      width: width?.value ?? 0.0,
-      height: height?.value ?? 0.0,
-      padding: padding?.toEdgeInsets(),
-      alignment: alignment?.alignment,
-      color: decoration != null ? null : color,
-      margin: margin?.toEdgeInsets(),
-      decoration: decoration?.toBoxDecoration(),
-      child: child?.build(),
+    return InkWell(
+      onTap: () {
+        print("CONTAINER CLICKED");
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        clipBehavior: clipBehavior?.value ?? Clip.none,
+        width: width?.value ?? 0.0,
+        height: height?.value ?? 0.0,
+        padding: padding?.value.toEdgeInsets(),
+        alignment: alignment?.value.alignment,
+        color: decoration != null ? null : color?.value,
+        margin: margin?.value.toEdgeInsets(),
+        decoration: decoration?.value.toBoxDecoration(),
+        child: child?.value.build(),
+      ),
     );
   }
 
   @override
   Widget buildEditor() {
-    // TODO: implement buildEditor
     return ContainerEditorView(
-      container: Rx<ContainerModel>(this),
+      container: Rx(this),
     );
   }
 
@@ -83,9 +93,9 @@ class ContainerModel extends WidgetModel {
     return ContainerModel(
       width: RxDouble(width ?? this.width!.value),
       height: RxDouble(height ?? this.height!.value),
-      decoration: decoration ?? this.decoration,
-      alignment: alignment ?? this.alignment,
-      color: color ?? this.color,
+      decoration: decoration?.obs ?? this.decoration,
+      alignment: alignment?.obs ?? this.alignment,
+      color: color?.obs ?? this.color,
     );
   }
 
@@ -95,12 +105,12 @@ class ContainerModel extends WidgetModel {
       'width': width?.value,
       'height': height?.value,
       'color': color?.value,
-      'alignment': alignment?.index,
-      'decoration': decoration?.toJson(),
-      'child': child?.toJson(),
-      'padding': padding?.toJson(),
-      'margin': margin?.toJson(),
-      'clipBehavior': clipBehavior?.index,
+      'alignment': alignment?.value.name,
+      'decoration': decoration?.value.toJson(),
+      'child': child?.value.toJson(),
+      'padding': padding?.value.toJson(),
+      'margin': margin?.value.toJson(),
+      'clipBehavior': clipBehavior?.value.name,
       'runtimeType': runtimeType.toString(),
     }..removeWhere((key, value) => value == null);
   }

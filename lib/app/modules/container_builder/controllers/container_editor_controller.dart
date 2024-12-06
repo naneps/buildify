@@ -15,58 +15,58 @@ class ContainerEditorController extends GetxController {
   ContainerEditorController(this.container);
 
   void updateAlignment(AlignmentType alignment) {
-    container.value.alignment = alignment;
-    container.refresh();
+    container.value.alignment?.value = alignment;
+    container.value.alignment?.refresh();
   }
 
   void updateBorder(BorderModel border) {
-    container.value.decoration?.border = border;
-    container.refresh();
+    container.value.decoration?.value.border = border;
+    container.value.decoration?.refresh();
   }
 
   void updateBorderRadius(BorderRadiusModel borderRadius) {
-    container.value.decoration?.borderRadius = borderRadius;
-    container.refresh();
+    container.value.decoration?.value.borderRadius = borderRadius;
+    container.value.decoration?.refresh();
   }
 
   void updateBoxShape(BoxShape boxShape) {
     if (boxShape == BoxShape.circle) {
-      container.value.decoration?.borderRadius = null;
+      container.value.decoration?.value.borderRadius = null;
+      container.value.decoration?.refresh();
     }
-    container.value.decoration?.boxShape = boxShape;
-    container.refresh();
+
+    container.value.decoration?.value.boxShape = boxShape;
+    container.value.decoration?.refresh();
   }
 
   void updateDecorationColor(Color color) {
-    container.value.decoration?.color = color;
-    container.refresh();
+    container.value.decoration?.value.color = color;
+    container.value.decoration?.refresh();
   }
 
   void updateDecorationImage(DecorationImageModel value) {
-    container.value.decoration?.image = value;
-    container.refresh();
+    container.value.decoration?.value.image = value;
+    container.value.decoration?.refresh();
   }
 
   void updateHeight(String value) {
     final height = double.tryParse(value) ?? 0.0;
     container.value.height!.value = height;
-    container.refresh();
   }
 
   void updateMargin(EdgeInsetModel value) {
-    container.value.margin = value;
-    container.refresh();
+    container.value.margin?.value = value;
+    container.value.margin?.refresh();
   }
 
   void updatePadding(EdgeInsetModel value) {
-    container.value.padding = value;
-    container.refresh();
+    container.value.padding?.value = value;
+    container.value.padding?.refresh();
   }
 
   // Methods for handling container updates
   void updateWidth(String value) {
     final width = double.tryParse(value) ?? 0.0;
     container.value.width!.value = width;
-    container.refresh();
   }
 }

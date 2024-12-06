@@ -1,6 +1,8 @@
 import 'package:buildify/app/models/text_models/text_style.model.dart';
 import 'package:buildify/app/models/widget_models/widget.model.dart';
+import 'package:buildify/app/modules/widget_builder/views/text_editor_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TextModel extends WidgetModel {
   String? text;
@@ -53,8 +55,7 @@ class TextModel extends WidgetModel {
 
   @override
   Widget buildEditor() {
-    // TODO: implement buildEditor
-    throw UnimplementedError();
+    return TextEditorView(textModel: Rx(this));
   }
 
   @override

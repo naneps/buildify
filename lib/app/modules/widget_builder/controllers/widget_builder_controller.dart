@@ -13,21 +13,24 @@ import 'package:buildify/app/models/listile_models/listile.model.dart';
 import 'package:buildify/app/models/text_models/font_weight.model.dart';
 import 'package:buildify/app/models/text_models/text.model.dart';
 import 'package:buildify/app/models/text_models/text_style.model.dart';
-import 'package:buildify/app/models/user_widget.model.dart';
 import 'package:buildify/app/models/widget_models/expanded.model.dart';
 import 'package:buildify/app/models/widget_models/icon_model.dart';
 import 'package:buildify/app/models/widget_models/widget.model.dart';
-import 'package:buildify/app/repositories/widget.repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class WidgetBuilderController extends GetxController {
-  final repo = Get.find<WidgetRepository>();
+//   final repo = Get.find<WidgetRepositor
+  RxDouble xAxis = 0.0.obs;
+  RxDouble yAxis = 0.0.obs;
+  Rx<WidgetModel> activeWidget = TextModel(
+    text: 'Hello World',
+  ).obs;
   Rx<WidgetModel> widget = ContainerModel(
     width: RxDouble(300),
     height: RxDouble(200),
-    padding: EdgeInsetModel.all(10),
+    padding: EdgeInsetModel.all(10).obs,
     decoration: BoxDecorationModel(
         color: const Color.fromARGB(255, 233, 233, 233),
         border: BorderModel(
@@ -44,7 +47,7 @@ class WidgetBuilderController extends GetxController {
           )
         ]
         //   boxShape: BoxShape.circle,
-        ),
+        ).obs,
     child: ColumnModel(
       //   crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -61,7 +64,7 @@ class WidgetBuilderController extends GetxController {
                 ),
                 fit: BoxFit.cover,
               ),
-            ),
+            ).obs,
           ),
         ),
         ListTileModel(
@@ -99,27 +102,35 @@ class WidgetBuilderController extends GetxController {
           ),
         )
       ],
-    ),
+    ).obs,
   ).obs;
-  Future<List<UserWidgetModel>> getWidgets() async {
-    return await repo.getWidgets();
+
+  void updateXAxis(double dy) {
+    xAxis.value = dy;
   }
 
-  void saveWidget() async {
-    try {
-      await repo.createWidget(UserWidgetModel(
-        className: widget.value.runtimeType.toString(),
-        name: 'Example Widget',
-        description: 'description',
-        widget: widget.value,
-        userId: '',
-      ));
-    } catch (e) {
-      print("Error creating widget: $e");
-    }
+  void updateYAxis(double dy) {
+    yAxis.value = dy;
   }
+//   Future<List<UserWidgetModel>> getWidgets() async {
+//     return await repo.getWidgets();
+//   }
 
-  Stream<List<UserWidgetModel>> streamWidgets() async* {
-    yield* repo.streamWidgets();
-  }
+//   void saveWidget() async {
+//     try {
+//       await repo.createWidget(UserWidgetModel(
+//         className: widget.value.runtimeType.toString(),
+//         name: 'Example Widget',
+//         description: 'description',
+//         widget: widget.value,
+//         userId: '',
+//       ));
+//     } catch (e) {
+//       print("Error creating widget: $e");
+//     }
+//   }
+
+//   Stream<List<UserWidgetModel>> streamWidgets() async* {
+//     yield* repo.streamWidgets();
+//   }
 }

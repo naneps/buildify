@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/themes/main_colors.dart';
+import 'package:buildify/app/models/builder_models/border_model.dart';
 import 'package:buildify/app/models/builder_models/box_decoration_model.dart';
 import 'package:buildify/app/models/builder_models/container_model.dart';
 import 'package:buildify/app/models/text_models/font_weight.model.dart';
@@ -11,23 +12,30 @@ class BoxShadowBuilderController extends GetxController {
 //   final containerEditorController =
   //   Get.put(ContainerEditorController(), tag: 'shape');
   Rx<ContainerModel> containerModel = ContainerModel(
-      width: (Get.width * 0.3).obs,
-      height: (Get.width * 0.3).obs,
-      decoration: BoxDecorationModel(
-        boxShadow: [],
-        gradient: null,
-        image: null,
-        border: null,
-        color: MainColors.primaryColor,
-      ),
-      child: TextModel(
-        text: 'Buildify',
-        style: TextStyleModel(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: XFontWeight.w600,
+    width: (Get.width * 0.3).obs,
+    height: (Get.width * 0.3).obs,
+    decoration: BoxDecorationModel(
+      boxShadow: [],
+      gradient: null,
+      image: null,
+      border: BorderModel(
+        type: BorderType.all,
+        all: BorderSideModel(
+          width: 1,
+          color: Colors.black,
         ),
-      )).obs;
+      ),
+      color: MainColors.primaryColor,
+    ).obs,
+    child: TextModel(
+      text: 'Buildify',
+      style: TextStyleModel(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: XFontWeight.w600,
+      ),
+    ).obs,
+  ).obs;
 
   @override
   void onInit() {

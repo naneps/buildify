@@ -1,6 +1,5 @@
 import 'package:buildify/app/enums/gradient.enum.dart';
 import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
-import 'package:buildify/app/modules/container_builder/controllers/container_editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,9 +13,9 @@ class GradientBuilderController extends GetxController {
   Rx<ContainerModel> container = ContainerModel(
     width: RxDouble(200),
     height: RxDouble(200),
-    padding: EdgeInsetModel(type: EdgeInsetType.zero),
-    margin: EdgeInsetModel(type: EdgeInsetType.zero),
-    alignment: AlignmentType.topLeft,
+    padding: EdgeInsetModel(type: EdgeInsetType.zero).obs,
+    margin: EdgeInsetModel(type: EdgeInsetType.zero).obs,
+    alignment: AlignmentType.topLeft.obs,
     decoration: BoxDecorationModel(
       color: Get.theme.primaryColor,
       boxShape: BoxShape.rectangle,
@@ -24,7 +23,7 @@ class GradientBuilderController extends GetxController {
       border: null,
       image: null,
       gradient: null,
-    ),
+    ).obs,
   ).obs;
 
 //   Future<Stream<List<UserGradientModel>>> getGradients() async {
@@ -32,32 +31,9 @@ class GradientBuilderController extends GetxController {
 //   }
 
   void onGradientChanged(GradientModel gradient) {
-    container.value.decoration!.gradient = gradient;
-    container.value.decoration!.color = null;
+    container.value.decoration!.value.gradient = gradient;
+    container.value.decoration!.value.color = null;
     container.refresh();
     update();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    ever(
-      Get.find<ContainerEditorController>().container,
-      (newContainer) {
-        container.update(
-          (val) {
-            val!.width!.value = newContainer.width!.value;
-            val.height!.value = newContainer.height!.value;
-            val.padding = newContainer.padding;
-            val.margin = newContainer.margin;
-            val.alignment = newContainer.alignment;
-            val.decoration!.color = newContainer.decoration?.color;
-            val.decoration?.boxShape = newContainer.decoration!.boxShape;
-            val.decoration?.borderRadius =
-                newContainer.decoration?.borderRadius;
-          },
-        );
-      },
-    );
   }
 }

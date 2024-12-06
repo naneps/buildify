@@ -28,52 +28,7 @@ class IconModel extends WidgetModel {
     this.opticalSize,
     this.semanticLabel,
   });
-  @override
-  Widget build() {
-    // TODO: implement build
-    return Icon(
-      icon,
-      size: size,
-      color: color,
-      weight: weight,
-      applyTextScaling: applyTextScaling,
-      grade: grade,
-      fill: fill,
-      textDirection: textDirection,
-      opticalSize: opticalSize,
-      semanticLabel: semanticLabel,
-      shadows: shadows?.map((e) => e.toBoxShadow()).toList(),
-    );
-  }
-
-  @override
-  Widget buildEditor() {
-    // TODO: implement buildEditor
-    throw UnimplementedError();
-  }
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'icon': {
-          'codePoint': icon?.codePoint,
-          'fontFamily': icon?.fontFamily,
-          'fontPackage': icon?.fontPackage,
-          'fontPackagePath': icon?.fontFamilyFallback,
-        },
-        'size': size,
-        'color': color?.value,
-        'weight': weight,
-        'applyTextScaling': applyTextScaling,
-        'grade': grade,
-        'fill': fill,
-        'textDirection': textDirection?.name,
-        'opticalSize': opticalSize,
-        'semanticLabel': semanticLabel,
-        'shadows': shadows?.map((e) => e.toJson()).toList(),
-        'runtimeType': runtimeType.toString(),
-      }..removeWhere((key, value) => value == null);
-
-  static IconModel fromJson(Map<String, dynamic> json) => IconModel(
+  factory IconModel.fromJson(Map<String, dynamic> json) => IconModel(
         icon: IconData(
           json['icon']['codePoint'],
           fontFamily: json['icon']['fontFamily'],
@@ -97,4 +52,60 @@ class IconModel extends WidgetModel {
                 .map((shadow) => BoxShadowModel.fromJson(shadow)))
             : null,
       );
+
+  @override
+  Widget build() {
+    // TODO: implement build
+    return Icon(
+      icon,
+      size: size,
+      color: color,
+      weight: weight,
+      applyTextScaling: applyTextScaling,
+      grade: grade,
+      fill: fill,
+      textDirection: textDirection,
+      opticalSize: opticalSize,
+      semanticLabel: semanticLabel,
+      shadows: shadows?.map((e) => e.toBoxShadow()).toList(),
+    );
+  }
+
+  @override
+  Widget buildEditor() {
+    return Icon(
+      icon,
+      size: size,
+      color: color,
+      weight: weight,
+      applyTextScaling: applyTextScaling,
+      grade: grade,
+      fill: fill,
+      textDirection: textDirection,
+      opticalSize: opticalSize,
+      semanticLabel: semanticLabel,
+      shadows: shadows?.map((e) => e.toBoxShadow()).toList(),
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'icon': {
+          'codePoint': icon?.codePoint,
+          'fontFamily': icon?.fontFamily,
+          'fontPackage': icon?.fontPackage,
+          'fontPackagePath': icon?.fontFamilyFallback,
+        },
+        'size': size,
+        'color': color?.value,
+        'weight': weight,
+        'applyTextScaling': applyTextScaling,
+        'grade': grade,
+        'fill': fill,
+        'textDirection': textDirection?.name,
+        'opticalSize': opticalSize,
+        'semanticLabel': semanticLabel,
+        'shadows': shadows?.map((e) => e.toJson()).toList(),
+        'runtimeType': runtimeType.toString(),
+      }..removeWhere((key, value) => value == null);
 }
