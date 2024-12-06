@@ -55,8 +55,8 @@ class BoxShadowModel {
   BoxShadow toBoxShadow() {
     return BoxShadow(
       color: color,
-      blurRadius: blurRadius!,
-      spreadRadius: spreadRadius!,
+      blurRadius: blurRadius ?? 0,
+      spreadRadius: spreadRadius ?? 0,
       offset: offset!,
       blurStyle: blurStyle!,
     );

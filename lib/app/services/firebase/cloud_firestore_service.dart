@@ -27,6 +27,18 @@ abstract class FirestoreService<T> {
     return snapshot.exists ? snapshot.data() : null;
   }
 
+  Future<List<T>> getItems() async {
+    try {
+      final snapshot = await _firestore.collection(collectionPath).get();
+      return snapshot.docs
+          .map((doc) => fromFirestore(doc.data(), doc.id))
+          .toList();
+    } catch (e) {
+      print("Error getting data: $e");
+      throw Exception('Failed to get data: $e');
+    }
+  }
+
   // Stream documents with optional filters and ordering
   Stream<List<T>> streamItems({
     Map<String, dynamic>? filters,

@@ -6,8 +6,11 @@ import 'package:get/get.dart';
 class BorderRadiusTool extends GetView<BorderRadiusToolController> {
   final Function(BorderRadiusModel)? onChange;
   final BorderRadiusModel? initValue;
-  const BorderRadiusTool(
-      {super.key, required this.onChange, required this.initValue});
+  const BorderRadiusTool({
+    super.key,
+    required this.onChange,
+    required this.initValue,
+  });
 
   @override
   get controller =>

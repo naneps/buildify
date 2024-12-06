@@ -75,11 +75,11 @@ class BoxShadowToolsController extends GetxController
   void updateBoxShadowsInController({int? index}) {
     final boxShadowCtrl = Get.find<BoxShadowBuilderController>();
     if (index != null) {
-      boxShadowCtrl.containerModel.value.decoration!.boxShadow![index] =
+      boxShadowCtrl.containerModel.value.decoration?.value.boxShadow![index] =
           boxShadows[index];
     } else {
-      boxShadowCtrl.containerModel.value.decoration!.boxShadow!
-        ..clear()
+      boxShadowCtrl.containerModel.value.decoration?.value.boxShadow
+        ?..clear()
         ..addAll(boxShadows);
     }
     boxShadowCtrl.containerModel.refresh();

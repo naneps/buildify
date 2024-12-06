@@ -29,6 +29,48 @@ class TextStyleModel {
     this.textBaseline,
   });
 
+  factory TextStyleModel.fromJson(Map<String, dynamic> json) {
+    return TextStyleModel(
+      fontFamily: json['fontFamily'],
+      fontSize: json['fontSize'],
+      fontWeight: XFontWeight.values.byName(json['fontWeight']),
+      fontStyle: json['fontStyle'] != null
+          ? FontStyle.values.byName(json['fontStyle'])
+          : null,
+      color: Color(json['color']),
+      letterSpacing: json['letterSpacing'],
+      wordSpacing: json['wordSpacing'],
+      decoration: json['decoration'] != null
+          ? XTextDecoration.values.byName(json['decoration'])
+          : null,
+      decorationThickness: json['decorationThickness'],
+      backgroundColor: json['backgroundColor'] != null
+          ? Color(json['backgroundColor'])
+          : null,
+      height: json['height'],
+      textBaseline: json['textBaseline'] != null
+          ? TextBaseline.values.byName(json['textBaseline'])
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fontFamily': fontFamily,
+      'fontSize': fontSize,
+      'fontWeight': fontWeight?.name,
+      'fontStyle': fontStyle?.name,
+      'color': color?.value,
+      'letterSpacing': letterSpacing,
+      'wordSpacing': wordSpacing,
+      'decoration': decoration?.name,
+      'decorationThickness': decorationThickness,
+      'backgroundColor': backgroundColor?.value,
+      'height': height,
+      'textBaseline': textBaseline?.name,
+    }..removeWhere((key, value) => value == null);
+  }
+
   TextStyle toTextStyle() {
     return TextStyle(
       fontFamily: fontFamily,

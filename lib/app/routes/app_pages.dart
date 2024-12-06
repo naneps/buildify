@@ -6,6 +6,8 @@ import '../modules/box_shadow_builder/bindings/box_shadow_builder_binding.dart';
 import '../modules/box_shadow_builder/views/box_shadow_builder_view.dart';
 import '../modules/container_builder/bindings/container_builder_binding.dart';
 import '../modules/container_builder/views/container_builder_view.dart';
+import '../modules/find_icon/bindings/find_icon_binding.dart';
+import '../modules/find_icon/views/find_icon_view.dart';
 import '../modules/gradient_builder/bindings/gradient_builder_binding.dart';
 import '../modules/gradient_builder/views/gradient_builder_view.dart';
 import '../modules/gradient_builder/views/gradient_public_template_view.dart';
@@ -69,6 +71,11 @@ class AppPages {
       name: _Paths.WIDGET_BUILDER,
       page: () => const WidgetBuilderView(),
       binding: WidgetBuilderBinding(),
+    ),
+    GetPage(
+      name: _Paths.FIND_ICON,
+      page: () => const FindIconView(),
+      binding: FindIconBinding(),
     ),
   ];
 

@@ -1,4 +1,5 @@
 import 'package:buildify/app/commons/themes/tab_bar_themes.dart';
+import 'package:buildify/app/commons/themes/tooltip_themes.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_navigation_bar.themes.dart';
@@ -20,8 +21,10 @@ class AppThemes {
         fontSize: 14,
       ),
     ),
+    disabledColor: Colors.grey.shade300,
+    tooltipTheme: TooltipThemes.lightTooltip,
     tabBarTheme: TabBarThemes.tabBarTheme,
-    visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -1),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MainColors.primaryColor,
       foregroundColor: MainColors.whiteColor,
@@ -72,14 +75,16 @@ class AppThemes {
       backgroundColor: MainColors.primaryDarkColor,
       foregroundColor: MainColors.whiteColor,
     ),
+    tooltipTheme: TooltipThemes.darkTooltip,
     dividerColor: MainColors.dividerColor,
+    disabledColor: Colors.grey.shade300,
     scaffoldBackgroundColor: MainColors.scaffoldDarkBackgroundColor,
     textTheme: TextThemes.darkTextTheme,
     elevatedButtonTheme: ButtonThemes.elevatedButtonDarkTheme,
     outlinedButtonTheme: ButtonThemes.outlinedButtonDarkTheme,
     iconButtonTheme: ButtonThemes.iconButtonDarkTheme,
     textButtonTheme: ButtonThemes.textButtonDarkTheme,
-    visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
+    visualDensity: const VisualDensity(horizontal: -2, vertical: -1),
     inputDecorationTheme: InputDecorationThemes.inputDecorationTheme.copyWith(
       fillColor: MainColors.primaryDarkColor,
       enabledBorder: OutlineInputBorder(

@@ -29,10 +29,7 @@ class EdgeInsetModel {
 
   /// Creates an instance from JSON
   factory EdgeInsetModel.fromJson(Map<String, dynamic> json) {
-    EdgeInsetType type = EdgeInsetType.values.firstWhere(
-      (e) => e.toString() == json['type'],
-      orElse: () => EdgeInsetType.all,
-    );
+    EdgeInsetType type = EdgeInsetType.values.byName(json['type']);
 
     return EdgeInsetModel(
       type: type,
@@ -89,13 +86,17 @@ class EdgeInsetModel {
           horizontal: horizontal ?? 0.0,
           vertical: vertical ?? 0.0,
         );
+      case EdgeInsetType.zero:
+        return EdgeInsets.zero;
+      default:
+        return EdgeInsets.zero;
     }
   }
 
   /// Converts to JSON for serialization
   Map<String, dynamic> toJson() {
     return {
-      'type': type.toString(),
+      'type': type.name,
       'all': all,
       'left': left,
       'top': top,
@@ -107,7 +108,7 @@ class EdgeInsetModel {
   }
 }
 
-enum EdgeInsetType { all, only, symmetric }
+enum EdgeInsetType { all, only, symmetric, zero }
 
 extension EdgeInsetTypeExtension on EdgeInsetType {
   IconData get icon => {
@@ -115,6 +116,7 @@ extension EdgeInsetTypeExtension on EdgeInsetType {
         EdgeInsetType.only:
             MdiIcons.borderLeftVariant, // atau ikon untuk sisi spesifik
         EdgeInsetType.symmetric: MdiIcons.borderStyle, // atau borderVertical
+        EdgeInsetType.zero: MdiIcons.borderNone
       }[this]!;
   String get name => toString().split('.').last;
 }

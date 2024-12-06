@@ -38,7 +38,7 @@ class BorderRadiusModel {
       horizontalLeft: json['horizontalLeft'] as double?,
       horizontalRight: json['horizontalRight'] as double?,
       type: json['type'] != null
-          ? BorderRadiusType.values[json['type'] as int]
+          ? BorderRadiusType.values.byName(json['type'])
           : null,
     );
   }
@@ -102,8 +102,8 @@ class BorderRadiusModel {
       'topRight': topRight,
       'bottomLeft': bottomLeft,
       'bottomRight': bottomRight,
-      'radius': all,
-      'type': type?.index,
+      'all': all,
+      'type': type?.name,
     };
   }
 }

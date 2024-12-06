@@ -1,3 +1,5 @@
+import 'package:buildify/app/models/builder_models/container_model.dart';
+import 'package:buildify/app/modules/container_builder/controllers/container_editor_controller.dart';
 import 'package:buildify/app/modules/gradient_builder/controllers/gradient_public_controller.dart';
 import 'package:buildify/app/services/firebase/firebase_auth_service.dart';
 import 'package:buildify/app/services/user_service.dart';
@@ -18,5 +20,6 @@ class GradientBuilderBinding extends Bindings {
     Get.lazyPut(() => GradientRepository());
     Get.lazyPut(() => GradientPublicController());
     Get.lazyPut(() => FirebaseAuthService());
+    Get.lazyPut(() => ContainerEditorController(ContainerModel().obs));
   }
 }

@@ -1,7 +1,5 @@
-import 'package:buildify/app/commons/ui/overlays/scale_dialog.dart';
 import 'package:buildify/app/models/filter/count_color.dart';
 import 'package:buildify/app/models/filter/filter_gradient.dart';
-import 'package:buildify/app/modules/auth/views/form_signin.dart';
 import 'package:buildify/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,15 +65,10 @@ class GradientPublicController extends GetxController
   }
 
   void toCreateGradient() {
-    if (gradientRepo.userService.uid.isEmpty) {
-      Get.dialog(const ScaleDialog(
-        child: AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          content: FormSignIn(),
-        ),
-      ));
-    } else {
-      Get.toNamed(Routes.GRADIENT_BUILDER);
-    }
+    // if (gradientRepo.userService.uid.isEmpty) {
+
+    // } else {
+    Get.toNamed(Routes.GRADIENT_BUILDER);
+    // }
   }
 }

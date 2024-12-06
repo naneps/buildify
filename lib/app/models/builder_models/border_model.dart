@@ -9,15 +9,30 @@ class BorderModel {
   BorderSideModel? left;
   BorderSideModel? right;
 
-  BorderModel({
-    this.type = BorderType.all,
-    this.all,
-    this.top,
-    this.bottom,
-    this.left,
-    this.right,
-  });
+  BorderModel(
+      {this.type = BorderType.all,
+      this.all,
+      this.top,
+      this.bottom,
+      this.left,
+      this.right});
 
+  factory BorderModel.fromJson(Map<String, dynamic> json) {
+    return BorderModel(
+      type:
+          json['type'] != null ? BorderType.values.byName(json['type']) : null,
+      all: json['all'] != null ? BorderSideModel.fromJson(json['all']) : null,
+      top: json['top'] != null ? BorderSideModel.fromJson(json['top']) : null,
+      bottom: json['bottom'] != null
+          ? BorderSideModel.fromJson(json['bottom'])
+          : null,
+      left:
+          json['left'] != null ? BorderSideModel.fromJson(json['left']) : null,
+      right: json['right'] != null
+          ? BorderSideModel.fromJson(json['right'])
+          : null,
+    );
+  }
   BorderModel copyWith({
     BorderType? type,
     BorderSideModel? all,
@@ -36,6 +51,8 @@ class BorderModel {
     );
   }
 
+  void refreshBorder() {}
+
   BoxBorder toBorder() {
     switch (type) {
       case BorderType.all:
@@ -51,19 +68,59 @@ class BorderModel {
           left: left?.toBorderSide() ?? BorderSide.none,
           right: right?.toBorderSide() ?? BorderSide.none,
         );
+      case BorderType.symmetric:
+        return Border.symmetric(
+          horizontal: left?.toBorderSide() ?? BorderSide.none,
+          vertical: right?.toBorderSide() ?? BorderSide.none,
+        );
       default:
         return Border.all(
           color: Colors.black,
           width: 1.0,
-          style: BorderStyle.solid,
+          style: BorderStyle.none,
         );
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type?.name,
+      'all': all?.toJson(),
+      'top': top?.toJson(),
+      'bottom': bottom?.toJson(),
+      'left': left?.toJson(),
+      'right': right?.toJson(),
+    };
   }
 
   @override
   String toString() {
     return 'BorderModel{type: $type, all: $all, top: $top, bottom: $bottom, left: $left, right: $right}';
   }
+
+  static BorderModel defaultBorder() => BorderModel(
+        type: BorderType.all,
+        all: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        top: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        bottom: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        left: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+        right: BorderSideModel(
+          width: 1,
+          color: Colors.black,
+        ),
+      );
 }
 
 class BorderSideModel {
@@ -72,10 +129,20 @@ class BorderSideModel {
   BorderStyle? style;
 
   BorderSideModel({
-    this.color = Colors.black,
+    this.color,
     this.width = 1.0,
     this.style = BorderStyle.solid,
   });
+
+  factory BorderSideModel.fromJson(Map<String, dynamic> json) {
+    return BorderSideModel(
+      color: json['color'] != null ? Color(json['color']) : null,
+      width: json['width'],
+      style: json['style'] != null
+          ? BorderStyle.values.byName(json['style'])
+          : null,
+    );
+  }
 
   BorderSideModel copyWith({
     Color? color,
@@ -83,7 +150,6 @@ class BorderSideModel {
     BorderStyle? style,
   }) {
     return BorderSideModel(
-      color: color ?? this.color,
       width: width ?? this.width,
       style: style ?? this.style,
     );
@@ -91,10 +157,17 @@ class BorderSideModel {
 
   BorderSide toBorderSide() {
     return BorderSide(
-      color: color ?? Colors.black,
       width: width ?? 1.0,
       style: style ?? BorderStyle.solid,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'color': color,
+      'width': width,
+      'style': style?.name,
+    };
   }
 
   @override
@@ -103,14 +176,20 @@ class BorderSideModel {
   }
 }
 
-enum BorderType { all, only, symmetric }
+enum BorderType {
+  all,
+  only,
+  symmetric,
+  none,
+}
 
 extension BorderTypeExtension on BorderType {
   IconData get icon => {
         BorderType.all: MdiIcons.borderAllVariant,
         BorderType.only:
             MdiIcons.borderLeftVariant, // atau ikon untuk sisi spesifik
-        BorderType.symmetric: MdiIcons.borderStyle, // atau borderVertical
+        BorderType.symmetric: MdiIcons.borderStyle,
+        BorderType.none: MdiIcons.borderNone // atau borderVertical
       }[this]!;
   bool get isAll => this == BorderType.all;
   bool get isOnly => this == BorderType.only;

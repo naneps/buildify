@@ -17,7 +17,7 @@ class InputDecorationThemes {
       fontWeight: FontWeight.w500,
     ),
     isDense: true,
-    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     prefixIconColor: MainColors.darkColor,
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),

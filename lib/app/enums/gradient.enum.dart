@@ -41,6 +41,8 @@ extension AlignmentTypeExtension on AlignmentType {
         return const Alignment(1.0, 1.0);
     }
   }
+
+  String get name => toString().split('.').last;
 }
 
 extension GradientTypeExtension on GradientType {
