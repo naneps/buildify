@@ -88,8 +88,6 @@ class EdgeInsetModel {
         );
       case EdgeInsetType.zero:
         return EdgeInsets.zero;
-      default:
-        return EdgeInsets.zero;
     }
   }
 

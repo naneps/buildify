@@ -158,6 +158,7 @@ class BorderSideModel {
   BorderSide toBorderSide() {
     return BorderSide(
       width: width ?? 1.0,
+      color: color ?? Colors.black,
       style: style ?? BorderStyle.solid,
     );
   }

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 class TextAlignTool extends StatelessWidget {
   final Rx<TextAlign> textAlign;
-  const TextAlignTool({super.key, required this.textAlign});
+  Function(TextAlign value) onChange;
+  TextAlignTool({super.key, required this.textAlign, required this.onChange});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,11 @@ class TextAlignTool extends StatelessWidget {
         return Obx(() => Tooltip(
               message: currentAlign.name,
               child: InkWell(
-                onTap: () => textAlign.value = currentAlign,
+                onTap: () {
+                  textAlign.value = currentAlign;
+                  textAlign.refresh();
+                  onChange.call(currentAlign);
+                },
                 child: Icon(
                   currentAlign.icon,
                   color: currentAlign == textAlign.value

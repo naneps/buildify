@@ -2,7 +2,9 @@ import 'package:buildify/app/commons/utils/widget_parser.dart';
 import 'package:buildify/app/models/builder_models/visual_density.model.dart';
 import 'package:buildify/app/models/geometry_models/edge_inset_model.dart';
 import 'package:buildify/app/models/widget_models/widget.model.dart';
+import 'package:buildify/app/modules/widget_builder/views/listile_editor_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class ListTileModel extends WidgetModel {
   WidgetModel? leading;
@@ -51,27 +53,34 @@ class ListTileModel extends WidgetModel {
   }
 
   @override
-  Widget build() {
-    return ListTile(
-      leading: leading?.build(),
-      title: title?.build(),
-      subtitle: subtitle?.build(),
-      trailing: trailing?.build(),
-      contentPadding: contentPadding?.toEdgeInsets(),
-      dense: dense ?? false,
-      selected: selected ?? false,
-      enabled: enabled ?? true,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      tileColor: tileColor,
-      visualDensity: visualDensity?.toVisualDensity(),
+  Widget build(
+    Function(WidgetModel model)? onTap,
+  ) {
+    return InkWell(
+      onTap: () {
+        onTap?.call(this);
+      },
+      child: ListTile(
+        leading: leading?.build(onTap),
+        title: title?.build(onTap?.call(title!)),
+        subtitle: subtitle?.build(onTap?.call(subtitle!)),
+        trailing: trailing?.build(onTap?.call(trailing!)),
+        contentPadding: contentPadding?.toEdgeInsets(),
+        dense: dense ?? false,
+        selected: selected ?? false,
+        enabled: enabled ?? true,
+        focusColor: focusColor,
+        hoverColor: hoverColor,
+        tileColor: tileColor,
+        visualDensity: visualDensity?.toVisualDensity(),
+      ),
     );
   }
 
   @override
   Widget buildEditor() {
     // TODO: implement buildEditor
-    throw UnimplementedError();
+    return ListTileEditorView(listTile: Rx(this));
   }
 
   @override

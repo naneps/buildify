@@ -28,7 +28,11 @@ class ContainerBuilderView extends GetView<ContainerBuilderController> {
             children: [
               Expanded(
                 flex: Get.width > 800 ? 2 : 1,
-                child: Center(child: controller.container.value.build()),
+                child: Center(
+                  child: controller.container.value.build(
+                    (model) {},
+                  ),
+                ),
               ),
               const SizedBox(width: 20),
               Expanded(

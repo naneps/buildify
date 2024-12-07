@@ -1,7 +1,9 @@
 import 'package:buildify/app/commons/utils/widget_parser.dart';
 import 'package:buildify/app/models/image_provider_model/image_provider.model.dart';
 import 'package:buildify/app/models/widget_models/widget.model.dart';
+import 'package:buildify/app/modules/widget_builder/views/circle_avatar_editor_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CircleAvatarModel extends WidgetModel {
   double? radius;
@@ -40,21 +42,26 @@ class CircleAvatarModel extends WidgetModel {
   }
 
   @override
-  Widget build() {
-    return CircleAvatar(
-      backgroundColor: backgroundColor,
-      radius: radius ?? 20,
-      backgroundImage: backgroundImage?.toImageProvider(),
-      foregroundColor: foreGroundColor,
-      maxRadius: maxRadius,
-      child: child?.build(),
+  Widget build(Function(WidgetModel model)? onTap) {
+    return InkWell(
+      onTap: () {
+        onTap?.call(this);
+      },
+      child: CircleAvatar(
+        backgroundColor: backgroundColor,
+        radius: radius ?? 20,
+        backgroundImage: backgroundImage?.toImageProvider(),
+        foregroundColor: foreGroundColor,
+        maxRadius: maxRadius,
+        child: child?.build(onTap),
+      ),
     );
   }
 
   @override
   Widget buildEditor() {
     // TODO: implement buildEditor
-    throw UnimplementedError();
+    return CircleAvatarEditorView(circleAvatar: Rx(this));
   }
 
   @override

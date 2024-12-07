@@ -54,7 +54,9 @@ class IconModel extends WidgetModel {
       );
 
   @override
-  Widget build() {
+  Widget build(
+    Function(WidgetModel model)? onTap,
+  ) {
     // TODO: implement build
     return Icon(
       icon,

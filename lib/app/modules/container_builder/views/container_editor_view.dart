@@ -202,8 +202,11 @@ class ContainerEditorView extends GetView<ContainerEditorController> {
               BorderSideTool(
                 key: const ValueKey('container-border'),
                 scaffoldKey: controller.scaffoldKey,
-                onChange: controller.updateBorder,
-                initValue: controller.container.value.decoration?.value.border,
+                onChange: (val) {
+                  controller.updateBorder(val);
+                },
+                initValue:
+                    controller.container.value.decoration?.value.border?.obs,
               ),
               const SizedBox(height: 10),
               Column(

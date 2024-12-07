@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class BorderSideTool extends GetView<BorderSideToolController> {
   final Function(BorderModel)? onChange;
-  final BorderModel? initValue;
+  final Rx<BorderModel>? initValue;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   const BorderSideTool({
     super.key,
@@ -19,7 +19,7 @@ class BorderSideTool extends GetView<BorderSideToolController> {
   @override
   get controller => Get.put(
       BorderSideToolController(
-        Rx(initValue ?? BorderModel.defaultBorder()),
+        initValue ?? BorderModel.defaultBorder().obs,
       ),
       tag: key.toString());
 
@@ -185,6 +185,7 @@ class BorderSideTool extends GetView<BorderSideToolController> {
 
   void _updateBorder(BorderModel border) {
     controller.border.refresh();
+
     onChange?.call(border);
   }
 }

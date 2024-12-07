@@ -1,5 +1,4 @@
 import 'package:buildify/app/commons/ui/responsive_layout.dart';
-import 'package:buildify/app/modules/widget_builder/views/tools_section.dart';
 import 'package:buildify/app/modules/widget_builder/views/widgets_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +26,6 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
           separatorSize: 2,
           onResized: (infoList) {},
           percentages: const [0.2, 0.6, 0.2],
-          //   maxSizes: const [400, 200, 200],
           children: [
             const WidgetsSection(),
             Scaffold(
@@ -38,22 +36,19 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
                       left: controller.xAxis.value,
                       top: controller.yAxis.value,
                       child: GestureDetector(
-                        onPanStart: (details) {
-                          // Handle the start of the drag (if needed)
-                        },
                         onPanUpdate: (details) {
-                          // Update x and y axis based on drag delta
                           controller.updateYAxis(
                               controller.yAxis.value + details.delta.dy);
                           controller.updateXAxis(
                               controller.xAxis.value + details.delta.dx);
                         },
-                        onPanEnd: (details) {
-                          // Handle the end of the drag (if needed)
-                        },
                         child: Container(
-                          // Replace with your widget logic
-                          child: controller.widget.value.build(),
+                          child: controller.widget.value.build(
+                            (model) {
+                              controller.activeWidget?.value = model;
+                              controller.showEditor(); // Tampilkan editor
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -61,7 +56,14 @@ class WidgetBuilderView extends GetView<WidgetBuilderController> {
                 );
               }),
             ),
-            const ToolsSectionView(),
+            Obx(
+              () {
+                return SlideTransition(
+                  position: controller.editorAnimation,
+                  child: controller.activeWidget!.value.buildEditor(),
+                );
+              },
+            ),
           ],
         ),
       ),

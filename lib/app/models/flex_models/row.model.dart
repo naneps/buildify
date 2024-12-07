@@ -1,7 +1,9 @@
 import 'package:buildify/app/commons/utils/widget_parser.dart';
 import 'package:buildify/app/models/flex_models/flex.model.dart';
 import 'package:buildify/app/models/widget_models/widget.model.dart';
+import 'package:buildify/app/modules/widget_builder/views/flexr_editor_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class RowModel extends FlexModel {
   RowModel({
@@ -43,7 +45,9 @@ class RowModel extends FlexModel {
   }
 
   @override
-  Row build() {
+  Row build(
+    Function(WidgetModel model)? onTap,
+  ) {
     return Row(
       mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
@@ -51,14 +55,19 @@ class RowModel extends FlexModel {
       textDirection: textDirection,
       verticalDirection: verticalDirection ?? VerticalDirection.down,
       textBaseline: textBaseline,
-      children: children?.map((child) => child.build()).toList() ?? [],
+      children: children
+              ?.map(
+                (child) => child.build(onTap?.call(child)),
+              )
+              .toList() ??
+          [],
     );
   }
 
   @override
   Widget buildEditor() {
     // TODO: implement buildEditor
-    throw UnimplementedError();
+    return FlexEditorView(flexModel: Rx(this));
   }
 
   @override

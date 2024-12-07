@@ -9,7 +9,7 @@ class ToolsSectionView extends GetView<WidgetBuilderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: controller.activeWidget.value.buildEditor(),
+      body: controller.activeWidget?.value.buildEditor(),
     );
   }
 }

@@ -5,7 +5,7 @@ abstract class WidgetModel {
   String? name;
   String? id;
 
-  Widget build();
+  Widget build(Function(WidgetModel)? onTap);
   Widget buildEditor();
   Map<String, dynamic> toJson();
 }

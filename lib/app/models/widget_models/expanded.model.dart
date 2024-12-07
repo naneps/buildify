@@ -17,10 +17,17 @@ class ExpandedModel extends WidgetModel {
   }
 
   @override
-  Widget build() {
-    return Expanded(
-      flex: flex ?? 1,
-      child: child!.build(),
+  Widget build(
+    Function(WidgetModel model)? onTap,
+  ) {
+    return InkWell(
+      onTap: () {
+        onTap?.call(this);
+      },
+      child: Expanded(
+        flex: flex ?? 1,
+        child: child!.build(onTap?.call(child!)),
+      ),
     );
   }
 

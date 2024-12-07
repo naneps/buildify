@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TextModel extends WidgetModel {
-  String? text;
-  TextStyleModel? style;
-  int? maxLines;
-  TextAlign? textAlign;
-  TextOverflow? overflow;
-  bool? softWrap;
-  TextDirection? textDirection;
+  RxString? text;
+  Rx<TextStyleModel>? style;
+  RxInt? maxLines;
+  Rx<TextAlign>? textAlign;
+  Rx<TextOverflow>? overflow;
+  Rx<bool>? softWrap;
+  Rx<TextDirection>? textDirection;
   TextModel({
     this.text,
     this.style,
@@ -24,8 +24,9 @@ class TextModel extends WidgetModel {
   factory TextModel.fromJson(Map<String, dynamic> json) {
     return TextModel(
       text: json['text'],
-      style:
-          json['style'] != null ? TextStyleModel.fromJson(json['style']) : null,
+      style: json['style'] != null
+          ? TextStyleModel.fromJson(json['style']).obs
+          : null,
       maxLines: json['maxLines'],
       //   textAlign: json['textAlign'] != null
       //       ? TextAlign.values[json['textAlign']]
@@ -41,15 +42,22 @@ class TextModel extends WidgetModel {
   }
 
   @override
-  Widget build() {
-    return Text(
-      text ?? 'content text',
-      style: style?.toTextStyle(),
-      maxLines: maxLines,
-      textAlign: textAlign,
-      overflow: overflow,
-      softWrap: softWrap,
-      textDirection: textDirection,
+  Widget build(
+    Function(WidgetModel model)? onTap,
+  ) {
+    return InkWell(
+      onTap: () {
+        onTap?.call(this);
+      },
+      child: Text(
+        text?.value ?? 'content text',
+        style: style?.value.toTextStyle(),
+        maxLines: maxLines?.value,
+        textAlign: textAlign?.value,
+        overflow: overflow?.value,
+        softWrap: softWrap?.value,
+        textDirection: textDirection?.value,
+      ),
     );
   }
 
@@ -61,13 +69,13 @@ class TextModel extends WidgetModel {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'text': text,
+      'text': text?.value,
       'style': style?.toJson(),
       'maxLines': maxLines,
-      'textAlign': textAlign?.name,
-      'overflow': overflow?.name,
+      'textAlign': textAlign?.value.name,
+      'overflow': overflow?.value.name,
       'softWrap': softWrap,
-      'textDirection': textDirection?.name,
+      'textDirection': textDirection?.value.name,
       'runtimeType': runtimeType.toString(),
     }..removeWhere((key, value) => value == null);
   }

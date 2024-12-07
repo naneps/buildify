@@ -56,22 +56,24 @@ class ContainerModel extends WidgetModel {
   }
 
   @override
-  Widget build() {
+  Widget build(
+    Function(WidgetModel model)? onTap,
+  ) {
     return InkWell(
       onTap: () {
-        print("CONTAINER CLICKED");
+        onTap?.call(this);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         clipBehavior: clipBehavior?.value ?? Clip.none,
-        width: width?.value ?? 0.0,
-        height: height?.value ?? 0.0,
+        width: width?.value,
+        height: height?.value,
         padding: padding?.value.toEdgeInsets(),
         alignment: alignment?.value.alignment,
         color: decoration != null ? null : color?.value,
         margin: margin?.value.toEdgeInsets(),
         decoration: decoration?.value.toBoxDecoration(),
-        child: child?.value.build(),
+        child: child?.value.build(onTap),
       ),
     );
   }
@@ -118,6 +120,7 @@ class ContainerModel extends WidgetModel {
 
 extension ContainerModelExtension on ContainerModel {
   String toCode() {
-    return '```dart\n${build().toString()}\n```';
+    return '';
+    // return '```dart\n${build(this).toString()}\n```';
   }
 }

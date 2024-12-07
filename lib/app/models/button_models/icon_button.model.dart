@@ -20,15 +20,24 @@ class IconButtonModel extends WidgetModel {
     this.color,
   });
   @override
-  IconButton build() {
-    return IconButton(
-      onPressed: () {},
-      icon: icon!.build(),
-      iconSize: iconSize,
-      padding: padding?.toEdgeInsets(),
-      alignment: alignment?.alignment,
-      color: color,
-      tooltip: tooltip,
+  Widget build(
+    Function(WidgetModel model)? onTap,
+  ) {
+    return InkWell(
+      onTap: () {
+        onTap?.call(this);
+      },
+      child: IconButton(
+        onPressed: () {},
+        icon: icon!.build(
+          onTap?.call(icon!),
+        ),
+        iconSize: iconSize,
+        padding: padding?.toEdgeInsets(),
+        alignment: alignment?.alignment,
+        color: color,
+        tooltip: tooltip,
+      ),
     );
   }
 

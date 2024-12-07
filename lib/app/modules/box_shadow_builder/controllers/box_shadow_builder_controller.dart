@@ -28,12 +28,12 @@ class BoxShadowBuilderController extends GetxController {
       color: MainColors.primaryColor,
     ).obs,
     child: TextModel(
-      text: 'Buildify',
+      text: 'Buildify'.obs,
       style: TextStyleModel(
         color: Colors.white,
         fontSize: 20,
         fontWeight: XFontWeight.w600,
-      ),
+      ).obs,
     ).obs,
   ).obs;
 

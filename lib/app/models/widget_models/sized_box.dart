@@ -15,11 +15,15 @@ class SizedBoxModel extends WidgetModel {
       );
 
   @override
-  Widget build() {
+  Widget build(
+    Function(WidgetModel model)? onTap,
+  ) {
     return SizedBox(
       width: width,
       height: height,
-      child: child?.build(),
+      child: child?.build(
+        onTap?.call(child!),
+      ),
     );
   }
 

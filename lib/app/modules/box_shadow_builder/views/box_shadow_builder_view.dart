@@ -31,7 +31,11 @@ class BoxShadowBuilderView extends GetView<BoxShadowBuilderController> {
               child: Obx(
                 () {
                   return Center(
-                    child: controller.containerModel.value.build(),
+                    child: controller.containerModel.value.build(
+                      (model) {
+                        //   controller.widgetModel = model;
+                      },
+                    ),
                   );
                 },
               ),

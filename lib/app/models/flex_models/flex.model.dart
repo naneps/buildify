@@ -29,7 +29,14 @@ abstract class FlexModel extends WidgetModel {
       textDirection: textDirection,
       verticalDirection: verticalDirection ?? VerticalDirection.down,
       textBaseline: textBaseline,
-      children: children?.map((child) => child.build()).toList() ?? [],
+      children: children
+              ?.map(
+                (child) => child.build(
+                  (model) {},
+                ),
+              )
+              .toList() ??
+          [],
     );
   }
 }

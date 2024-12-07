@@ -11,6 +11,9 @@ class TextEditorView extends GetView<TextEditorController> {
   final Rx<TextModel> textModel;
   const TextEditorView({super.key, required this.textModel});
   @override
+  TextEditorController get controller =>
+      Get.put(TextEditorController(textModel: textModel));
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: controller.scaffoldKey,
@@ -33,8 +36,10 @@ class TextEditorView extends GetView<TextEditorController> {
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
-                      initialValue: textModel.value.text,
-                      onChanged: (value) => textModel.value.text = value,
+                      initialValue: textModel.value.text?.value,
+                      onChanged: (value) {
+                        controller.onTextChange(value);
+                      },
                       maxLines: 20,
                       minLines: 2,
                       decoration: const InputDecoration(
@@ -52,8 +57,12 @@ class TextEditorView extends GetView<TextEditorController> {
                     Text("Text Align", style: Get.textTheme.bodySmall),
                     const SizedBox(height: 5),
                     TextAlignTool(
-                      textAlign:
-                          Rx(textModel.value.textAlign ?? TextAlign.left),
+                      textAlign: Rx(
+                        textModel.value.textAlign?.value ?? TextAlign.left,
+                      ),
+                      onChange: (value) {
+                        controller.onTextAlignChange(value);
+                      },
                     ),
                   ],
                 ),
@@ -75,7 +84,8 @@ class TextEditorView extends GetView<TextEditorController> {
                     width: 100,
                     child: TextOverflowTool(
                       textOverflow: Rx(
-                        textModel.value.overflow ?? TextOverflow.ellipsis,
+                        textModel.value.overflow?.value ??
+                            TextOverflow.ellipsis,
                       ),
                     ),
                   ),
@@ -105,8 +115,11 @@ class TextEditorView extends GetView<TextEditorController> {
                       const SizedBox(height: 5),
                       TextFormField(
                         initialValue: "12",
-                        onChanged: (value) => textModel.value.style?.fontSize =
-                            double.tryParse(value) ?? 16,
+                        onChanged: (value) {
+                          textModel.value.style?.value.fontSize =
+                              double.parse(value);
+                          textModel.value.style?.refresh();
+                        },
                       ),
                     ],
                   ),
@@ -123,13 +136,17 @@ class TextEditorView extends GetView<TextEditorController> {
                       ),
                       const SizedBox(height: 5),
                       DropdownButtonFormField(
+                        value: textModel.value.style?.value.fontWeight,
                         items: [
                           ...XFontWeight.values.map((e) => DropdownMenuItem(
                                 value: e,
                                 child: Text(e.name),
                               ))
                         ],
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          textModel.value.style?.value.fontWeight = value!;
+                          textModel.value.style?.refresh();
+                        },
                       ),
                     ],
                   ),
@@ -145,9 +162,10 @@ class TextEditorView extends GetView<TextEditorController> {
                     PickerColor(
                       scaffoldKey: controller.scaffoldKey,
                       initialColor:
-                          textModel.value.style?.color ?? Colors.black,
+                          textModel.value.style?.value.color ?? Colors.black,
                       onColorChanged: (value) {
-                        textModel.value.style?.color = value;
+                        textModel.value.style?.value.color = value;
+                        textModel.value.style?.refresh();
                       },
                     ),
                   ],
